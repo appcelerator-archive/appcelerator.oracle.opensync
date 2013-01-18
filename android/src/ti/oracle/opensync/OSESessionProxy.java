@@ -14,7 +14,6 @@ import org.appcelerator.kroll.KrollDict;
 import org.appcelerator.kroll.KrollFunction;
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
-import org.appcelerator.titanium.TiApplication;
 import org.appcelerator.titanium.util.TiConvert;
 
 import android.util.Log;
@@ -22,8 +21,6 @@ import android.util.Log;
 import oracle.opensync.ose.OSEException;
 import oracle.opensync.ose.OSEProgressListener;
 import oracle.opensync.ose.OSESession;
-import oracle.opensync.util.PlatformFactory;
-import oracle.opensync.util.android.AndroidPlatformFactory;
 
 @Kroll.proxy(creatableInModule=OracleOpensyncModule.class)
 public class OSESessionProxy extends KrollProxy implements OSEProgressListener
@@ -63,12 +60,7 @@ public class OSESessionProxy extends KrollProxy implements OSEProgressListener
 	public OSESessionProxy()
 	{
 		super();
-		
-        // DB file locations are determined from this application context
-        // The db files will be created under: /data/data/tests.sync/app_oracle.sync/sqlite_db
-        // Note: tests.sync is the name of this application package.
-        ((AndroidPlatformFactory)PlatformFactory.getInstance()).setContext(TiApplication.getAppRootOrCurrentActivity());
-		
+				
 		try {
 			_session = new OSESession();
 			Log.d(LCAT, "Session initialized with last saved sync client");
@@ -82,8 +74,8 @@ public class OSESessionProxy extends KrollProxy implements OSEProgressListener
 		// We need to create a new session object if the user is specified AND it is different
 		// than the restored user (see constructor above).
 		if (args.containsKey("user")) {
-            String user = TiConvert.toString(args.get("user"));
-            
+            String user = args.getString("user");
+            Log.e(LCAT,">>>User:" + user);
             try {
 	            // If previous session was initialized for a different user, close the session
 	            if (_session != null && !user.equalsIgnoreCase(_session.getUser())) {
@@ -92,7 +84,12 @@ public class OSESessionProxy extends KrollProxy implements OSEProgressListener
 	            }
 	            // Create new OSESession
 	            if (_session == null) {
-	                _session = new OSESession(user);
+	            	String password = args.optString("password", null);
+	            	if (password == null) {
+	            		_session = new OSESession(user);
+	            	} else {
+	            		_session = new OSESession(user, password.toCharArray());
+	            	}
 	            }
             } catch (OSEException e) {
             	Log.e(LCAT, "Error creating session: " + e.getMessage());
@@ -108,6 +105,11 @@ public class OSESessionProxy extends KrollProxy implements OSEProgressListener
 		return (_session == null) ? false : true;
 	}
 	
+	/**
+	 * Check whether the session is valid
+	 * 
+	 * @return True if valid, false otherwise
+	 */
 	private Boolean sessionIsValid(String method)
 	{
 		if (_session == null) {
@@ -156,7 +158,6 @@ public class OSESessionProxy extends KrollProxy implements OSEProgressListener
 	}
 	
 	// Synchronization methods
-
 	@Kroll.method
 	public void sync(HashMap hm)
 	{
