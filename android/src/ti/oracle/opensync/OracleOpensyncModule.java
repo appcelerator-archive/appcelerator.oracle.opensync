@@ -13,14 +13,8 @@ import oracle.opensync.util.android.AndroidPlatformFactory;
 
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
-import org.appcelerator.titanium.TiApplication;
-
 import android.app.Activity;
-import android.content.Context;
-
-import java.io.File;
 import java.io.IOException;
-
 import android.util.Log;
 
 @Kroll.module(name="OracleOpensync", id="oracle.opensync")
@@ -36,7 +30,6 @@ public class OracleOpensyncModule extends KrollModule
 	{
         // DB file locations are determined from this application context
         // The db files will be created under: /data/data/<app name>/app_oracle.sync/sqlite_db
-//BUGBUG        ((AndroidPlatformFactory)PlatformFactory.getInstance()).setContext(TiApplication.getAppRootOrCurrentActivity());
         ((AndroidPlatformFactory)PlatformFactory.getInstance()).setContext(activity);
         
         try {

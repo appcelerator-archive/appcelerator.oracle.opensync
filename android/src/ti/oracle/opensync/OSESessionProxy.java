@@ -75,21 +75,22 @@ public class OSESessionProxy extends KrollProxy implements OSEProgressListener
 		// than the restored user (see constructor above).
 		if (args.containsKey("user")) {
             String user = args.getString("user");
-            Log.e(LCAT,">>>User:" + user);
             try {
 	            // If previous session was initialized for a different user, close the session
 	            if (_session != null && !user.equalsIgnoreCase(_session.getUser())) {
 	                _session.close();
 	                _session = null;
 	            }
-	            // Create new OSESession
+	            
+	            // Create new OSESession if needed
 	            if (_session == null) {
-	            	String password = args.optString("password", null);
-	            	if (password == null) {
-	            		_session = new OSESession(user);
-	            	} else {
-	            		_session = new OSESession(user, password.toCharArray());
-	            	}
+	            	_session = new OSESession(user);
+	            }
+	            
+	            // If password was passed in on creation, then go ahead and set it here
+	            String password = args.optString("password", null);
+	            if (password != null) {
+	            	setPassword(password);
 	            }
             } catch (OSEException e) {
             	Log.e(LCAT, "Error creating session: " + e.getMessage());
