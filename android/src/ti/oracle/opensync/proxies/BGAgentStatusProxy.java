@@ -6,18 +6,19 @@
  *
  */
 
-package ti.oracle.opensync;
+package ti.oracle.opensync.proxies;
 
 import org.appcelerator.kroll.annotations.Kroll;
 
 import oracle.opensync.syncagent.BGAgentStatus;
+import ti.oracle.opensync.namespaces.BGAgentStatusNamespaceProxy;
 
 @Kroll.proxy
-public class BGAgentStatusActualProxy extends BGAgentStatusStaticProxy
+public class BGAgentStatusProxy extends BGAgentStatusNamespaceProxy
 {
 	private BGAgentStatus _agentStatus;
 
-	public BGAgentStatusActualProxy(BGAgentStatus agentStatus)
+	public BGAgentStatusProxy(final BGAgentStatus agentStatus)
 	{
 		super();
 		_agentStatus = agentStatus;

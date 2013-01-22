@@ -6,7 +6,7 @@
  *
  */
 
-package ti.oracle.opensync;
+package ti.oracle.opensync.namespaces;
 
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
@@ -14,7 +14,7 @@ import org.appcelerator.kroll.annotations.Kroll;
 import oracle.opensync.syncagent.BGAgentStatus;
 
 @Kroll.proxy
-public class BGAgentStatusStaticProxy extends KrollProxy
+public class BGAgentStatusNamespaceProxy extends KrollProxy
 {
 	// Session API constants
 	@Kroll.constant public static final int STOPPED = BGAgentStatus.STOPPED;

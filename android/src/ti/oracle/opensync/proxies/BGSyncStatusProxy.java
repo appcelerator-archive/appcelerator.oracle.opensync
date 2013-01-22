@@ -6,7 +6,7 @@
  *
  */
 
-package ti.oracle.opensync;
+package ti.oracle.opensync.proxies;
 
 import oracle.opensync.syncagent.BGSyncStatus;
 
@@ -67,6 +67,4 @@ public class BGSyncStatusProxy extends KrollProxy
 	{
 		return _syncStatus.startTime;
 	}
-	
-	
 }
