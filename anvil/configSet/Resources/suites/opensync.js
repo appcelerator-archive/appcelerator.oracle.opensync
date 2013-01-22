@@ -29,20 +29,14 @@ module.exports = new function ()
 	};
 
 	// Test that all of the namespace APIs are available
-	this.testApi = function (testRun)
+	this.testNamespaces = function (testRun)
 	{
-		finish(testRun);
-	};
+		// Verify the 'namespaces'
+		valueOf(testRun, opensync.oseSession).shouldBeObject();
+		valueOf(testRun, opensync.bgAgentStatus).shouldBeObject();
+		valueOf(testRun, opensync.oseProgressListener).shouldBeObject();
+		valueOf(testRun, opensync.bgSession).shouldBeObject();
 
-	// Test that all of the properties are defined
-	this.testProperties = function (testRun)
-	{
-		finish(testRun);
-	};
-
-	// Test that all of the constants are defined
-	this.testConstants = function (testRun)
-	{
 		finish(testRun);
 	};
 

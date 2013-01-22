@@ -33,7 +33,6 @@ module.exports = new function ()
 		valueOf(testRun, session.saveUser).shouldBeFunction();
 		valueOf(testRun, session.selectPub).shouldBeFunction();
 
-		// Verify properties that also have method getters and setters
 		valueOf(testRun, session.getAppRoot).shouldBeFunction();
 		valueOf(testRun, session.setAppRoot).shouldBeFunction();
 		valueOf(testRun, session.getBackground).shouldBeFunction();
@@ -71,57 +70,96 @@ module.exports = new function ()
 		finish(testRun);
 	};
 
-	// Test that all of the properties are defined
-	this.testProperties = function (testRun)
+	// Test that all of the constants are defined
+	this.testOSESessionConstants = function (testRun)
 	{
-		var session = opensync.createOSESession();
-
-		// Verify that all of the properties are exposed
-		valueOf(testRun, session.appRoot).shouldBeString();
-		valueOf(testRun, session.background).shouldBeBoolean();
-		valueOf(testRun, session.encryptDatabases).shouldBeBoolean();
-		valueOf(testRun, session.encryptionType).shouldBeNumber();
-		valueOf(testRun, session.forceRefresh).shouldBeBoolean();
-		valueOf(testRun, session.proxy).shouldBeString();
-		valueOf(testRun, session.savePassword).shouldBeBoolean();
-		valueOf(testRun, session.syncApps).shouldBeBoolean();
-		valueOf(testRun, session.syncDirection).shouldBeNumber();
-		valueOf(testRun, session.syncNewPub).shouldBeBoolean();
-		valueOf(testRun, session.syncPriority).shouldBeNumber();
-		valueOf(testRun, session.transportType).shouldBeNumber();
-		valueOf(testRun, session.url).shouldBeString();
-		valueOf(testRun, session.useFiles).shouldBeBoolean();
-		valueOf(testRun, session.user).shouldBeString();
-		valueOf(testRun, session.useResume).shouldBeBoolean();
+		// Verify that all of the constants are exposed
+		valueOf(testRun, opensync.oseSession.DIR_RECEIVE).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.DIR_SEND).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.DIR_SENDRECEIVE).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.ENC_AES).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.ENC_NONE).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.ENC_SSL).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.PRIO_DEFAULT).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.PRIO_HIGH).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.PRIO_LOWEST).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.TR_HTTP).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.TR_USER).shouldBeNumber();
 
 		finish(testRun);
-	};
+	}
 
-	// Test that all of the constants are defined
-	this.testConstants = function (testRun)
+	this.testOSEExceptionConstants = function (testRun)
 	{
-		var session = opensync.createOSESession();
+		valueOf(testRun, opensync.oseSession.CONFIG_LOAD_ERROR).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.CONFIG_SAVE_ERROR).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.CONNECTION_TO_SRV_FAILED).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.DATABASE_NOT_FOUND).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.EMPTY_PASSWORD).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.EMPTY_USER).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.ENCRYPTION_ID_MISMATCH).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.ERR_CREDENTIALS).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.ERROR_RESUME_RECEIVE).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.ERROR_RESUME_SEND).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.HTTP_RESPONSE).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.HTTP_TRANSPORT_ERROR).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.INTERNAL_ERROR).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.INVALID_BUFFER).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.INVALID_DML_TYPE).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.INVALID_ENCR_VER).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.INVALID_ENCRYPTION_TYPE).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.INVALID_HANDLE).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.INVALID_HTTP_URL).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.INVALID_INT_OPT).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.INVALID_OPCODE).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.INVALID_PLUGIN_FLAGS).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.INVALID_PRIORITY).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.INVALID_SESS).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.INVALID_STR_OPT).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.INVALID_STRING_LENGTH).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.INVALID_SYNC_DIRECTION).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.INVALID_TRANSPORT_TYPE).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.MISSING_DEFAULT_DATABASE).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.MISSING_PLUGIN_API).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.NOT_SUPPORTED).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.OPCODE_LENGTH_OVERRUN).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.OPCODE_LENGTH_UNDERRUN).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.OPCODE_OUT_OF_SEQUENCE).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.PASSWORD_NOT_SPECIFIED).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.PLUGIN_CLASS_INIT_FAILED).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.PLUGIN_CLASS_NOT_FOUND).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.PLUGIN_EXCEPTION).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.PLUGIN_ID_NOT_FOUND).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.PUBLICATION_ID_MISMATCH).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.PUBLICATION_ID_NOT_FOUND).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.PUBLICATION_NOT_FOUND).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.SERVER_ERROR).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.SNAP_NAME_NOT_FOUND).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.SNAPSHOT_ID_EXISTS).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.SNAPSHOT_ID_NOT_FOUND).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.SYNC_CANCELED).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.TRANS_NOT_FOUND).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.UNCOMPRESSED_DATA).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.UNEXP_TERM_OPCODE).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.UNEXPECTED_BLOB_DATA).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.UNEXPECTED_OPCODE).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.UNINIT_USER_TRANSPORT).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.UNRECOGNIZED_DATA).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.USER_NOT_SPECIFIED).shouldBeNumber();
+		valueOf(testRun, opensync.oseSession.USER_TRANSPORT_ERROR).shouldBeNumber();
 
-		// Verify that all of the constants are exposed
-		valueOf(testRun, session.DIR_RECEIVE).shouldBeNumber();
-		valueOf(testRun, session.DIR_SEND).shouldBeNumber();
-		valueOf(testRun, session.DIR_SENDRECEIVE).shouldBeNumber();
-		valueOf(testRun, session.ENC_AES).shouldBeNumber();
-		valueOf(testRun, session.ENC_NONE).shouldBeNumber();
-		valueOf(testRun, session.ENC_SSL).shouldBeNumber();
-		valueOf(testRun, session.PRIO_DEFAULT).shouldBeNumber();
-		valueOf(testRun, session.PRIO_HIGH).shouldBeNumber();
-		valueOf(testRun, session.PRIO_LOWEST).shouldBeNumber();
-		valueOf(testRun, session.TR_HTTP).shouldBeNumber();
-		valueOf(testRun, session.TR_USER).shouldBeNumber();
+		finish(testRun);
+	}
 
-		valueOf(testRun, session.APPLY).shouldBeNumber();
-		valueOf(testRun, session.COMPOSE).shouldBeNumber();
-		valueOf(testRun, session.IDLE).shouldBeNumber();
-		valueOf(testRun, session.PREPARE).shouldBeNumber();
-		valueOf(testRun, session.PROCESS).shouldBeNumber();
-		valueOf(testRun, session.RECEIVE).shouldBeNumber();
-		valueOf(testRun, session.SEND).shouldBeNumber();
+	this.testOSEProgressListenerConstants = function (testRun)
+	{
+		valueOf(testRun, opensync.oseProgressListener.APPLY).shouldBeNumber();
+		valueOf(testRun, opensync.oseProgressListener.COMPOSE).shouldBeNumber();
+		valueOf(testRun, opensync.oseProgressListener.IDLE).shouldBeNumber();
+		valueOf(testRun, opensync.oseProgressListener.PREPARE).shouldBeNumber();
+		valueOf(testRun, opensync.oseProgressListener.PROCESS).shouldBeNumber();
+		valueOf(testRun, opensync.oseProgressListener.RECEIVE).shouldBeNumber();
+		valueOf(testRun, opensync.oseProgressListener.SEND).shouldBeNumber();
 
 		finish(testRun);
 	};
@@ -134,107 +172,107 @@ module.exports = new function ()
 			password: 'password'
 		});
 		//NOTE: Oracle OpenSync uppercases user IDs
-		valueOf(testRun, session.user).shouldBe("TESTUSER");
+		valueOf(testRun, session.getUser()).shouldBe("TESTUSER");
 		session.close();
 
 		// Null session data without a saved session
 		var session2 = opensync.createOSESession();
-		valueOf(testRun, session2.user).shouldBe("");
-		session2.close();
+		valueOf(testRun, session2.isOpen()).shouldBeFalse();
+		valueOf(testRun, function() { session2.close(); }).shouldThrowException();
 
 		// Should create a new session object
 		var session3 = opensync.createOSESession({
 			user: 'secondUser'
 		});
-		valueOf(testRun, session3.user).shouldBe("SECONDUSER");
+		valueOf(testRun, session3.getUser()).shouldBe("SECONDUSER");
 		session3.close();
 
 		finish(testRun);
 	};
 
 	// Test property setting
-	this.testPropertySetGet = function (testRun)
+	this.testSetGet = function (testRun)
 	{
 		var session = opensync.createOSESession({
 			user: 'testUser',
 			password: 'password'
 		});
-		valueOf(testRun, session.user).shouldBe("TESTUSER");
+		valueOf(testRun, session.getUser()).shouldBe("TESTUSER");
 
-		session.appRoot = "test";
-		valueOf(testRun, session.appRoot).shouldBe("test");
+		session.setAppRoot("test");
+		valueOf(testRun, session.getAppRoot()).shouldBe("test");
 
-		session.background = true;
-		valueOf(testRun, session.background).shouldBeTrue();
-		session.background = false;
-		valueOf(testRun, session.background).shouldBeFalse();
+		session.setBackground(true);
+		valueOf(testRun, session.getBackground()).shouldBeTrue();
+		session.setBackground(false);
+		valueOf(testRun, session.getBackground()).shouldBeFalse();
 
-		session.encryptDatabases = true;
-		valueOf(testRun, session.encryptDatabases).shouldBeTrue();
-		session.encryptDatabases = false;
-		valueOf(testRun, session.encryptDatabases).shouldBeFalse();
+		session.setEncryptDatabases(true);
+		valueOf(testRun, session.getEncryptDatabases()).shouldBeTrue();
+		session.setEncryptDatabases(false);
+		valueOf(testRun, session.getEncryptDatabases()).shouldBeFalse();
 
-		session.encryptionType = session.ENC_AES;
-		valueOf(testRun, session.encryptionType).shouldBe(session.ENC_AES);
-		session.encryptionType = session.ENC_SSL;
-		valueOf(testRun, session.encryptionType).shouldBe(session.ENC_SSL);
-		session.encryptionType = session.ENC_NONE;
-		valueOf(testRun, session.encryptionType).shouldBe(session.ENC_NONE);
+		session.setEncryptionType(opensync.oseSession.ENC_AES);
+		valueOf(testRun, session.getEncryptionType()).shouldBe(opensync.oseSession.ENC_AES);
+		session.setEncryptionType(opensync.oseSession.ENC_SSL);
+		valueOf(testRun, session.getEncryptionType()).shouldBe(opensync.oseSession.ENC_SSL);
+		session.setEncryptionType(opensync.oseSession.ENC_NONE);
+		valueOf(testRun, session.getEncryptionType()).shouldBe(opensync.oseSession.ENC_NONE);
 
-		session.forceRefresh = true;
-		valueOf(testRun, session.forceRefresh).shouldBeTrue();
-		session.forceRefresh = false;
-		valueOf(testRun, session.forceRefresh).shouldBeFalse();
+		session.setForceRefresh(true);
+		valueOf(testRun, session.getForceRefresh()).shouldBeTrue();
+		session.setForceRefresh(false);
+		valueOf(testRun, session.getForceRefresh()).shouldBeFalse();
 
-		session.proxy = "testproxy";
-		valueOf(testRun, session.proxy).shouldBe("testproxy");
+		session.setProxy("testproxy");
+		valueOf(testRun, session.getProxy()).shouldBe("testproxy");
 
-		session.savePassword = true;
-		valueOf(testRun, session.savePassword).shouldBeTrue();
-		session.savePassword = false;
-		valueOf(testRun, session.savePassword).shouldBeFalse();
+		session.setSavePassword(true);
+		valueOf(testRun, session.getSavePassword()).shouldBeTrue();
+		session.setSavePassword(false);
+		valueOf(testRun, session.getSavePassword()).shouldBeFalse();
 
-		session.syncApps = true;
-		valueOf(testRun, session.syncApps).shouldBeTrue();
-		session.syncApps = false;
-		valueOf(testRun, session.syncApps).shouldBeFalse();
+		session.setSyncApps(true);
+		valueOf(testRun, session.getSyncApps()).shouldBeTrue();
+		session.setSyncApps(false);
+		valueOf(testRun, session.getSyncApps()).shouldBeFalse();
 
-		session.syncDirection = session.DIR_SEND;
-		valueOf(testRun, session.syncDirection).shouldBe(session.DIR_SEND);
-		session.syncDirection = session.DIR_RECEIVE;
-		valueOf(testRun, session.syncDirection).shouldBe(session.DIR_RECEIVE);
-		session.syncDirection = session.DIR_SENDRECEIVE;
-		valueOf(testRun, session.syncDirection).shouldBe(session.DIR_SENDRECEIVE);
+		session.setSyncDirection(opensync.oseSession.DIR_SEND);
+		valueOf(testRun, session.getSyncDirection()).shouldBe(opensync.oseSession.DIR_SEND);
+		session.setSyncDirection(opensync.oseSession.DIR_RECEIVE);
+		valueOf(testRun, session.getSyncDirection()).shouldBe(session.DIR_RECEIVE);
+		session.setSyncDirection(opensync.oseSession.DIR_SENDRECEIVE);
+		valueOf(testRun, session.getSyncDirection()).shouldBe(session.DIR_SENDRECEIVE);
 
-		session.syncNewPub = true;
-		valueOf(testRun, session.syncNewPub).shouldBeTrue();
-		session.syncNewPub = false;
-		valueOf(testRun, session.syncNewPub).shouldBeFalse();
+		session.setSyncNewPub(true);
+		valueOf(testRun, session.getSyncNewPub()).shouldBeTrue();
+		session.setSyncNewPub(false);
+		valueOf(testRun, session.getSyncNewPub()).shouldBeFalse();
 
-		session.syncPriority = session.PRIO_DEFAULT;
-		valueOf(testRun, session.syncPriority).shouldBe(session.PRIO_DEFAULT);
-		session.syncPriority = session.PRIO_HIGH;
-		valueOf(testRun, session.syncPriority).shouldBe(session.PRIO_HIGH);
-		session.syncPriority = session.PRIO_LOWEST;
-		valueOf(testRun, session.syncPriority).shouldBe(session.PRIO_LOWEST);
+		session.setSyncPriority(opensync.oseSession.PRIO_DEFAULT);
+		valueOf(testRun, session.getSyncPriority()).shouldBe(session.PRIO_DEFAULT);
+		session.setSyncPriority(opensync.oseSession.PRIO_HIGH);
+		valueOf(testRun, session.getSyncPriority()).shouldBe(session.PRIO_HIGH);
+		session.setSyncPriority(opensync.oseSession.PRIO_LOWEST);
+		valueOf(testRun, session.getSyncPriority()).shouldBe(session.PRIO_LOWEST);
 
-		session.transportType = session.TR_HTTP;
-		valueOf(testRun, session.transportType).shouldBe(session.TR_HTTP);
-		session.transportType = session.TR_USER;
-		valueOf(testRun, session.transportType).shouldBe(session.TR_USER);
+		session.setTransportType(opensync.oseSession.TR_HTTP);
+		valueOf(testRun, session.getTransportType()).shouldBe(session.TR_HTTP);
+		session.setTransportType(opensync.oseSession.TR_USER);
+		valueOf(testRun, session.getTransportType()).shouldBe(session.TR_USER);
 
-		session.url = "http://1.1.1.1:5901";
-		valueOf(testRun, session.url).shouldBe("http://1.1.1.1:5901");
+		session.setURL("http://1.1.1.1:5901");
+		valueOf(testRun, session.getURL()).shouldBe("http://1.1.1.1:5901");
 
-		session.useFiles = true;
-		valueOf(testRun, session.useFiles).shouldBeTrue();
-		session.useFiles = false;
-		valueOf(testRun, session.useFiles).shouldBeFalse();
+		session.setUseFiles(true);
+		valueOf(testRun, session.getUseFiles()).shouldBeTrue();
+		session.setUseFiles(false);
+		valueOf(testRun, session.getUseFiles()).shouldBeFalse();
 
-		session.useResume = true;
-		valueOf(testRun, session.useResume).shouldBeTrue();
-		session.useResume = false;
-		valueOf(testRun, session.useResume).shouldBeFalse();
+		session.setUseResume(true);
+		valueOf(testRun, session.getUseResume()).shouldBeTrue();
+		session.setUseResume(false);
+		valueOf(testRun, session.getUseResume()).shouldBeFalse();
 
 		session.close();
 
