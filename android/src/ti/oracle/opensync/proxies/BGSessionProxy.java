@@ -42,10 +42,7 @@ public class BGSessionProxy extends BGSessionNamespaceProxy implements BGMessage
 		super();
 			
 		try {
-	        // DB file locations are determined from this application context
-	        // The db files will be created under: /data/data/<app name>/app_oracle.sync/sqlite_db
-			((AndroidPlatformFactory)PlatformFactory.getInstance()).setContext(TiApplication.getInstance());
-
+		    ((AndroidPlatformFactory)PlatformFactory.getInstance()).setContext(TiApplication.getAppRootOrCurrentActivity());
 			_session = new BGSession();
 		} catch (BGException e) {
 			handleBGException(e, null);
@@ -87,10 +84,10 @@ public class BGSessionProxy extends BGSessionNamespaceProxy implements BGMessage
 		Log.e(LCAT, "=== Exception ===");
 		Log.e(LCAT, Log.getStackTraceString(e));
 		Throwable cause = e.getCause();
-		if (cause != null) {
-			Log.e(LCAT, "=== Cause ===");
-			Log.e(LCAT, Log.getStackTraceString(cause));
-		}
+		//if (cause != null) {
+		//	Log.e(LCAT, "=== Cause ===");
+		//	Log.e(LCAT, Log.getStackTraceString(cause));
+		//}
 		
 		if (callback != null) {
 			HashMap<String,Object> event = new HashMap<String,Object>();
@@ -174,10 +171,17 @@ public class BGSessionProxy extends BGSessionNamespaceProxy implements BGMessage
 		_session.resume();
 	}
 	
-	@Kroll.method(runOnUiThread=true)
+	@Kroll.method
 	public void showUI() throws BGException
 	{
 		validateSession();
+		// Ensure that the current activity is set as the context. If the activity is a heavyweight
+		// activity and this proxy is created during the window construction process, the UI will
+		// not show up. I think this has something to do with the way that heavyweight activities
+		// are initialized. In any case, set the activity here to ensure it is current.
+		if (getActivity() != null) {
+	        ((AndroidPlatformFactory)PlatformFactory.getInstance()).setContext(getActivity());
+		}
 		_session.showUI();
 	}
 	
@@ -215,7 +219,7 @@ public class BGSessionProxy extends BGSessionNamespaceProxy implements BGMessage
 						_session.waitForStatus(status);
 						handleSuccess(success);
 					} else if (_session.waitForStatus(status, time)) {
-							handleSuccess(success);
+						handleSuccess(success);
 					} else {
 						handleError("Timed out waiting for status", error);
 					}
