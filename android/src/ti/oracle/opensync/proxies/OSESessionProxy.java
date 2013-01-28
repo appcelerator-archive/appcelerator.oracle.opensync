@@ -42,14 +42,16 @@ public class OSESessionProxy extends OSESessionNamespaceProxy implements OSEProg
 		super();
 				
 		try {
-	        // DB file locations are determined from this application context
-	        // The db files will be created under: /data/data/<app name>/app_oracle.sync/sqlite_db
-			((AndroidPlatformFactory)PlatformFactory.getInstance()).setContext(TiApplication.getInstance());
-			
+		    ((AndroidPlatformFactory)PlatformFactory.getInstance()).setContext(TiApplication.getAppRootOrCurrentActivity());
 			_session = new OSESession();
 			Log.d(LCAT, "Session initialized with last saved sync client");
 		} catch (OSEException e) {
-			handleOSEException(e, null);
+			// The following exception is to be expected. Since we don't want to pollute the log file with
+			// extraneous error information, we ignore this exception and move along.
+			//   oracle.opensync.ose.OSEException(-12003): User is not specified and the last user was not saved
+			if (e.getErrorCode() != OSEException.USER_NOT_SPECIFIED) {
+				handleOSEException(e, null);
+			}
 		}
 	}
 	
@@ -73,7 +75,7 @@ public class OSESessionProxy extends OSESessionNamespaceProxy implements OSEProg
 	            
 	            // If password was passed in on creation, then go ahead and set it here
 	            String password = args.optString("password", null);
-	            if (password != null) {
+	            if ((password != null) && (password.length() > 0)) {
 	            	setPassword(password);
 	            }
             } catch (OSEException e) {
@@ -119,10 +121,10 @@ public class OSESessionProxy extends OSESessionNamespaceProxy implements OSEProg
 		Log.e(LCAT, "=== Exception ===");
 		Log.e(LCAT, Log.getStackTraceString(e));
 		Throwable cause = e.getCause();
-		if (cause != null) {
-			Log.e(LCAT, "=== Cause ===");
-			Log.e(LCAT, Log.getStackTraceString(cause));
-		}
+		//if (cause != null) {
+		//	Log.e(LCAT, "=== Cause ===");
+		//	Log.e(LCAT, Log.getStackTraceString(cause));
+		//}
 		
 		if (callback != null) {
 			HashMap<String,Object> event = new HashMap<String,Object>();
