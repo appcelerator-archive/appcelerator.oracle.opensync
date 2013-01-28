@@ -36,11 +36,17 @@ public class OracleOpensyncModule extends KrollModule
 	{
         // DB file locations are determined from this application context
         // The db files will be created under: /data/data/<app name>/app_oracle.sync/sqlite_db
-        ((AndroidPlatformFactory)PlatformFactory.getInstance()).setContext(activity);
-        
-        try {
-        	Log.d("OracleOpenSync", "Database file location:" + activity.getDir("oracle.sync", 1 /*MODE_WORLD_READABLE*/).getCanonicalPath());
-        } catch (IOException ex) {}
+        ((AndroidPlatformFactory)PlatformFactory.getInstance()).setContext(activity);       
+	}
+	
+	@Kroll.getProperty @Kroll.method
+	public String getSyncFilesRootDir()
+	{
+		try {
+			return "file://" + getActivity().getDir("oracle.sync", 1 /*MODE_WORLD_READABLE*/).getCanonicalPath();
+		} catch (IOException ex) {
+			return "";
+		}
 	}
 
 	// These proxies here makes the namespace proxies part of the JS namespace
