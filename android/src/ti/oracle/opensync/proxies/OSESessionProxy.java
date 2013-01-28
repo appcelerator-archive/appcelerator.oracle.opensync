@@ -32,6 +32,8 @@ public class OSESessionProxy extends OSESessionNamespaceProxy implements OSEProg
 	private static final String LCAT = "OracleOpensync";
 
 	private OSESession _session = null;
+	private KrollFunction _success;
+	private KrollFunction _error;
 	private KrollFunction _progress;
 	private Thread _syncThread = null;
 
@@ -50,7 +52,7 @@ public class OSESessionProxy extends OSESessionNamespaceProxy implements OSEProg
 			// extraneous error information, we ignore this exception and move along.
 			//   oracle.opensync.ose.OSEException(-12003): User is not specified and the last user was not saved
 			if (e.getErrorCode() != OSEException.USER_NOT_SPECIFIED) {
-				handleOSEException(e, null);
+				handleOSEException(e);
 			}
 		}
 	}
@@ -79,7 +81,7 @@ public class OSESessionProxy extends OSESessionNamespaceProxy implements OSEProg
 	            	setPassword(password);
 	            }
             } catch (OSEException e) {
-            	handleOSEException(e, null);
+            	handleOSEException(e);
             }
 		}
 
@@ -95,28 +97,28 @@ public class OSESessionProxy extends OSESessionNamespaceProxy implements OSEProg
 		}
 	}
 	
-	private void handleSuccess(final KrollFunction callback)
+	private void handleSuccess()
 	{
-		if (callback != null) {
+		if (_success != null) {
 			HashMap<String,Object> event = new HashMap<String,Object>();
 			event.put("success", true);
-			callback.callAsync(getKrollObject(), event);
+			_success.callAsync(getKrollObject(), event);
 		}
 	}
 	
-	private void handleError(String message, KrollFunction callback)
+	private void handleError(String message)
 	{
 		Log.e(LCAT, message);
-		if (callback != null) {
+		if (_error != null) {
 			HashMap<String,Object> event = new HashMap<String,Object>();
 			event.put("error", true);
 			event.put("errorCode", -1);
 			event.put("message", message);
-			callback.callAsync(getKrollObject(), event);
+			_error.callAsync(getKrollObject(), event);
 		}		
 	}
 	
-	private void handleOSEException(OSEException e, final KrollFunction callback)
+	private void handleOSEException(OSEException e)
 	{
 		Log.e(LCAT, "=== Exception ===");
 		Log.e(LCAT, Log.getStackTraceString(e));
@@ -126,7 +128,7 @@ public class OSESessionProxy extends OSESessionNamespaceProxy implements OSEProg
 		//	Log.e(LCAT, Log.getStackTraceString(cause));
 		//}
 		
-		if (callback != null) {
+		if (_error != null) {
 			HashMap<String,Object> event = new HashMap<String,Object>();
 			event.put("error", true);
 			event.put("errorCode", e.getErrorCode());
@@ -134,7 +136,7 @@ public class OSESessionProxy extends OSESessionNamespaceProxy implements OSEProg
 			if (cause != null) {
 				event.put("cause", cause.getMessage());
 			}
-			callback.callAsync(getKrollObject(), event);
+			_error.callAsync(getKrollObject(), event);
 		}
 	}
 	
@@ -164,8 +166,8 @@ public class OSESessionProxy extends OSESessionNamespaceProxy implements OSEProg
 	public void sync(HashMap hm)
 	{
 		validateSession();
-		final KrollFunction success = (KrollFunction)hm.get("success");
-		final KrollFunction error = (KrollFunction)hm.get("error");
+		_success = (KrollFunction)hm.get("success");
+		_error = (KrollFunction)hm.get("error");
 		_progress = (KrollFunction)hm.get("progress");
 
 		// If there is not a currently active sync session, start a new thread for sync
@@ -179,15 +181,15 @@ public class OSESessionProxy extends OSESessionNamespaceProxy implements OSEProg
 						// the the synchronization has completed successfully. If an error
 						// occurs, then the exception is thrown and will be caught below.
 						_session.sync();
-						handleSuccess(success);
+						handleSuccess();
 					} catch (OSEException e) {
-						handleOSEException(e, error);
+						handleOSEException(e);
 					}
 				}
 			});
 			_syncThread.start();
 		} else {
-			handleError("Cannot start new sync session because a previous sync session is still active", error);
+			handleError("Cannot start new sync session because a previous sync session is still active");
 		}
 	}
 	
@@ -207,7 +209,7 @@ public class OSESessionProxy extends OSESessionNamespaceProxy implements OSEProg
 			// If the thread is still active then firing an event indicating that cancellation
 			// is still in progress -- the thread will eventually terminate
 			if (_syncThread.isAlive()) {
-				Log.w(LCAT, "Cancellation in progress");
+				handleError("Cancellation in progress");
 			}
 		}
 	}
