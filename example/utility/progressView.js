@@ -1,3 +1,8 @@
+/*
+ * Generic progress view
+ * View contains message, progress bar, and cancel button
+ */
+
 var platform = require('utility/platform');
 var u = platform.u;
 
@@ -16,7 +21,7 @@ function ProgressView(msg, cancelCallback) {
 		borderRadius: 8,
 		borderColor: 'black',
 		layout: 'vertical'
-	})
+	});
 	
 	this.mMessage = Ti.UI.createLabel({
 		top: 4+u, left: 4+u, right: 4+u, height: Ti.UI.SIZE || 'auto',
@@ -48,28 +53,28 @@ function ProgressView(msg, cancelCallback) {
 			cancelCallback();
 		}
 	});
-};
+}
 
 ProgressView.prototype.view = function() {
 	return this.mView;
-}
+};
 
 ProgressView.prototype.show = function() {
 	this.mView.show();
-}
+};
 
 ProgressView.prototype.hide = function() {
 	this.mView.hide();
-}
+};
 
 ProgressView.prototype.updateMessage = function(msg) {
 	this.mMessage.value = msg;
-}
+};
 
 ProgressView.prototype.updateProgress = function(msg, value) {
 	this.mProgressBar.message = msg;
 	this.mProgressBar.value = value;
-}
+};
 
 module.exports = ProgressView;
 

@@ -1,6 +1,11 @@
+/*
+ * Main synchronization view
+ */
+
 var opensync = require('oracle.opensync');
 var platform = require('utility/platform');
 var u = platform.u;
+
 var mSess = null;
 var mBgSess = null;
 var mSyncProgress = null;
@@ -12,13 +17,17 @@ var mStatusText;
 var mStatusStr = "";
 var mPwdChng = false;
 var mStatusIsLog = false;
-var mPath;
 
-exports.initialize = function(viewInfo, win) {
+// --------------------------------------------------------
+// Navigator Interface
+// --------------------------------------------------------
+
+exports.initialize = function() {
 	mStatusStr = "";
 	mPwdChng = false;
 	mStatusIsLog = false;
-	
+
+	// Create the OpenSync session
 	mSess = opensync.createOSESession();
 	if (!mSess.isOpen()) {
 		mSess = null;
@@ -70,23 +79,25 @@ exports.create = function(win) {
 	win.layout = 'composite';
 	
 	var parent = Ti.UI.createView({
-		width: '100%',
-		height: '100%',
-		layout: 'vertical',
+		width: '100%', height: '100%',
+		layout: 'vertical'
 	});
-	
+
+	// Create the user name input field
 	mUserText = Ti.UI.createTextField({
 		top: 4+u, left: 4+u, right: 4+u, height: Ti.UI.SIZE || 'auto',
 		hintText: 'Username',
 		autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_ALL
 	});
 
+	// Create the password input field
 	mPwdText = Ti.UI.createTextField({
 		top: 4+u, left: 4+u, right: 4+u, height: Ti.UI.SIZE || 'auto',
 		hintText: 'Password',
 		passwordMask: true
 	});
 
+	// Create the save password checkbox
 	mSvPwdChkBx = Ti.UI.createSwitch({
 		top: 4+u, left: 4+u, right: 4+u, height: Ti.UI.SIZE || 'auto',
 		value: false,
@@ -95,28 +106,35 @@ exports.create = function(win) {
 		color: 'black'
 	});
 
+	// Create the server URL input field
 	mUrlText = Ti.UI.createTextField({
 		top: 4+u, left: 4+u, right: 4+u, height: Ti.UI.SIZE || 'auto',
 		hintText: 'Server URL',
 		keyboardType: Ti.UI.KEYBOARD_URL
 	});
-	
+
+	// Create a horizontal row of buttons
 	var buttonsRow = Ti.UI.createView({
 		top: 4+u, left: 4+u, right: 4+u, height: Ti.UI.SIZE,
 		layout: 'horizontal'
 	});
-	
+
+	// Create the apply button
 	var applyButton = Ti.UI.createButton({
 		top: 0, left: 0, width: '50%', height: Ti.UI.SIZE || 'auto',
 		title: 'Apply'
 	});
+
+	// Create the synchronize button
 	var syncButton = Ti.UI.createButton({
 		top: 0, left: 0, width: '50%', height: Ti.UI.SIZE || 'auto',
 		title: 'Sync'
 	});
+
 	buttonsRow.add(applyButton);
 	buttonsRow.add(syncButton);
 
+	// Create the scrollable area to display the status text
 	var statusScroll = Ti.UI.createScrollView({
 		top: 4+u, left: 4+u, right: 4+u, bottom: 4+u,
 		contentWidth: 'auto',
@@ -124,7 +142,8 @@ exports.create = function(win) {
 		showVerticalScrollIndicator: true,
 		borderColor: 'lightgray'
 	});
-	
+
+	// Create the status text display field
 	mStatusText = Ti.UI.createTextArea({
 		width: Ti.UI.FILL || 'auto', height: Ti.UI.FILL || 'auto',
 		textAlign: 'left',
@@ -133,31 +152,35 @@ exports.create = function(win) {
 		borderWidth: 0,
 		color: 'black'
 	});
+
 	statusScroll.add(mStatusText);
-	
+
+	// Add all of the controls to the vertical layout view
 	parent.add(mUserText);
     parent.add(mPwdText);
 	parent.add(mSvPwdChkBx);
 	parent.add(mUrlText);
 	parent.add(buttonsRow);
 	parent.add(statusScroll);
+
 	win.add(parent);
-	
+
+	// Hook up the event listeners for the buttons
 	syncButton.addEventListener('click', doSync);
 	applyButton.addEventListener('click', doApply);
-	
-	mPwdText.addEventListener('keypressed', function(e) {
+
+	// Monitor updates to the password input field
+	mPwdText.addEventListener('keypressed', function() {
 		mPwdChng = true;
 	});
-		
+
+	// Create the progress view (initially hidden) to be displayed during the synchronization process
 	ProgressView = require('utility/progressView');
 	mSyncProgress = new ProgressView('Syncing...', doCancelSync);
-	win.add(mSyncProgress.view());
-	
-	//BUGBUG
-	Ti.API.info(mSyncProgress.mWin);
 
-	// Set initial control values
+	win.add(mSyncProgress.view());
+
+	// Set the initial control values
 	if (mSess != null) {
 		if (mSess.getUser() != null) {
 			mUserText.value = mSess.getUser();
@@ -202,42 +225,58 @@ exports.createOptionMenu = function(menu) {
 	});
 	exitApp.icon = 'ic_menu_exit.png';
 	exitApp.addEventListener('click', doExit);
-}
+};
+
+// --------------------------------------------------------
+// Synchronization Session
+// --------------------------------------------------------
 
 function initSess(doSave) {
 	try {
+		// Ensure that the user name input field is not empty
 		var usr = mUserText.value;
 		if ((usr == null) || (usr.length == 0)) {
 			alert('Username cannot be empty');
 			return;
 		}
-		
+
+		// If there is a session currently open and the user name
+		// is different, then we need to close the current session since
+		// only one session can be open.
 		if ((mSess != null) && (usr.toUpperCase() !== mSess.getUser())) {
 			mSess.close();
 			mSess = null;
 		}
 		
 		if (mSess == null) {
+			// Create a new session for the specified user
 			mSess = opensync.createOSESession({
 				user: usr
 			});
+
+			// Check that the session was initialized successfully
 			if (!mSess.isOpen()) {
 				mSess = null;
 			}
 		}
-		
+
+		// Set the password for the session if the current session does not
+		// have a saved password OR the password was changed.
 		var pwd = mPwdText.value;
 		if (!mSess.getSavePassword() || mPwdChng) {
 			mSess.setPassword(pwd);
 		}
 		
 		mSess.setSavePassword(mSvPwdChkBx.value);
-		
+
+		// Enable SSL if the URL is an `https` address
 		var url = mUrlText.value;
 		if (url.indexOf('https') === 0) {
 			mSess.setEncryptionType(opensync.oseSession.ENC_SSL);
 		}
 		mSess.setURL(url);
+
+		// Save the user if this is an `apply` action
 		if (doSave) {
 			mSess.saveUser();
 		}
@@ -261,14 +300,14 @@ function setStatus(s)
 	mStatusIsLog = false;
 }
 
-function showProgressView() 
+function showProgressView()
 {
 	mSyncProgress.updateMessage('Syncing...');
 	mSyncProgress.updateProgress('', 0);
 	mSyncProgress.show();	
 }
 
-function hideProgressView() 
+function hideProgressView()
 {
 	if (mSyncProgress != null) {
 		mSyncProgress.hide();
@@ -282,7 +321,7 @@ function doSync() {
 		if (mSess != null) {
 			mSess.setUseFiles(true);
 			mSess.sync({
-				success: function(e) {
+				success: function() {
 					hideProgressView();
 					var date = new Date().toLocaleTimeString();
 					setStatus(date + '\nSync finished successfully.');
@@ -311,6 +350,8 @@ function doCancelSync() {
 	if (mSess != null) {
 		try {
 			mSyncProgress.updateMessage("Cancelling...");
+			// Cancel the synchronization process. Note that the `error` method of the `sync` call will receive
+			// a message when the synchronization process has been cancelled.
 			mSess.cancelSync();
 		} catch (e) {
 			showError(e);
@@ -322,9 +363,9 @@ function doApply() {
 	initSess(true);	
 }
 
-function msgHandler(e) {
-	Ti.API.info("msgHandler: " + JSON.stringify(e));
-}
+// --------------------------------------------------------
+// Options Menu Commands
+// --------------------------------------------------------
 
 function doSyncAgent() {
 	try {
@@ -335,18 +376,21 @@ function doSyncAgent() {
 				return;
 			}
 		}
-		
+
 		if ((mSess == null) || (mBgSess.getAgentStatusCode() != opensync.bgAgentStatus.STOPPED)) {
 			mBgSess.showUI();
 		} else {
 			mStatusStr = mStatusText.value;
 			setStatus('Starting sync Agent...');
 			mBgSess.start();
+			// Wait until the sync agent is running, then display the UI
 			mBgSess.waitForStatus({
 				status: opensync.bgAgentStatus.RUNNING,
 				timeout: 5000,
 				success: function() {
-					mBgSess.messageHandler = msgHandler;
+					mBgSess.messageHandler = function(e) {
+						Ti.API.info("msgHandler: " + JSON.stringify(e));
+					};
 					mBgSess.showUI();
 					setStatus(mStatusStr);
 				},
@@ -363,13 +407,13 @@ function doSyncAgent() {
 function doViewLog() {
 	if (!mStatusIsLog) {
 		mStatusStr = mStatusText.value;
+		// Get the full path to the file
 		var logFile = Ti.Filesystem.getFile(opensync.syncFilesRootDir + "/err.log");
 		if (logFile.exists()) {
 			mStatusText.value = logFile.read().text;
 		} else {
 			mStatusText.value = "<Error log is empty>";
 		}
-		mStatusText.value 
 		logFile = null;
 		mStatusIsLog = true;
 	} else {
@@ -378,6 +422,7 @@ function doViewLog() {
 }
 
 function doPurgeLog() {
+	// Get the full path to the file
 	var logFile = Ti.Filesystem.getFile(opensync.syncFilesRootDir + "/err.log");
 	if (logFile.exists()) {
 		logFile.deleteFile();
@@ -388,10 +433,12 @@ function doPurgeLog() {
 function doEditOse() {
 	require('utility/navigator').push({
     	viewName: 'textFileEditor',
+		// Get the full path to the file
         fileName: opensync.syncFilesRootDir + "/ose.ini"
     });
 }
 
 function doExit (){
-	require('utility/navigator').exit(exports);
+	require('utility/navigator').exit();
 }
+

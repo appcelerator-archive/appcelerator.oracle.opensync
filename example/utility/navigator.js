@@ -3,6 +3,7 @@
  */
 
 var nav = null;
+var platform = require('utility/platform');
 
 function createViewInWindow(win, viewInfo)
 {
@@ -12,9 +13,8 @@ function createViewInWindow(win, viewInfo)
 	mod.initialize(viewInfo, win);
 	// Create the view in the current window
 	mod.create(win);
-	
-	if (Ti.Platform.name == 'android') {
-		// Handle options menu
+	if (platform.isAndroid) {
+		// Handle options menu if the view has the method defined
 		if (mod.createOptionMenu != undefined) {
 			win.activity.onCreateOptionsMenu = function(e) {
 				mod.createOptionMenu(e.menu);
@@ -30,7 +30,7 @@ function createViewInWindow(win, viewInfo)
 	return win;
 }
 
-exports.openAppWindow = function (viewInfo)
+exports.openAppWindow = function(viewInfo)
 {
 	var appWin = Ti.UI.createWindow({
 		backgroundColor:'white',
@@ -40,7 +40,7 @@ exports.openAppWindow = function (viewInfo)
 		exitOnClose: true
 	});
 
-	if (Ti.Platform.name == 'android') {
+	if (platform.isAndroid) {
 		createViewInWindow(appWin, viewInfo);
 	} else {
 		var win = Ti.UI.createWindow({
@@ -57,7 +57,7 @@ exports.openAppWindow = function (viewInfo)
 	appWin.open();
 };
 
-exports.push = function (viewInfo)
+exports.push = function(viewInfo)
 {
 	var win = Ti.UI.createWindow({
 		backgroundColor:'white',
@@ -66,18 +66,18 @@ exports.push = function (viewInfo)
 
 	createViewInWindow(win, viewInfo);
 
-	if (Ti.Platform.name == 'android') {
+	if (platform.isAndroid) {
 		win.open({ modal:true, animated:true });
 	} else {
 		nav.open(win, { animated:true });
 	}
 };
 
-exports.exit = function (mod)
+exports.exit = function()
 {
-	if (Ti.Platform.name == 'android') {
+	if (platform.isAndroid) {
 		Ti.Android.currentActivity.finish();
 	} else {
 		Ti.UI.currentWindow.close();
 	}
-}
+};

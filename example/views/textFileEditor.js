@@ -1,3 +1,7 @@
+/*
+ * Text file editor with cancel and save buttons
+ */
+
 var platform = require('utility/platform');
 var u = platform.u;
 var mEtf;
@@ -5,7 +9,9 @@ var mButtonsRow;
 var mTextModified;
 var mFile;
 
-exports.initialize = function(viewInfo, win) {
+// viewInfo properties:
+//   fileName: Path to file to display in the editor
+exports.initialize = function(viewInfo) {
 	mTextModified = false;
 	mFile = Ti.Filesystem.getFile(viewInfo.fileName);
 };
@@ -16,6 +22,8 @@ exports.cleanup = function() {
 		mFile.write(mEtf.value);
 	}
 	mFile = null;
+	mEtf = null;
+	mButtonsRow = null;
 };
 
 exports.create = function(win) {
@@ -61,7 +69,7 @@ exports.create = function(win) {
 	
 	mEtf.addEventListener('keypressed', function() {
 		mTextModified = true;
-	})
+	});
 	saveButton.addEventListener('click', function() {
 		win.close();
 	});
