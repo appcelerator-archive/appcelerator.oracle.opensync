@@ -18,10 +18,10 @@ public class OSEProgressListenerNamespaceProxy extends KrollProxy
 {
 	// Progress listener constants
 	@Kroll.constant public static final int APPLY = OSEProgressListener.APPLY;
-	@Kroll.constant public static final int COMPOSE = OSEProgressListener.COMPOSE;	   
-	@Kroll.constant public static final int IDLE = OSEProgressListener.IDLE;	   
-	@Kroll.constant public static final int PREPARE = OSEProgressListener.PREPARE;	   
-	@Kroll.constant public static final int PROCESS = OSEProgressListener.PROCESS;	   
-	@Kroll.constant public static final int RECEIVE = OSEProgressListener.RECEIVE;	   
-	@Kroll.constant public static final int SEND = OSEProgressListener.SEND;	
+	@Kroll.constant public static final int COMPOSE = OSEProgressListener.COMPOSE;
+	@Kroll.constant public static final int IDLE = OSEProgressListener.IDLE;
+	@Kroll.constant public static final int PREPARE = OSEProgressListener.PREPARE;
+	@Kroll.constant public static final int PROCESS = OSEProgressListener.PROCESS;
+	@Kroll.constant public static final int RECEIVE = OSEProgressListener.RECEIVE;
+	@Kroll.constant public static final int SEND = OSEProgressListener.SEND;
 }

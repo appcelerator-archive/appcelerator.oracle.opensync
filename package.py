@@ -74,13 +74,20 @@ def package_modules(args):
 
 def select_module(srcfolder, modname, platform, modlist):
     version = ""
-    subfolder = ""
     if platform == 'android':
-        subfolder = 'dist'
-    prefix = os.path.join(srcfolder, platform, subfolder, modname + "-" + platform + "-")
-    for filename in glob.glob(prefix + "*"):
-        modlist.append(filename)
-        version = filename.split("-")[2].replace(".zip","")
+        prefix = os.path.join(srcfolder, platform, 'sql/dist', modname + ".sql-" + platform + "-")
+        for filename in glob.glob(prefix + "*"):
+        	modlist.append(filename)
+        	version = filename.split("-")[2].replace(".zip","")
+        prefix = os.path.join(srcfolder, platform, 'bdb/dist', modname + ".bdb-" + platform + "-")
+        for filename in glob.glob(prefix + "*"):
+        	modlist.append(filename)
+        	version = filename.split("-")[2].replace(".zip","")
+    else:
+		prefix = os.path.join(srcfolder, platform, subfolder, modname + "-" + platform + "-")
+		for filename in glob.glob(prefix + "*"):
+			modlist.append(filename)
+			version = filename.split("-")[2].replace(".zip","")
     return version
 
 def has_config(config,key,has_value=True):

@@ -13,6 +13,8 @@ import oracle.opensync.util.android.AndroidPlatformFactory;
 
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
+import org.appcelerator.kroll.KrollRuntime;
+import org.appcelerator.kroll.KrollDict;
 
 import ti.oracle.opensync.namespaces.BGAgentStatusNamespaceProxy;
 import ti.oracle.opensync.namespaces.BGSessionNamespaceProxy;
@@ -23,22 +25,22 @@ import android.app.Activity;
 import java.io.IOException;
 import android.util.Log;
 
-@Kroll.module(name="OracleOpensync", id="oracle.opensync")
+@Kroll.module(name="OracleOpensync", id="oracle.opensync.sql")
 public class OracleOpensyncModule extends KrollModule
 {
 	public OracleOpensyncModule()
 	{
 		super();
-	}	
-	
+	}
+
 	@Override
 	public void onStart(Activity activity)
 	{
         // DB file locations are determined from this application context
         // The db files will be created under: /data/data/<app name>/app_oracle.sync/sqlite_db
-        ((AndroidPlatformFactory)PlatformFactory.getInstance()).setContext(activity);       
+        ((AndroidPlatformFactory)PlatformFactory.getInstance()).setContext(activity);
 	}
-	
+
 	@Kroll.getProperty @Kroll.method
 	public String getSyncFilesRootDir()
 	{
@@ -54,12 +56,6 @@ public class OracleOpensyncModule extends KrollModule
 	// techniques including Kroll annotations to allow these constants
 	// to be surfaced without instantiating an actual proxy object, but to no avail.
 
-	// NOTE: The name of each of these namespace proxies MUST be different than the
-	// class names in the Oracle Opensync namespace. For example, naming the proxy
-	// 'OSESession' will cause a build error, probably because OSESession is the name
-	// of a class in the Oracle Opensync SDK. The compromise is to name them with a
-	// lowercase prefix.
-	
 	private BGAgentStatusNamespaceProxy _bgAgentStatus = new BGAgentStatusNamespaceProxy();
 	@Kroll.getProperty(name="bgAgentStatus")
 	public BGAgentStatusNamespaceProxy getBGAgentStatus()
@@ -80,7 +76,7 @@ public class OracleOpensyncModule extends KrollModule
 	{
 		return _bgSession;
 	}
-	
+
 	private OSESessionNamespaceProxy _oseSession = new OSESessionNamespaceProxy();
 	@Kroll.getProperty(name="oseSession")
 	public OSESessionNamespaceProxy getOSESession()
