@@ -8,6 +8,12 @@
 
     <!-- Hybrid build environment -->
 
+    <delete dir="${basedir}/documentation" />
+    <delete dir="${basedir}/example" />
+    <delete dir="${basedir}/assets" />
+    <delete dir="${basedir}/src" />
+    <delete file="${basedir}/license" />
+
     <!-- Copy documentation subdirectories -->
     <mkdir   dir="${basedir}/documentation"/>
     <copy    todir="${basedir}/documentation">
@@ -33,6 +39,7 @@
     <mkdir dir="${basedir}/src"/>
     <copy todir="${basedir}/src">
         <fileset dir="${basedir}/../src"/>
+        <fileset dir="${basedir}/src_module"/>
     </copy>
 
     <target name="cleancopy" description="Delete old copies">
