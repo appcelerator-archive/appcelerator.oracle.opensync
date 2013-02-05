@@ -1,4 +1,4 @@
-package ti.oracle.opensync.proxies;
+package ti.oracle.opensync;
 
 import java.util.HashMap;
 
@@ -10,9 +10,9 @@ import SQLite.Exception;
 import android.util.Log;
 
 import ti.oracle.opensync.OracleOpensyncModule;
-import ti.oracle.opensync.namespaces.BerkeleyDBNamespaceProxy;
+import ti.oracle.opensync.BerkeleyDBNamespaceProxy;
 
-@Kroll.proxy(parentModule=OracleOpensyncModule.class)
+@Kroll.proxy
 public class BerkeleyDBResultSetProxy extends KrollProxy {
 	// Standard Debugging variables
 	private static final String LCAT = "OracleOpensync";

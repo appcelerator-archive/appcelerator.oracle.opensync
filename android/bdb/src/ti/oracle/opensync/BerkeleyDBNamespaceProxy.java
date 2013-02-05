@@ -6,14 +6,14 @@
  *
  */
 
-package ti.oracle.opensync.namespaces;
+package ti.oracle.opensync;
 
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
 
 import SQLite.Exception;
 
-import ti.oracle.opensync.proxies.BerkeleyDBProxy;
+import ti.oracle.opensync.BerkeleyDBProxy;
 
 @Kroll.proxy
 public class BerkeleyDBNamespaceProxy extends KrollProxy
@@ -29,6 +29,6 @@ public class BerkeleyDBNamespaceProxy extends KrollProxy
 	@Kroll.method
 	public BerkeleyDBProxy open(Object file) throws Exception
 	{
-		return BerkeleyDBProxy.open(file);
+		return BerkeleyDBProxy.openDatabase(file);
 	}
 }

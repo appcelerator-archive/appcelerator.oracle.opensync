@@ -13,8 +13,6 @@ import oracle.opensync.util.android.AndroidPlatformFactory;
 
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
-import org.appcelerator.kroll.KrollRuntime;
-import org.appcelerator.kroll.KrollDict;
 
 import ti.oracle.opensync.namespaces.BGAgentStatusNamespaceProxy;
 import ti.oracle.opensync.namespaces.BGSessionNamespaceProxy;
@@ -23,7 +21,6 @@ import ti.oracle.opensync.namespaces.OSESessionNamespaceProxy;
 
 import android.app.Activity;
 import java.io.IOException;
-import android.util.Log;
 
 @Kroll.module(name="OracleOpensync", id="oracle.opensync.sql")
 public class OracleOpensyncModule extends KrollModule

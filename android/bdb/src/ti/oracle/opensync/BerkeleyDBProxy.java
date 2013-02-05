@@ -1,4 +1,4 @@
-package ti.oracle.opensync.proxies;
+package ti.oracle.opensync;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,11 +11,12 @@ import org.appcelerator.titanium.TiFileProxy;
 import org.appcelerator.titanium.util.TiConvert;
 
 import ti.oracle.opensync.OracleOpensyncModule;
+import ti.oracle.opensync.BerkeleyDBNamespaceProxy;
 
 import android.util.Log;
 
-@Kroll.proxy(parentModule=OracleOpensyncModule.class,propertyAccessors = { "enableLQMapping" })
-public class BerkeleyDBProxy extends KrollProxy
+@Kroll.proxy(propertyAccessors = { "enableLQMapping" })
+public class BerkeleyDBProxy extends BerkeleyDBNamespaceProxy
 {
 	// Standard Debugging variables
 	private static final String LCAT = "OracleOpensync";
@@ -30,7 +31,7 @@ public class BerkeleyDBProxy extends KrollProxy
 		_db = db;
 	}
 
-	public static BerkeleyDBProxy open(Object file) throws SQLite.Exception
+	public static BerkeleyDBProxy openDatabase(Object file) throws SQLite.Exception
 	{
 		BerkeleyDBProxy dbp = null;
 		String absolutePath;
