@@ -19,9 +19,7 @@ import ti.oracle.opensync.namespaces.BGSessionNamespaceProxy;
 import ti.oracle.opensync.namespaces.OSEProgressListenerNamespaceProxy;
 import ti.oracle.opensync.namespaces.OSESessionNamespaceProxy;
 import ti.oracle.opensync.BerkeleyDBNamespaceProxy;
-import ti.oracle.opensync.BerkeleyDBProxy;
 
-import SQLite.Exception;
 import android.app.Activity;
 
 import java.io.IOException;
