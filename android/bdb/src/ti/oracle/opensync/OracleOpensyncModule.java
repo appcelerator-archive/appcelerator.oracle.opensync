@@ -16,12 +16,10 @@ import org.appcelerator.kroll.annotations.Kroll;
 
 import ti.oracle.opensync.namespaces.BGAgentStatusNamespaceProxy;
 import ti.oracle.opensync.namespaces.BGSessionNamespaceProxy;
-import ti.oracle.opensync.namespaces.BerkeleyDBNamespaceProxy;
 import ti.oracle.opensync.namespaces.OSEProgressListenerNamespaceProxy;
 import ti.oracle.opensync.namespaces.OSESessionNamespaceProxy;
-import ti.oracle.opensync.proxies.BerkeleyDBProxy;
+import ti.oracle.opensync.BerkeleyDBNamespaceProxy;
 
-import SQLite.Exception;
 import android.app.Activity;
 
 import java.io.IOException;
