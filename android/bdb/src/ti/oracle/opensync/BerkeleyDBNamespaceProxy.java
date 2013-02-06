@@ -11,8 +11,6 @@ package ti.oracle.opensync;
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
 
-import SQLite.Exception;
-
 import ti.oracle.opensync.BerkeleyDBProxy;
 
 @Kroll.proxy
