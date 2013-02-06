@@ -48,6 +48,12 @@ public class OracleOpensyncModule extends KrollModule
 		}
 	}
 
+	@Kroll.getProperty @Kroll.method
+	public String getDatabaseSyncFilesRootDir()
+	{
+		return getSyncFilesRootDir() + "app_oracle.sync/sql/data";
+	}
+
 	// These proxies here makes the namespace proxies part of the JS namespace
 	// just like the Oracle documents. I've tried any number of other
 	// techniques including Kroll annotations to allow these constants
