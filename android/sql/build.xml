@@ -3,51 +3,37 @@
 		Ant build script for Titanium Android module oracleopensync
 	</description>
 
-	<property name="ti.module.root" location="${basedir}"/>
-	<property file="build.properties" />
+    <mkdir dir="${basedir}/../dist"/>
 
-    <!-- Hybrid build environment -->
+    <symlink link="${basedir}/src/ti/oracle/opensync/namespaces" resource="${basedir}/../src/ti/oracle/opensync/namespaces" overwrite="true"/>
+    <symlink link="${basedir}/src/ti/oracle/opensync/proxies" resource="${basedir}/../src/ti/oracle/opensync/proxies" overwrite="true"/>
 
-    <delete dir="${basedir}/documentation" />
-    <delete dir="${basedir}/example" />
-    <delete dir="${basedir}/assets" />
-    <delete dir="${basedir}/src" />
-    <delete file="${basedir}/license" />
+    <symlink link="${basedir}/build.properties" resource="${basedir}/../build.properties" overwrite="true"/>
+    <symlink link="${basedir}/assets" resource="${basedir}/../assets" overwrite="true"/>
+    <symlink link="${basedir}/hooks" resource="${basedir}/../hooks" overwrite="true"/>
+    <symlink link="${basedir}/timodule.xml" resource="${basedir}/../timodule.xml" overwrite="true"/>
+    <symlink link="${basedir}/dist" resource="${basedir}/../dist" overwrite="true"/>
 
-    <!-- Copy documentation subdirectories -->
-    <mkdir   dir="${basedir}/documentation"/>
-    <copy    todir="${basedir}/documentation">
-      <fileset dir="${basedir}/../../documentation"/>
-    </copy>
+    <symlink link="${basedir}/documentation" resource="${basedir}/../../documentation" overwrite="true"/>
+    <symlink link="${basedir}/example" resource="${basedir}/../../example" overwrite="true"/>
+    <symlink link="${basedir}/LICENSE" resource="${basedir}/../../LICENSE" overwrite="true"/>
 
-    <!-- Copy example subdirectories -->
-    <mkdir   dir="${basedir}/example"/>
-    <copy    todir="${basedir}/example">
-      <fileset dir="${basedir}/../../example"/>
-    </copy>
+    <property name="ti.module.root" location="${basedir}"/>
+   	<property file="build.properties" />
 
-    <!-- Copy assets subdirectories -->
-    <mkdir   dir="${basedir}/assets"/>
-    <copy    todir="${basedir}/assets">
-      <fileset dir="${basedir}/../../assets"/>
-    </copy>
+    <target name="cleanlinks" description="Delete symlinks">
+        <symlink action="delete" link="${basedir}/src/ti/oracle/opensync/namespaces"/>
+        <symlink action="delete" link="${basedir}/src/ti/oracle/opensync/proxies"/>
 
-    <!-- Copy license -->
-    <copy todir="${basedir}" file="${basedir}/../../LICENSE"/>
+        <symlink action="delete" link="${basedir}/build.properties"/>
+        <symlink action="delete" link="${basedir}/assets"/>
+        <symlink action="delete" link="${basedir}/hooks"/>
+        <symlink action="delete" link="${basedir}/timodule.xml"/>
+        <symlink action="delete" link="${basedir}/dist"/>
 
-    <!-- Copy common source -->
-    <mkdir dir="${basedir}/src"/>
-    <copy todir="${basedir}/src">
-        <fileset dir="${basedir}/../src"/>
-        <fileset dir="${basedir}/src_module"/>
-    </copy>
-
-    <target name="cleancopy" description="Delete old copies">
-      <delete dir="${basedir}/documentation"/>
-      <delete dir="${basedir}/example"/>
-      <delete dir="${basedir}/assets"/>
-      <delete file="${basedir}/LICENSE"/>
-      <delete dir="${basedir}/src"/>
+        <symlink action="delete" link="${basedir}/documentation"/>
+        <symlink action="delete" link="${basedir}/example"/>
+        <symlink action="delete" link="${basedir}/LICENSE"/>
     </target>
 
 	<import file="${titanium.platform}/../module/android/build.xml"/>

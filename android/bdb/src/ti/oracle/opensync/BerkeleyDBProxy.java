@@ -1,21 +1,23 @@
-package ti.oracle.opensync.proxies;
+package ti.oracle.opensync;
 
 import java.io.File;
-import java.util.ArrayList;
+
 import java.util.regex.Pattern;
 
-import org.appcelerator.kroll.KrollDict;
-import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.titanium.TiFileProxy;
 import org.appcelerator.titanium.util.TiConvert;
+import org.appcelerator.titanium.TiApplication;
 
-import ti.oracle.opensync.OracleOpensyncModule;
+import ti.oracle.opensync.BerkeleyDBNamespaceProxy;
+import android.content.pm.PackageManager.NameNotFoundException;
 
 import android.util.Log;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 
-@Kroll.proxy(parentModule=OracleOpensyncModule.class,propertyAccessors = { "enableLQMapping" })
-public class BerkeleyDBProxy extends KrollProxy
+@Kroll.proxy(propertyAccessors = { "enableLQMapping" })
+public class BerkeleyDBProxy extends BerkeleyDBNamespaceProxy
 {
 	// Standard Debugging variables
 	private static final String LCAT = "OracleOpensync";
@@ -30,27 +32,35 @@ public class BerkeleyDBProxy extends KrollProxy
 		_db = db;
 	}
 
-	public static BerkeleyDBProxy open(Object file) throws SQLite.Exception
+	public static BerkeleyDBProxy openDatabase(Object file) throws Exception
 	{
 		BerkeleyDBProxy dbp = null;
 		String absolutePath;
-		int flags;
-		
+
 		if (file instanceof TiFileProxy) {
 			TiFileProxy tiFile = (TiFileProxy) file;
 			absolutePath = tiFile.getBaseFile().getNativeFile().getAbsolutePath();
-			flags = SQLite.Constants.SQLITE_OPEN_READONLY;
 		} else {
 			absolutePath = TiConvert.toString(file);
-			flags = SQLite.Constants.SQLITE_OPEN_READWRITE | SQLite.Constants.SQLITE_OPEN_CREATE;
+			if (!absolutePath.startsWith("//")) {
+				try {
+					TiApplication appContext = TiApplication.getInstance();
+					PackageManager pm = appContext.getPackageManager();
+					PackageInfo pi = pm.getPackageInfo(appContext.getPackageName(), 0);
+					absolutePath = pi.applicationInfo.dataDir + "/databases/" + file;
+            	} catch (NameNotFoundException e) {
+            		Log.e(LCAT, "Exception opening database: " + e.getMessage(), e);
+            		throw e;
+            	}
+			}
 		}
 		
 		try {
 			SQLite.Database db = new SQLite.Database();
-			db.open(absolutePath, flags);
+			db.open(absolutePath, SQLite.Constants.SQLITE_OPEN_READWRITE | SQLite.Constants.SQLITE_OPEN_CREATE);
 			dbp = new BerkeleyDBProxy(absolutePath, db);
 			Log.d(LCAT, "Opened database: " + absolutePath);
-		} catch (SQLite.Exception e) {
+		} catch (Exception e) {
 			Log.e(LCAT, "Exception opening database: " + e.getMessage(), e);
 			throw e;
 		}
@@ -59,12 +69,12 @@ public class BerkeleyDBProxy extends KrollProxy
 	}
 
 	@Kroll.method
-	public void close() throws SQLite.Exception
+	public void close() throws Exception
 	{
 		try {
 			Log.d(LCAT, "Closing database: " + _path);
 			_db.close();
-		} catch (SQLite.Exception e) {
+		} catch (Exception e) {
 			Log.e(LCAT, "Exception closing database: " + e.getMessage(), e);
 			throw e;		
 		}
@@ -82,12 +92,16 @@ public class BerkeleyDBProxy extends KrollProxy
 			sqlArgs = args;
 		}
 
-		// Convert arguments to string for parameter substitution
+		// Convert arguments to string for parameter substitution, allowing for null values
 		String[] newArgs = null;
 		if (sqlArgs != null) {
 			newArgs = new String[sqlArgs.length];
-			for(int i = 0; i < sqlArgs.length; i++) {
-				newArgs[i] = TiConvert.toString(sqlArgs[i]);
+			for (int i = 0; i < sqlArgs.length; i++) {
+				if (sqlArgs[i] == null) {
+					newArgs[i] = null;
+				} else {
+					newArgs[i] = TiConvert.toString(sqlArgs[i]);
+				}
 			}
 		}
 
@@ -95,6 +109,9 @@ public class BerkeleyDBProxy extends KrollProxy
 		SQLite.Stmt stmt = null;
 		String newSql = sql;
 		
+		// Handle the difference between SQLite and Berkeley DB parameter substitution characters.
+		// SQLite supports ? while Berkeley uses '%Q'
+		// This can be disabled if needed by setting the enableLQMapping property to false.
 		if (properties.optBoolean("enableLQMapping", true)) {
 			Pattern regex = Pattern.compile("([^'\"])\\?");
 			newSql = regex.matcher(sql).replaceAll("$1%Q");
@@ -109,7 +126,7 @@ public class BerkeleyDBProxy extends KrollProxy
 						stmt.bind(i, newArgs[i]);
 					}
 				}
-				if (stmt.step()) {
+				if (stmt.column_count() > 0) {
 					rs = new BerkeleyDBResultSetProxy(stmt);
 				} else {
 					stmt.close();
@@ -153,8 +170,8 @@ public class BerkeleyDBProxy extends KrollProxy
 			Log.d(LCAT, "Deleting database: " + _path);
 			File file = new File(_path);
 			file.delete();
-			
-			//BUGBUG: Are there any other files that need to be deleted???
+			file = new File(_path + "-journal");
+			file.delete();
 		} catch (Exception e) {
 			Log.e(LCAT, "Exception removing database: " + e.getMessage(), e);
 			throw e;		

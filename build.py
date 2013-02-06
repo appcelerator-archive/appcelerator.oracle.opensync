@@ -28,14 +28,14 @@ def clean_build_module(platform):
         os.remove(fl)
     print "Cleaned %s module project" % platform
 
-def clean_ant_module(platform,sub):
-    build_path = os.path.join(os.getcwd(), platform, sub, 'build')
+def clean_ant_module(platform):
+    build_path = os.path.join(os.getcwd(), platform, 'build')
     if os.path.exists(build_path):
         shutil.rmtree(build_path)
-    ant_path = os.path.join(os.getcwd(), platform, sub)
+    ant_path = os.path.join(os.getcwd(), platform)
     retcode = fork(ant_path, 'ant clean', False)
-    retcode = fork(ant_path, 'ant cleancopy', False)
-    zip_file = os.path.join(os.getcwd(), platform, sub, 'dist', '*.zip')
+    retcode = fork(ant_path, 'ant cleanlinks', False)
+    zip_file = os.path.join(os.getcwd(), platform, 'dist', '*.zip')
     for fl in glob.glob(zip_file):
         os.remove(fl)
     print "Cleaned %s module project" % platform
@@ -77,8 +77,7 @@ def main(args):
             clean_build_module('mobileweb')
 
         if os.path.exists('android'):
-            clean_ant_module('android','sql')
-            clean_ant_module('android','bdb')
+            clean_ant_module('android')
 
         if os.path.exists('commonjs'):
             clean_build_module('commonjs')

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>oracleopensync</name>
+	<name>oracleopensyncsql</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -26,11 +26,4 @@
 		<nature>com.appcelerator.titanium.mobile.module.nature</nature>
 		<nature>com.aptana.projects.webnature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src</name>
-			<type>2</type>
-			<location>../src</location>
-		</link>
-	</linkedResources>
 </projectDescription>

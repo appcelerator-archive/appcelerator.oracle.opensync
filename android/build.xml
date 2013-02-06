@@ -1,0 +1,29 @@
+<project name="oracleopensync" default="dist">
+	<description>
+		Ant build script for Titanium Android module oracleopensync
+	</description>
+
+    <target name="dist">
+        <subant target="dist">
+            <property name="build.dir" value="subant1.build"/>
+            <property name="not.overloaded" value="not.overloaded"/>
+            <fileset dir="." includes="*/build.xml"/>
+        </subant>
+    </target>
+
+    <target name="clean">
+        <subant target="clean">
+            <property name="build.dir" value="subant1.build"/>
+            <property name="not.overloaded" value="not.overloaded"/>
+            <fileset dir="." includes="*/build.xml"/>
+        </subant>
+    </target>
+
+    <target name="cleanlinks">
+        <subant target="cleanlinks">
+            <property name="build.dir" value="subant1.build"/>
+            <property name="not.overloaded" value="not.overloaded"/>
+            <fileset dir="." includes="*/build.xml"/>
+        </subant>
+    </target>
+</project>

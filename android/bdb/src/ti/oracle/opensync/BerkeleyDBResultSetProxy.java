@@ -1,4 +1,4 @@
-package ti.oracle.opensync.proxies;
+package ti.oracle.opensync;
 
 import java.util.HashMap;
 
@@ -9,10 +9,9 @@ import org.appcelerator.titanium.util.TiConvert;
 import SQLite.Exception;
 import android.util.Log;
 
-import ti.oracle.opensync.OracleOpensyncModule;
-import ti.oracle.opensync.namespaces.BerkeleyDBNamespaceProxy;
+import ti.oracle.opensync.BerkeleyDBNamespaceProxy;
 
-@Kroll.proxy(parentModule=OracleOpensyncModule.class)
+@Kroll.proxy
 public class BerkeleyDBResultSetProxy extends KrollProxy {
 	// Standard Debugging variables
 	private static final String LCAT = "OracleOpensync";
@@ -25,21 +24,21 @@ public class BerkeleyDBResultSetProxy extends KrollProxy {
 		super();
 		
 		_rs = stmt;
-		_valid = _rs != null;
-		
+
 		try {
+			_valid = _rs.step();
 			int count = _rs.column_count();
 			columnNames = new HashMap<String, Integer>(count);
 			for (int i=0; i < count; i++) {
 				columnNames.put(_rs.column_name(i).toLowerCase(), i);
 			}
-		} catch (SQLite.Exception e) {
+		} catch (Exception e) {
 			Log.e(LCAT, "Exception getting column names: " + e.getMessage(), e);
 		}
 	}
 
 	@Kroll.method
-	public void close() throws SQLite.Exception
+	public void close() throws Exception
 	{
 		if (_rs != null) {
 			_rs.close();
@@ -88,7 +87,7 @@ public class BerkeleyDBResultSetProxy extends KrollProxy {
 		
 		try {
 			result = _rs.column(index);
-		} catch (SQLite.Exception e) {
+		} catch (Exception e) {
 			// Both SQLException and IllegalStateException (exceptions known to occur
 			// in this block) are RuntimeExceptions and since we anyway re-throw
 			// and log the same error message, we're just catching all RuntimeExceptions.
@@ -165,7 +164,7 @@ public class BerkeleyDBResultSetProxy extends KrollProxy {
 		if (_rs != null) {
 			try {
 				return _rs.column_count();
-			} catch (SQLite.Exception e) {
+			} catch (Exception e) {
 				Log.e(LCAT, "No fields exist");
 			}
 		}
@@ -185,7 +184,7 @@ public class BerkeleyDBResultSetProxy extends KrollProxy {
 		if (_rs != null) {
 			try {
 				return _rs.column_name(index);
-			} catch (SQLite.Exception e) {
+			} catch (Exception e) {
 				Log.e(LCAT, "No column at index: " + index);
 				throw e;
 			}
@@ -212,7 +211,7 @@ public class BerkeleyDBResultSetProxy extends KrollProxy {
 		if(isValidRow()) {
 			try {
 				_valid = _rs.step();
-			} catch (SQLite.Exception e) {
+			} catch (Exception e) {
 				Log.e(LCAT, "Exception calling next: " + e.getMessage(), e);
 				throw e;
 			}

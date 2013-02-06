@@ -1,4 +1,4 @@
-// Sample application to demonstrate the capabilities of the LDAP module
+// Sample application to demonstrate the capabilities of the Oracle Opensync module
 
 var navigator = require('utility/navigator').openAppWindow({
 	viewName: 'sync'
