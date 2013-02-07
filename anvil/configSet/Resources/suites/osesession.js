@@ -10,12 +10,17 @@ module.exports = new function ()
 	var finish;
 	var valueOf;
 	var opensync;
-	var OPENSYNC_SERVER = Ti.App.Properties.getString("oracle.opensync.server");
+	var _databaseType = Ti.App.Properties.getString("database.type");
 	this.init = function (testUtils)
 	{
 		finish = testUtils.finish;
 		valueOf = testUtils.valueOf;
-		opensync = require('oracle.opensync');
+
+		if (_databaseType == 'bdb') {
+			opensync = require('oracle.opensync.bdb');
+		} else {
+			opensync = require('oracle.opensync.sql');
+		}
 	};
 
 	this.name = "oracle.opensync";
@@ -87,7 +92,7 @@ module.exports = new function ()
 		valueOf(testRun, opensync.oseSession.TR_USER).shouldBeNumber();
 
 		finish(testRun);
-	}
+	};
 
 	this.testOSEExceptionConstants = function (testRun)
 	{
@@ -149,7 +154,7 @@ module.exports = new function ()
 		valueOf(testRun, opensync.oseSession.USER_TRANSPORT_ERROR).shouldBeNumber();
 
 		finish(testRun);
-	}
+	};
 
 	this.testOSEProgressListenerConstants = function (testRun)
 	{
