@@ -23,57 +23,58 @@ public class BerkeleyDBProxy extends BerkeleyDBNamespaceProxy
 	private static final String LCAT = "OracleOpensync";
 
 	private SQLite.Database _db;
+	private String _name = null;
 	private String _path;
+	private int _flags;
+	private Boolean _isOpen = false;
 
-	public BerkeleyDBProxy(String path, SQLite.Database db) {
+	public BerkeleyDBProxy() {
 		super();
-		
-		_path = path;
-		_db = db;
 	}
 
-	public static BerkeleyDBProxy openDatabase(Object file) throws Exception
+	public void openDatabase(Object file) throws Exception
 	{
-		BerkeleyDBProxy dbp = null;
-		String absolutePath;
-
 		if (file instanceof TiFileProxy) {
 			TiFileProxy tiFile = (TiFileProxy) file;
-			absolutePath = tiFile.getBaseFile().getNativeFile().getAbsolutePath();
+			_path = tiFile.getBaseFile().getNativeFile().getAbsolutePath();
+			_flags = SQLite.Constants.SQLITE_OPEN_READONLY;
 		} else {
-			absolutePath = TiConvert.toString(file);
-			if (!absolutePath.startsWith("//")) {
+			_name = TiConvert.toString(file);
+			if (!_name.startsWith("//")) {
 				try {
 					TiApplication appContext = TiApplication.getInstance();
 					PackageManager pm = appContext.getPackageManager();
 					PackageInfo pi = pm.getPackageInfo(appContext.getPackageName(), 0);
-					absolutePath = pi.applicationInfo.dataDir + "/databases/" + file;
+					_path = pi.applicationInfo.dataDir + "/databases/" + _name;
             	} catch (NameNotFoundException e) {
             		Log.e(LCAT, "Exception opening database: " + e.getMessage(), e);
             		throw e;
             	}
+			} else {
+				_path = _name;
 			}
+			_flags = SQLite.Constants.SQLITE_OPEN_READWRITE | SQLite.Constants.SQLITE_OPEN_CREATE;
 		}
-		
+
 		try {
-			SQLite.Database db = new SQLite.Database();
-			db.open(absolutePath, SQLite.Constants.SQLITE_OPEN_READWRITE | SQLite.Constants.SQLITE_OPEN_CREATE);
-			dbp = new BerkeleyDBProxy(absolutePath, db);
-			Log.d(LCAT, "Opened database: " + absolutePath);
+			_db = new SQLite.Database();
+			_db.open(_path, _flags);
+			_isOpen = true;
+			Log.d(LCAT, "Opened database: " + _path);
 		} catch (Exception e) {
 			Log.e(LCAT, "Exception opening database: " + e.getMessage(), e);
 			throw e;
 		}
-	
-		return dbp;
 	}
 
 	@Kroll.method
 	public void close() throws Exception
 	{
 		try {
-			Log.d(LCAT, "Closing database: " + _path);
-			_db.close();
+			if (_isOpen) {
+				_db.close();
+				_isOpen = false;
+			}
 		} catch (Exception e) {
 			Log.e(LCAT, "Exception closing database: " + e.getMessage(), e);
 			throw e;		
@@ -148,7 +149,7 @@ public class BerkeleyDBProxy extends BerkeleyDBNamespaceProxy
 	@Kroll.getProperty @Kroll.method
 	public String getName() 
 	{
-		return _path;
+		return _name != null ? _name : _path;
 	}
 
 	@Kroll.getProperty @Kroll.method
@@ -161,17 +162,32 @@ public class BerkeleyDBProxy extends BerkeleyDBNamespaceProxy
 		return _db.changes();
 	}
 
+	private void deleteRecursive(File fileOrDirectory) {
+    	if (fileOrDirectory.isDirectory())
+        	for (File child : fileOrDirectory.listFiles())
+            	deleteRecursive(child);
+
+    	fileOrDirectory.delete();
+	}
+
 	@Kroll.method
 	public void remove() throws Exception 
 	{
+		if ((_flags & SQLite.Constants.SQLITE_OPEN_READONLY) == SQLite.Constants.SQLITE_OPEN_READONLY) {
+			Log.w(LCAT, "Database is a read-only database, cannot remove");
+			return;
+		}
+
 		try {
-			Log.d(LCAT, "Closing database: " + _path);
-			_db.close();
+			if (_isOpen) {
+				Log.w(LCAT, "Attempt to remove open database. Closing then removing");
+				_db.close();
+			}
 			Log.d(LCAT, "Deleting database: " + _path);
 			File file = new File(_path);
 			file.delete();
 			file = new File(_path + "-journal");
-			file.delete();
+			deleteRecursive(file);
 		} catch (Exception e) {
 			Log.e(LCAT, "Exception removing database: " + e.getMessage(), e);
 			throw e;		

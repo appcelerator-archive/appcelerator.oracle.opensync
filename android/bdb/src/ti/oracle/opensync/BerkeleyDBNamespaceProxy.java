@@ -27,6 +27,14 @@ public class BerkeleyDBNamespaceProxy extends KrollProxy
 	@Kroll.method
 	public BerkeleyDBProxy open(Object file) throws Exception
 	{
-		return BerkeleyDBProxy.openDatabase(file);
+		BerkeleyDBProxy db;
+		try {
+			db = new BerkeleyDBProxy();
+			db.openDatabase(file);
+		} catch (Exception e) {
+			db = null;
+		}
+
+		return db;
 	}
 }

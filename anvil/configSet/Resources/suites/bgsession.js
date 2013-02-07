@@ -10,12 +10,17 @@ module.exports = new function ()
 	var finish;
 	var valueOf;
 	var opensync;
-	var OPENSYNC_SERVER = Ti.App.Properties.getString("oracle.opensync.server");
+	var _databaseType = Ti.App.Properties.getString("database.type");
 	this.init = function (testUtils)
 	{
 		finish = testUtils.finish;
 		valueOf = testUtils.valueOf;
-		opensync = require('oracle.opensync');
+
+		if (_databaseType == 'bdb') {
+			opensync = require('oracle.opensync.bdb');
+		} else {
+			opensync = require('oracle.opensync.sql');
+		}
 	};
 
 	this.name = "oracle.opensync";
@@ -52,7 +57,7 @@ module.exports = new function ()
 		valueOf(testRun, opensync.bgSession.DISABLE_PROP).shouldBeString();
 
 		finish(testRun);
-	}
+	};
 
 	this.testBGExceptionConstants = function (testRun)
 	{
@@ -90,7 +95,7 @@ module.exports = new function ()
 		valueOf(testRun, opensync.bgSession.WAIT_TIMEOUT).shouldBeNumber();
 
 		finish(testRun);
-	}
+	};
 
 	this.testBGMessageConstants = function (testRun)
 	{
@@ -127,7 +132,7 @@ module.exports = new function ()
 		valueOf(testRun, opensync.bgSession.UNKNOWN).shouldBeNumber();
 		
 		finish(testRun);
-	}
+	};
 
 	this.testBGAgentStatusConstants = function (testRun)
 	{
@@ -199,7 +204,7 @@ module.exports = new function ()
 		session.close();
 
 		finish(testRun);
-	}
+	};
 	// Populate the array of tests based on the 'hammer' convention
 	this.tests = require('hammer').populateTests(this);
 };
