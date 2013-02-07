@@ -13,6 +13,7 @@ import oracle.opensync.util.android.AndroidPlatformFactory;
 
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
+import org.appcelerator.titanium.TiApplication;
 
 import ti.oracle.opensync.namespaces.BGAgentStatusNamespaceProxy;
 import ti.oracle.opensync.namespaces.BGSessionNamespaceProxy;
@@ -43,17 +44,7 @@ public class OracleOpensyncModule extends KrollModule
 	@Kroll.getProperty @Kroll.method
 	public String getSyncFilesRootDir()
 	{
-		try {
-			return "file://" + getActivity().getDir("oracle.sync", 1 /*MODE_WORLD_READABLE*/).getCanonicalPath();
-		} catch (IOException ex) {
-			return "";
-		}
-	}
-	
-	@Kroll.getProperty @Kroll.method
-	public String getDatabaseSyncFilesRootDir()
-	{
-		return getSyncFilesRootDir() + "app_oracle.sync/bdb/data";
+		return TiApplication.getInstance().getDir("oracle.sync", 0).toString();
 	}
 
 	// These proxies here makes the namespace proxies part of the JS namespace
