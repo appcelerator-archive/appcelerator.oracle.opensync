@@ -141,7 +141,7 @@ module.exports = new function ()
 			db.remove();
 		}
 
-		file = Ti.Filesystem.getFile(_DbDir + 'test.db');
+		var file = Ti.Filesystem.getFile(_DbDir + 'test.db');
 		valueOf(testRun, file.exists()).shouldBeFalse();
 
 		finish(testRun);
@@ -175,7 +175,7 @@ module.exports = new function ()
 			db.remove();
 		}
 
-		file = Ti.Filesystem.getFile(_DbDir + 'test.db');
+		var file = Ti.Filesystem.getFile(_DbDir + 'test.db');
 		valueOf(testRun, file.exists()).shouldBeFalse();
 
 		finish(testRun);

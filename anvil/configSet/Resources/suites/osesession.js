@@ -92,7 +92,7 @@ module.exports = new function ()
 		valueOf(testRun, opensync.oseSession.TR_USER).shouldBeNumber();
 
 		finish(testRun);
-	}
+	};
 
 	this.testOSEExceptionConstants = function (testRun)
 	{
@@ -154,7 +154,7 @@ module.exports = new function ()
 		valueOf(testRun, opensync.oseSession.USER_TRANSPORT_ERROR).shouldBeNumber();
 
 		finish(testRun);
-	}
+	};
 
 	this.testOSEProgressListenerConstants = function (testRun)
 	{

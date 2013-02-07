@@ -57,7 +57,7 @@ module.exports = new function ()
 		valueOf(testRun, opensync.bgSession.DISABLE_PROP).shouldBeString();
 
 		finish(testRun);
-	}
+	};
 
 	this.testBGExceptionConstants = function (testRun)
 	{
@@ -95,7 +95,7 @@ module.exports = new function ()
 		valueOf(testRun, opensync.bgSession.WAIT_TIMEOUT).shouldBeNumber();
 
 		finish(testRun);
-	}
+	};
 
 	this.testBGMessageConstants = function (testRun)
 	{
@@ -132,7 +132,7 @@ module.exports = new function ()
 		valueOf(testRun, opensync.bgSession.UNKNOWN).shouldBeNumber();
 		
 		finish(testRun);
-	}
+	};
 
 	this.testBGAgentStatusConstants = function (testRun)
 	{
@@ -204,7 +204,7 @@ module.exports = new function ()
 		session.close();
 
 		finish(testRun);
-	}
+	};
 	// Populate the array of tests based on the 'hammer' convention
 	this.tests = require('hammer').populateTests(this);
 };
