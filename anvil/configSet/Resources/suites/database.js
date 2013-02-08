@@ -20,10 +20,10 @@ module.exports = new function ()
 		valueOf = testUtils.valueOf;
 
 		if (_databaseType == 'bdb') {
-			opensync = require('oracle.opensync.bdb');
+			opensync = require('ti.oracle.opensync.bdb');
 			_Database = opensync.Database;
 		} else {
-			opensync = require('oracle.opensync.sql');
+			opensync = require('ti.oracle.opensync.sql');
 			_Database = Ti.Database;
 		}
 		
@@ -33,7 +33,7 @@ module.exports = new function ()
 		_DbDir = appDir.nativePath + '/databases/';
 	};
 
-	this.name = "oracle.opensync";
+	this.name = "ti.oracle.opensync";
 
 	// Test that module is loaded
 	this.testModule = function (testRun)

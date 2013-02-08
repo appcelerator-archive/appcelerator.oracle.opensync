@@ -3,10 +3,10 @@
  */
 
 // Require the version of the module that matches the database format that is being used.
-//   oracle.opensync.bdb -> Berkeley Database
-//   oracle.opensync.sql -> Native SQLite Database
-//var opensync = require('oracle.opensync.bdb');
-var opensync = require('oracle.opensync.sql');
+//   ti.oracle.opensync.bdb -> Berkeley Database
+//   ti.oracle.opensync.sql -> Native SQLite Database
+//var opensync = require('ti.oracle.opensync.bdb');
+var opensync = require('ti.oracle.opensync.sql');
 
 var platform = require('utility/platform');
 var u = platform.u;
