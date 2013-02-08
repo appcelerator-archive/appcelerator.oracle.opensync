@@ -22,10 +22,9 @@ import oracle.opensync.ose.OSEProgressListener;
 import oracle.opensync.ose.OSESession;
 import oracle.opensync.util.PlatformFactory;
 import oracle.opensync.util.android.AndroidPlatformFactory;
-import ti.oracle.opensync.OracleOpensyncModule;
 import ti.oracle.opensync.namespaces.OSESessionNamespaceProxy;
 
-@Kroll.proxy(creatableInModule=OracleOpensyncModule.class)
+@Kroll.proxy
 public class OSESessionProxy extends OSESessionNamespaceProxy implements OSEProgressListener
 {
 	// Standard Debugging variables
@@ -61,7 +60,7 @@ public class OSESessionProxy extends OSESessionNamespaceProxy implements OSEProg
 	{
 		// We need to create a new session object if the user is specified AND it is different
 		// than the restored user (see constructor above).
-		if (args.containsKey("user")) {
+		if ((args != null) && args.containsKey("user")) {
             String user = args.getString("user");
             try {
 	            // If previous session was initialized for a different user, close the session

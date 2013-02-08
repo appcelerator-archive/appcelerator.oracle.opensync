@@ -79,92 +79,92 @@ module.exports = new function ()
 	this.testOSESessionConstants = function (testRun)
 	{
 		// Verify that all of the constants are exposed
-		valueOf(testRun, opensync.oseSession.DIR_RECEIVE).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.DIR_SEND).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.DIR_SENDRECEIVE).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.ENC_AES).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.ENC_NONE).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.ENC_SSL).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.PRIO_DEFAULT).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.PRIO_HIGH).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.PRIO_LOWEST).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.TR_HTTP).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.TR_USER).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.DIR_RECEIVE).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.DIR_SEND).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.DIR_SENDRECEIVE).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.ENC_AES).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.ENC_NONE).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.ENC_SSL).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.PRIO_DEFAULT).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.PRIO_HIGH).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.PRIO_LOWEST).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.TR_HTTP).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.TR_USER).shouldBeNumber();
 
 		finish(testRun);
 	};
 
 	this.testOSEExceptionConstants = function (testRun)
 	{
-		valueOf(testRun, opensync.oseSession.CONFIG_LOAD_ERROR).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.CONFIG_SAVE_ERROR).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.CONNECTION_TO_SRV_FAILED).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.DATABASE_NOT_FOUND).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.EMPTY_PASSWORD).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.EMPTY_USER).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.ENCRYPTION_ID_MISMATCH).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.ERR_CREDENTIALS).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.ERROR_RESUME_RECEIVE).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.ERROR_RESUME_SEND).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.HTTP_RESPONSE).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.HTTP_TRANSPORT_ERROR).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.INTERNAL_ERROR).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.INVALID_BUFFER).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.INVALID_DML_TYPE).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.INVALID_ENCR_VER).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.INVALID_ENCRYPTION_TYPE).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.INVALID_HANDLE).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.INVALID_HTTP_URL).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.INVALID_INT_OPT).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.INVALID_OPCODE).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.INVALID_PLUGIN_FLAGS).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.INVALID_PRIORITY).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.INVALID_SESS).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.INVALID_STR_OPT).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.INVALID_STRING_LENGTH).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.INVALID_SYNC_DIRECTION).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.INVALID_TRANSPORT_TYPE).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.MISSING_DEFAULT_DATABASE).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.MISSING_PLUGIN_API).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.NOT_SUPPORTED).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.OPCODE_LENGTH_OVERRUN).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.OPCODE_LENGTH_UNDERRUN).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.OPCODE_OUT_OF_SEQUENCE).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.PASSWORD_NOT_SPECIFIED).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.PLUGIN_CLASS_INIT_FAILED).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.PLUGIN_CLASS_NOT_FOUND).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.PLUGIN_EXCEPTION).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.PLUGIN_ID_NOT_FOUND).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.PUBLICATION_ID_MISMATCH).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.PUBLICATION_ID_NOT_FOUND).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.PUBLICATION_NOT_FOUND).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.SERVER_ERROR).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.SNAP_NAME_NOT_FOUND).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.SNAPSHOT_ID_EXISTS).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.SNAPSHOT_ID_NOT_FOUND).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.SYNC_CANCELED).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.TRANS_NOT_FOUND).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.UNCOMPRESSED_DATA).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.UNEXP_TERM_OPCODE).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.UNEXPECTED_BLOB_DATA).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.UNEXPECTED_OPCODE).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.UNINIT_USER_TRANSPORT).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.UNRECOGNIZED_DATA).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.USER_NOT_SPECIFIED).shouldBeNumber();
-		valueOf(testRun, opensync.oseSession.USER_TRANSPORT_ERROR).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.CONFIG_LOAD_ERROR).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.CONFIG_SAVE_ERROR).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.CONNECTION_TO_SRV_FAILED).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.DATABASE_NOT_FOUND).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.EMPTY_PASSWORD).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.EMPTY_USER).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.ENCRYPTION_ID_MISMATCH).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.ERR_CREDENTIALS).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.ERROR_RESUME_RECEIVE).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.ERROR_RESUME_SEND).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.HTTP_RESPONSE).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.HTTP_TRANSPORT_ERROR).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.INTERNAL_ERROR).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.INVALID_BUFFER).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.INVALID_DML_TYPE).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.INVALID_ENCR_VER).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.INVALID_ENCRYPTION_TYPE).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.INVALID_HANDLE).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.INVALID_HTTP_URL).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.INVALID_INT_OPT).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.INVALID_OPCODE).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.INVALID_PLUGIN_FLAGS).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.INVALID_PRIORITY).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.INVALID_SESS).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.INVALID_STR_OPT).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.INVALID_STRING_LENGTH).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.INVALID_SYNC_DIRECTION).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.INVALID_TRANSPORT_TYPE).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.MISSING_DEFAULT_DATABASE).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.MISSING_PLUGIN_API).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.NOT_SUPPORTED).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.OPCODE_LENGTH_OVERRUN).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.OPCODE_LENGTH_UNDERRUN).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.OPCODE_OUT_OF_SEQUENCE).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.PASSWORD_NOT_SPECIFIED).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.PLUGIN_CLASS_INIT_FAILED).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.PLUGIN_CLASS_NOT_FOUND).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.PLUGIN_EXCEPTION).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.PLUGIN_ID_NOT_FOUND).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.PUBLICATION_ID_MISMATCH).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.PUBLICATION_ID_NOT_FOUND).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.PUBLICATION_NOT_FOUND).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.SERVER_ERROR).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.SNAP_NAME_NOT_FOUND).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.SNAPSHOT_ID_EXISTS).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.SNAPSHOT_ID_NOT_FOUND).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.SYNC_CANCELED).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.TRANS_NOT_FOUND).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.UNCOMPRESSED_DATA).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.UNEXP_TERM_OPCODE).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.UNEXPECTED_BLOB_DATA).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.UNEXPECTED_OPCODE).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.UNINIT_USER_TRANSPORT).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.UNRECOGNIZED_DATA).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.USER_NOT_SPECIFIED).shouldBeNumber();
+		valueOf(testRun, opensync.OSESession.USER_TRANSPORT_ERROR).shouldBeNumber();
 
 		finish(testRun);
 	};
 
 	this.testOSEProgressListenerConstants = function (testRun)
 	{
-		valueOf(testRun, opensync.oseProgressListener.APPLY).shouldBeNumber();
-		valueOf(testRun, opensync.oseProgressListener.COMPOSE).shouldBeNumber();
-		valueOf(testRun, opensync.oseProgressListener.IDLE).shouldBeNumber();
-		valueOf(testRun, opensync.oseProgressListener.PREPARE).shouldBeNumber();
-		valueOf(testRun, opensync.oseProgressListener.PROCESS).shouldBeNumber();
-		valueOf(testRun, opensync.oseProgressListener.RECEIVE).shouldBeNumber();
-		valueOf(testRun, opensync.oseProgressListener.SEND).shouldBeNumber();
+		valueOf(testRun, opensync.OSEProgressListener.APPLY).shouldBeNumber();
+		valueOf(testRun, opensync.OSEProgressListener.COMPOSE).shouldBeNumber();
+		valueOf(testRun, opensync.OSEProgressListener.IDLE).shouldBeNumber();
+		valueOf(testRun, opensync.OSEProgressListener.PREPARE).shouldBeNumber();
+		valueOf(testRun, opensync.OSEProgressListener.PROCESS).shouldBeNumber();
+		valueOf(testRun, opensync.OSEProgressListener.RECEIVE).shouldBeNumber();
+		valueOf(testRun, opensync.OSEProgressListener.SEND).shouldBeNumber();
 
 		finish(testRun);
 	};
@@ -217,12 +217,12 @@ module.exports = new function ()
 		session.setEncryptDatabases(false);
 		valueOf(testRun, session.getEncryptDatabases()).shouldBeFalse();
 
-		session.setEncryptionType(opensync.oseSession.ENC_AES);
-		valueOf(testRun, session.getEncryptionType()).shouldBe(opensync.oseSession.ENC_AES);
-		session.setEncryptionType(opensync.oseSession.ENC_SSL);
-		valueOf(testRun, session.getEncryptionType()).shouldBe(opensync.oseSession.ENC_SSL);
-		session.setEncryptionType(opensync.oseSession.ENC_NONE);
-		valueOf(testRun, session.getEncryptionType()).shouldBe(opensync.oseSession.ENC_NONE);
+		session.setEncryptionType(opensync.OSESession.ENC_AES);
+		valueOf(testRun, session.getEncryptionType()).shouldBe(opensync.OSESession.ENC_AES);
+		session.setEncryptionType(opensync.OSESession.ENC_SSL);
+		valueOf(testRun, session.getEncryptionType()).shouldBe(opensync.OSESession.ENC_SSL);
+		session.setEncryptionType(opensync.OSESession.ENC_NONE);
+		valueOf(testRun, session.getEncryptionType()).shouldBe(opensync.OSESession.ENC_NONE);
 
 		session.setForceRefresh(true);
 		valueOf(testRun, session.getForceRefresh()).shouldBeTrue();
@@ -242,11 +242,11 @@ module.exports = new function ()
 		session.setSyncApps(false);
 		valueOf(testRun, session.getSyncApps()).shouldBeFalse();
 
-		session.setSyncDirection(opensync.oseSession.DIR_SEND);
-		valueOf(testRun, session.getSyncDirection()).shouldBe(opensync.oseSession.DIR_SEND);
-		session.setSyncDirection(opensync.oseSession.DIR_RECEIVE);
+		session.setSyncDirection(opensync.OSESession.DIR_SEND);
+		valueOf(testRun, session.getSyncDirection()).shouldBe(opensync.OSESession.DIR_SEND);
+		session.setSyncDirection(opensync.OSESession.DIR_RECEIVE);
 		valueOf(testRun, session.getSyncDirection()).shouldBe(session.DIR_RECEIVE);
-		session.setSyncDirection(opensync.oseSession.DIR_SENDRECEIVE);
+		session.setSyncDirection(opensync.OSESession.DIR_SENDRECEIVE);
 		valueOf(testRun, session.getSyncDirection()).shouldBe(session.DIR_SENDRECEIVE);
 
 		session.setSyncNewPub(true);
@@ -254,16 +254,16 @@ module.exports = new function ()
 		session.setSyncNewPub(false);
 		valueOf(testRun, session.getSyncNewPub()).shouldBeFalse();
 
-		session.setSyncPriority(opensync.oseSession.PRIO_DEFAULT);
+		session.setSyncPriority(opensync.OSESession.PRIO_DEFAULT);
 		valueOf(testRun, session.getSyncPriority()).shouldBe(session.PRIO_DEFAULT);
-		session.setSyncPriority(opensync.oseSession.PRIO_HIGH);
+		session.setSyncPriority(opensync.OSESession.PRIO_HIGH);
 		valueOf(testRun, session.getSyncPriority()).shouldBe(session.PRIO_HIGH);
-		session.setSyncPriority(opensync.oseSession.PRIO_LOWEST);
+		session.setSyncPriority(opensync.OSESession.PRIO_LOWEST);
 		valueOf(testRun, session.getSyncPriority()).shouldBe(session.PRIO_LOWEST);
 
-		session.setTransportType(opensync.oseSession.TR_HTTP);
+		session.setTransportType(opensync.OSESession.TR_HTTP);
 		valueOf(testRun, session.getTransportType()).shouldBe(session.TR_HTTP);
-		session.setTransportType(opensync.oseSession.TR_USER);
+		session.setTransportType(opensync.OSESession.TR_USER);
 		valueOf(testRun, session.getTransportType()).shouldBe(session.TR_USER);
 
 		session.setURL("http://1.1.1.1:5901");

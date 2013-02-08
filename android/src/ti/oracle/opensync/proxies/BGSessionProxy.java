@@ -26,7 +26,7 @@ import oracle.opensync.util.android.AndroidPlatformFactory;
 import ti.oracle.opensync.OracleOpensyncModule;
 import ti.oracle.opensync.namespaces.BGSessionNamespaceProxy;
 
-@Kroll.proxy(creatableInModule=OracleOpensyncModule.class)
+@Kroll.proxy
 public class BGSessionProxy extends BGSessionNamespaceProxy implements BGMessageHandler
 {
 	// Standard Debugging variables

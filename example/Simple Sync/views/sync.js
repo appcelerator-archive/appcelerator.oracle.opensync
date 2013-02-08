@@ -277,7 +277,7 @@ function initSess(doSave) {
 		// Enable SSL if the URL is an `https` address
 		var url = mUrlText.value;
 		if (url.indexOf('https') === 0) {
-			mSess.setEncryptionType(opensync.oseSession.ENC_SSL);
+			mSess.setEncryptionType(opensync.OSESession.ENC_SSL);
 		}
 		mSess.setURL(url);
 
@@ -382,7 +382,7 @@ function doSyncAgent() {
 			}
 		}
 
-		if ((mSess == null) || (mBgSess.getAgentStatusCode() != opensync.bgAgentStatus.STOPPED)) {
+		if ((mSess == null) || (mBgSess.getAgentStatusCode() != opensync.BGAgentStatus.STOPPED)) {
 			mBgSess.showUI();
 		} else {
 			mStatusStr = mStatusText.value;
@@ -390,7 +390,7 @@ function doSyncAgent() {
 			mBgSess.start();
 			// Wait until the sync agent is running, then display the UI
 			mBgSess.waitForStatus({
-				status: opensync.bgAgentStatus.RUNNING,
+				status: opensync.BGAgentStatus.RUNNING,
 				timeout: 5000,
 				success: function() {
 					mBgSess.messageHandler = function(e) {

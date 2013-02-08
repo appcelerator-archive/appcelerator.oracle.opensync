@@ -37,10 +37,10 @@ module.exports = new function ()
 	this.testNamespaces = function (testRun)
 	{
 		// Verify the 'namespaces'
-		valueOf(testRun, opensync.oseSession).shouldBeObject();
-		valueOf(testRun, opensync.bgAgentStatus).shouldBeObject();
-		valueOf(testRun, opensync.oseProgressListener).shouldBeObject();
-		valueOf(testRun, opensync.bgSession).shouldBeObject();
+		valueOf(testRun, opensync.OSESession).shouldBeObject();
+		valueOf(testRun, opensync.BGAgentStatus).shouldBeObject();
+		valueOf(testRun, opensync.OSEProgressListener).shouldBeObject();
+		valueOf(testRun, opensync.BGSession).shouldBeObject();
 
 		finish(testRun);
 	};

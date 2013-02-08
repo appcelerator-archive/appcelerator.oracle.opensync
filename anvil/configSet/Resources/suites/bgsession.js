@@ -54,96 +54,96 @@ module.exports = new function ()
 	this.testSessionConstants = function (testRun)
 	{
 		// Verify that all of the constants are exposed
-		valueOf(testRun, opensync.bgSession.DISABLE_PROP).shouldBeString();
+		valueOf(testRun, opensync.BGSession.DISABLE_PROP).shouldBeString();
 
 		finish(testRun);
 	};
 
 	this.testBGExceptionConstants = function (testRun)
 	{
-		valueOf(testRun, opensync.bgSession.ACTIVE_CONNECTIONS_PRESENT).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.AGENT_DEFUNCT).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.AGENT_DISABLED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.AGENT_NOT_RUNNING).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.ANOTHER_INSTANCE).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.CONTROL_CONNECTION_CLOSED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INVALID_COMMAND).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INVALID_COND_SUBTYPE).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INVALID_COND_TYPE).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INVALID_DATE_FORMAT).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INVALID_EVENT_SUBTYPE).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INVALID_EVENT_TYPE).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INVALID_NUMERIC_PARAMETER).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INVALID_PARAMETER).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INVALID_RULE_CLASS).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INVALID_RULE_SUBTYPE).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INVALID_RULE_SUBTYPE_TYPE).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INVALID_RULE_TYPE).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INVALID_SESSION).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INVALID_STRING_PARAMETER).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INVALID_WAIT_STATUS).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.NO_BG_PUBS).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.OPERATION_NOT_ALLOWED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.PAUSE_FAILED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.READER_CANCELED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.RESUME_FAILED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.SQL_RULE_MISSING_QUERY).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.START_FAILED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.STOP_FAILED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.TOO_MANY_READERS).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.UNSUPPORTED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.WAIT_TIMEOUT).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.ACTIVE_CONNECTIONS_PRESENT).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.AGENT_DEFUNCT).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.AGENT_DISABLED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.AGENT_NOT_RUNNING).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.ANOTHER_INSTANCE).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.CONTROL_CONNECTION_CLOSED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INVALID_COMMAND).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INVALID_COND_SUBTYPE).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INVALID_COND_TYPE).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INVALID_DATE_FORMAT).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INVALID_EVENT_SUBTYPE).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INVALID_EVENT_TYPE).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INVALID_NUMERIC_PARAMETER).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INVALID_PARAMETER).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INVALID_RULE_CLASS).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INVALID_RULE_SUBTYPE).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INVALID_RULE_SUBTYPE_TYPE).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INVALID_RULE_TYPE).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INVALID_SESSION).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INVALID_STRING_PARAMETER).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INVALID_WAIT_STATUS).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.NO_BG_PUBS).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.OPERATION_NOT_ALLOWED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.PAUSE_FAILED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.READER_CANCELED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.RESUME_FAILED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.SQL_RULE_MISSING_QUERY).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.START_FAILED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.STOP_FAILED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.TOO_MANY_READERS).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.UNSUPPORTED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.WAIT_TIMEOUT).shouldBeNumber();
 
 		finish(testRun);
 	};
 
 	this.testBGMessageConstants = function (testRun)
 	{
-		valueOf(testRun, opensync.bgSession.AGENT_PAUSED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.AGENT_RESUMED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.AGENT_STARTED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.AGENT_STOPPED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.APPLY_FAILED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.APPLY_FINISHED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.APPLY_STARTED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.BATTERY_LOW).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.COMPOSE_FAILED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.COMPOSE_FINISHED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.COMPOSE_STARTED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.DUPLICATE_PLATFORM_DB).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INTERNAL_ERROR).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.INVALID_SERVER_NOTIFICATION).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.MEMORY_LOW).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.NET_AUTODIAL_FAILED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.NET_MANAGER_ERROR).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.NETWORK_CHANGED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.NETWORK_EVAL).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.NO_NETWORK).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.PLAT_FULE_IN_NON_PLAT_DB).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.POWER_MANAGER_ERROR).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.RULE_EVAL_DB_LOCKED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.RULE_EVAL_FAILED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.SERVER_NOTIFICATION).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.SERVER_NOTIFICATION_FAILED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.SYNC_FAILED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.SYNC_FINISHED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.SYNC_STARTED).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.TRACE).shouldBeNumber();
-		valueOf(testRun, opensync.bgSession.UNKNOWN).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.AGENT_PAUSED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.AGENT_RESUMED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.AGENT_STARTED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.AGENT_STOPPED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.APPLY_FAILED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.APPLY_FINISHED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.APPLY_STARTED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.BATTERY_LOW).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.COMPOSE_FAILED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.COMPOSE_FINISHED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.COMPOSE_STARTED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.DUPLICATE_PLATFORM_DB).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INTERNAL_ERROR).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.INVALID_SERVER_NOTIFICATION).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.MEMORY_LOW).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.NET_AUTODIAL_FAILED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.NET_MANAGER_ERROR).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.NETWORK_CHANGED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.NETWORK_EVAL).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.NO_NETWORK).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.PLAT_FULE_IN_NON_PLAT_DB).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.POWER_MANAGER_ERROR).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.RULE_EVAL_DB_LOCKED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.RULE_EVAL_FAILED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.SERVER_NOTIFICATION).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.SERVER_NOTIFICATION_FAILED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.SYNC_FAILED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.SYNC_FINISHED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.SYNC_STARTED).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.TRACE).shouldBeNumber();
+		valueOf(testRun, opensync.BGSession.UNKNOWN).shouldBeNumber();
 		
 		finish(testRun);
 	};
 
 	this.testBGAgentStatusConstants = function (testRun)
 	{
-		valueOf(testRun, opensync.bgAgentStatus.STOPPED).shouldBeNumber();
-		valueOf(testRun, opensync.bgAgentStatus.START_PENDING).shouldBeNumber();
-		valueOf(testRun, opensync.bgAgentStatus.RUNNING).shouldBeNumber();
-		valueOf(testRun, opensync.bgAgentStatus.PAUSE_PENDING).shouldBeNumber();
-		valueOf(testRun, opensync.bgAgentStatus.PAUSED).shouldBeNumber();
-		valueOf(testRun, opensync.bgAgentStatus.RESUME_PENDING).shouldBeNumber();
-		valueOf(testRun, opensync.bgAgentStatus.STOP_PENDING).shouldBeNumber();
-		valueOf(testRun, opensync.bgAgentStatus.DEFUNCT).shouldBeNumber();
+		valueOf(testRun, opensync.BGAgentStatus.STOPPED).shouldBeNumber();
+		valueOf(testRun, opensync.BGAgentStatus.START_PENDING).shouldBeNumber();
+		valueOf(testRun, opensync.BGAgentStatus.RUNNING).shouldBeNumber();
+		valueOf(testRun, opensync.BGAgentStatus.PAUSE_PENDING).shouldBeNumber();
+		valueOf(testRun, opensync.BGAgentStatus.PAUSED).shouldBeNumber();
+		valueOf(testRun, opensync.BGAgentStatus.RESUME_PENDING).shouldBeNumber();
+		valueOf(testRun, opensync.BGAgentStatus.STOP_PENDING).shouldBeNumber();
+		valueOf(testRun, opensync.BGAgentStatus.DEFUNCT).shouldBeNumber();
 
 		finish(testRun);
 	};
@@ -165,7 +165,7 @@ module.exports = new function ()
 		var agentStatus = session.getAgentStatus();
 		valueOf(testRun, agentStatus).shouldBeObject();
 
-		valueOf(testRun, opensync.bgAgentStatus.statusName).shouldBeFunction();
+		valueOf(testRun, opensync.BGAgentStatus.statusName).shouldBeFunction();
 
 		valueOf(testRun, agentStatus.appName).shouldBeString();
 		valueOf(testRun, agentStatus.batteryPower).shouldBeNumber();
