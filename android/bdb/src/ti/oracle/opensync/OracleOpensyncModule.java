@@ -25,7 +25,7 @@ import android.app.Activity;
 
 import java.io.IOException;
 
-@Kroll.module(name="OracleOpensync", id="oracle.opensync.bdb")
+@Kroll.module(name="OracleOpensync", id="ti.oracle.opensync.bdb")
 public class OracleOpensyncModule extends KrollModule
 {
 	public OracleOpensyncModule()
