@@ -31,7 +31,7 @@
 	<android xmlns:android="http://schemas.android.com/apk/res/android">
 	</android>
     <modules>
-        <module platform="android" version="1.0.0">oracle.opensync.bdb</module>
+        <module platform="android" version="1.0.0">ti.oracle.opensync.bdb</module>
     </modules>
     <property name="database.type">bdb</property>
 </ti:app>

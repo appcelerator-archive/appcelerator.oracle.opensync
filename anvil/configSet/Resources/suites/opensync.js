@@ -17,13 +17,13 @@ module.exports = new function ()
 		valueOf = testUtils.valueOf;
 
 		if (_databaseType == 'bdb') {
-			opensync = require('oracle.opensync.bdb');
+			opensync = require('ti.oracle.opensync.bdb');
 		} else {
-			opensync = require('oracle.opensync.sql');
+			opensync = require('ti.oracle.opensync.sql');
 		}
 	};
 
-	this.name = "oracle.opensync";
+	this.name = "ti.oracle.opensync";
 
 	// Test that module is loaded
 	this.testModule = function (testRun)

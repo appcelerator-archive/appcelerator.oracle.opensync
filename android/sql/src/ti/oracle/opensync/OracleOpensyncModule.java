@@ -23,7 +23,7 @@ import ti.oracle.opensync.namespaces.OSESessionNamespaceProxy;
 import android.app.Activity;
 import java.io.IOException;
 
-@Kroll.module(name="OracleOpensync", id="oracle.opensync.sql")
+@Kroll.module(name="OracleOpensync", id="ti.oracle.opensync.sql")
 public class OracleOpensyncModule extends KrollModule
 {
 	public OracleOpensyncModule()

@@ -1,4 +1,4 @@
-# Oracle.OpenSync Module
+# Ti.Oracle.OpenSync Module
 
 ## Desription
 
@@ -18,7 +18,7 @@ started with using this module in your application.
 
 Use `require` to access this module from JavaScript:
 
-	var Opensync = require("oracle.opensync");
+	var Opensync = require("ti.oracle.opensync.sql");
 
 The Opensync variable is a reference to the Module object.
 
@@ -38,7 +38,7 @@ View the [change log](changelog.html) for this module.
 
 ## Feedback and Support
 
-Please direct all questions, feedback, and concerns to [info@appcelerator.com](mailto:info@appcelerator.com?subject=Oracle.OpenSync%20Module).
+Please direct all questions, feedback, and concerns to [info@appcelerator.com](mailto:info@appcelerator.com?subject=Ti.Oracle.OpenSync%20Module).
 
 ## License
 
