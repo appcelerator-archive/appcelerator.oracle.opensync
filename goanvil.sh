@@ -1,0 +1,2 @@
+node ~/Titanium/titanium_mobile/anvil/driver/driver.js --mode=local --platform=android --log-level=verbose --command="start --config-set=opensync --config=opensync.bdb"
+node ~/Titanium/titanium_mobile/anvil/driver/driver.js --mode=local --platform=android --log-level=verbose --command="start --config-set=opensync --config=opensync.sql"

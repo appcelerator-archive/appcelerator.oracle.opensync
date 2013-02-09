@@ -15,13 +15,10 @@ import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.titanium.TiApplication;
 
-import ti.oracle.opensync.namespaces.BGAgentStatusNamespaceProxy;
-import ti.oracle.opensync.namespaces.BGSessionNamespaceProxy;
-import ti.oracle.opensync.namespaces.OSEProgressListenerNamespaceProxy;
-import ti.oracle.opensync.namespaces.OSESessionNamespaceProxy;
+import ti.oracle.opensync.ose.oseNamespaceProxy;
+import ti.oracle.opensync.syncagent.syncagentNamespaceProxy;
 
 import android.app.Activity;
-import java.io.IOException;
 
 @Kroll.module(name="OracleOpensync", id="ti.oracle.opensync.sql")
 public class OracleOpensyncModule extends KrollModule
@@ -42,40 +39,27 @@ public class OracleOpensyncModule extends KrollModule
 	@Kroll.getProperty @Kroll.method
 	public String getSyncFilesRootDir()
 	{
-		return TiApplication.getInstance().getDir("oracle.sync", 0).toString();
+		return "file://" + TiApplication.getInstance().getDir("oracle.sync", 0).toString();
 	}
 
-	// These proxies here makes the namespace proxies part of the JS namespace
-	// just like the Oracle documents. I've tried any number of other
-	// techniques including Kroll annotations to allow these constants
-	// to be surfaced without instantiating an actual proxy object, but to no avail.
+	// These methods and proxies are here to make the namespaces match
+	// the Oracle SDK namespaces. Normally this would be done using the 'parentModule'
+	// annotation but there is a bug in the build scripts that do not honor the top level
+	// module name and so it is unable to build. This is to workaround that limitation
+	// until it can be fixed.
 
-	private BGAgentStatusNamespaceProxy _bgAgentStatus = new BGAgentStatusNamespaceProxy();
-	@Kroll.getProperty(name="bgAgentStatus")
-	public BGAgentStatusNamespaceProxy getBGAgentStatus()
+	private syncagentNamespaceProxy _syncagent = new syncagentNamespaceProxy();
+	@Kroll.getProperty(name="syncagent")
+	public syncagentNamespaceProxy getsyncAgent()
 	{
-		return _bgAgentStatus;
+		return _syncagent;
 	}
-
-	private OSEProgressListenerNamespaceProxy _oseProgressListener = new OSEProgressListenerNamespaceProxy();
-	@Kroll.getProperty(name="oseProgressListener")
-	public OSEProgressListenerNamespaceProxy getOSEProgressListener()
+	
+	private oseNamespaceProxy _ose = new oseNamespaceProxy();
+	@Kroll.getProperty(name="ose")
+	public oseNamespaceProxy getose()
 	{
-		return _oseProgressListener;
-	}
-
-	private BGSessionNamespaceProxy _bgSession = new BGSessionNamespaceProxy();
-	@Kroll.getProperty(name="bgSession")
-	public BGSessionNamespaceProxy getBGSession()
-	{
-		return _bgSession;
-	}
-
-	private OSESessionNamespaceProxy _oseSession = new OSESessionNamespaceProxy();
-	@Kroll.getProperty(name="oseSession")
-	public OSESessionNamespaceProxy getOSESession()
-	{
-		return _oseSession;
+		return _ose;
 	}
 }
 

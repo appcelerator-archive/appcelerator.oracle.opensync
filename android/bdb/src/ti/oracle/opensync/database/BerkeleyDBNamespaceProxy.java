@@ -6,12 +6,12 @@
  *
  */
 
-package ti.oracle.opensync;
+package ti.oracle.opensync.database;
 
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
 
-import ti.oracle.opensync.BerkeleyDBProxy;
+import ti.oracle.opensync.database.BerkeleyDBProxy;
 
 @Kroll.proxy
 public class BerkeleyDBNamespaceProxy extends KrollProxy
