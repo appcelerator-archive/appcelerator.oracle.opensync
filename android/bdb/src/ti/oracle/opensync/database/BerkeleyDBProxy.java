@@ -1,4 +1,4 @@
-package ti.oracle.opensync;
+package ti.oracle.opensync.database;
 
 import java.io.File;
 
@@ -9,7 +9,7 @@ import org.appcelerator.titanium.TiFileProxy;
 import org.appcelerator.titanium.util.TiConvert;
 import org.appcelerator.titanium.TiApplication;
 
-import ti.oracle.opensync.BerkeleyDBNamespaceProxy;
+import ti.oracle.opensync.database.BerkeleyDBNamespaceProxy;
 import android.content.pm.PackageManager.NameNotFoundException;
 
 import android.util.Log;

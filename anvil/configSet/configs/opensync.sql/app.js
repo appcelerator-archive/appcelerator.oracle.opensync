@@ -7,8 +7,8 @@
 
 var testSuites = [
     { name: "opensync", platforms: { android:1, iphone:0, ipad:0, mobileweb:0 } },
-	{ name: "osesession", platforms: { android:1, iphone:0, ipad:0, mobileweb:0 } },
-	{ name: "bgsession", platforms: { android:1, iphone:0, ipad:0, mobileweb:0 } },
+	{ name: "ose", platforms: { android:1, iphone:0, ipad:0, mobileweb:0 } },
+	{ name: "syncagent", platforms: { android:1, iphone:0, ipad:0, mobileweb:0 } },
 	{ name: "database", platforms: { android:1, iphone:0, ipad:0, mobileweb:0 }}
 ];
 var suites = require('hammer').populateSuites(testSuites);

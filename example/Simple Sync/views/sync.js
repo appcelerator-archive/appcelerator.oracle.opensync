@@ -33,7 +33,7 @@ exports.initialize = function() {
 	mStatusIsLog = false;
 
 	// Create the OpenSync session
-	mSess = opensync.createOSESession();
+	mSess = opensync.ose.createOSESession();
 	if (!mSess.isOpen()) {
 		mSess = null;
 	}
@@ -41,7 +41,7 @@ exports.initialize = function() {
 /*
 	if (mSess != null) {
 		try {
-			mBgSess = opensync.createBGSession();
+			mBgSess = opensync.syncagent.createBGSession();
 			if (mBgSess) {
 // BUGBUG:: DO NOT ATTEMPT TO START BG SESSION DURING Window/App STARTUP
 //				mBgSess.start();
@@ -59,7 +59,7 @@ exports.cleanup = function() {
 			mSess.close();
 		}
 		if (mBgSess == null) {
-			mBgSess = opensync.createBGSession();
+			mBgSess = opensync.syncagent.createBGSession();
 		}
 		if (mBgSess.getFatalError() != null) {
 			platform.exit();
@@ -255,7 +255,7 @@ function initSess(doSave) {
 		
 		if (mSess == null) {
 			// Create a new session for the specified user
-			mSess = opensync.createOSESession({
+			mSess = opensync.ose.createOSESession({
 				user: usr
 			});
 
@@ -277,7 +277,7 @@ function initSess(doSave) {
 		// Enable SSL if the URL is an `https` address
 		var url = mUrlText.value;
 		if (url.indexOf('https') === 0) {
-			mSess.setEncryptionType(opensync.OSESession.ENC_SSL);
+			mSess.setEncryptionType(opensync.ose.OSESession.ENC_SSL);
 		}
 		mSess.setURL(url);
 
@@ -375,14 +375,14 @@ function doApply() {
 function doSyncAgent() {
 	try {
 		if (mBgSess == null) {
-			mBgSess = opensync.createBGSession();
+			mBgSess = opensync.syncagent.createBGSession();
 			if (!mBgSess.isOpen()) {
 				mBgSess = null;
 				return;
 			}
 		}
 
-		if ((mSess == null) || (mBgSess.getAgentStatusCode() != opensync.BGAgentStatus.STOPPED)) {
+		if ((mSess == null) || (mBgSess.getAgentStatusCode() != opensync.syncagent.BGAgentStatus.STOPPED)) {
 			mBgSess.showUI();
 		} else {
 			mStatusStr = mStatusText.value;
@@ -390,7 +390,7 @@ function doSyncAgent() {
 			mBgSess.start();
 			// Wait until the sync agent is running, then display the UI
 			mBgSess.waitForStatus({
-				status: opensync.BGAgentStatus.RUNNING,
+				status: opensync.syncagent.BGAgentStatus.RUNNING,
 				timeout: 5000,
 				success: function() {
 					mBgSess.messageHandler = function(e) {

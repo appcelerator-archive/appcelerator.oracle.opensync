@@ -6,7 +6,7 @@
  *
  */
 
-package ti.oracle.opensync.proxies;
+package ti.oracle.opensync.syncagent;
 
 import oracle.opensync.syncagent.BGSyncStatus;
 

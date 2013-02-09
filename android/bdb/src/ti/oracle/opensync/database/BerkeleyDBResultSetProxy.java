@@ -1,4 +1,4 @@
-package ti.oracle.opensync;
+package ti.oracle.opensync.database;
 
 import java.util.HashMap;
 
@@ -9,7 +9,7 @@ import org.appcelerator.titanium.util.TiConvert;
 import SQLite.Exception;
 import android.util.Log;
 
-import ti.oracle.opensync.BerkeleyDBNamespaceProxy;
+import ti.oracle.opensync.database.BerkeleyDBNamespaceProxy;
 
 @Kroll.proxy
 public class BerkeleyDBResultSetProxy extends KrollProxy {
