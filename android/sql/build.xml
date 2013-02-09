@@ -5,8 +5,8 @@
 
     <mkdir dir="${basedir}/../dist"/>
 
-    <symlink link="${basedir}/src/ti/oracle/opensync/namespaces" resource="${basedir}/../src/ti/oracle/opensync/namespaces" overwrite="true"/>
-    <symlink link="${basedir}/src/ti/oracle/opensync/proxies" resource="${basedir}/../src/ti/oracle/opensync/proxies" overwrite="true"/>
+    <symlink link="${basedir}/src/ti/oracle/opensync/ose" resource="${basedir}/../src/ti/oracle/opensync/ose" overwrite="true"/>
+    <symlink link="${basedir}/src/ti/oracle/opensync/syncagent" resource="${basedir}/../src/ti/oracle/opensync/syncagent" overwrite="true"/>
 
     <symlink link="${basedir}/build.properties" resource="${basedir}/../build.properties" overwrite="true"/>
     <symlink link="${basedir}/assets" resource="${basedir}/../assets" overwrite="true"/>
@@ -22,8 +22,8 @@
    	<property file="build.properties" />
 
     <target name="cleanlinks" description="Delete symlinks">
-        <symlink action="delete" link="${basedir}/src/ti/oracle/opensync/namespaces"/>
-        <symlink action="delete" link="${basedir}/src/ti/oracle/opensync/proxies"/>
+        <symlink action="delete" link="${basedir}/src/ti/oracle/opensync/ose"/>
+        <symlink action="delete" link="${basedir}/src/ti/oracle/opensync/syncagent"/>
 
         <symlink action="delete" link="${basedir}/build.properties"/>
         <symlink action="delete" link="${basedir}/assets"/>

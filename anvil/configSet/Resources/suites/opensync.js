@@ -30,17 +30,34 @@ module.exports = new function ()
 	{
 		// Verify that the module is defined
 		valueOf(testRun, opensync).shouldBeObject();
+
 		finish(testRun);
 	};
 
-	// Test that all of the namespace APIs are available
+	// Test that all of the namespaces are available
 	this.testNamespaces = function (testRun)
 	{
 		// Verify the 'namespaces'
-		valueOf(testRun, opensync.oseSession).shouldBeObject();
-		valueOf(testRun, opensync.bgAgentStatus).shouldBeObject();
-		valueOf(testRun, opensync.oseProgressListener).shouldBeObject();
-		valueOf(testRun, opensync.bgSession).shouldBeObject();
+		valueOf(testRun, opensync.ose).shouldBeObject();
+		valueOf(testRun, opensync.syncagent).shouldBeObject();
+
+		finish(testRun);
+	};
+
+	// Test that all of the properties are available
+	this.testProperties = function (testRun)
+	{
+		// Verify the 'properties'
+		valueOf(testRun, opensync.syncFilesRootDir).shouldBeString();
+
+		finish(testRun);
+	};
+
+	// Test that all of the APIs are available
+	this.testAPIs = function (testRun)
+	{
+		// Verify the 'APIs'
+		valueOf(testRun, opensync.getSyncFilesRootDir).shouldBeFunction();
 
 		finish(testRun);
 	};

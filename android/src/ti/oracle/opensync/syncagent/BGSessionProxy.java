@@ -6,7 +6,7 @@
  *
  */
 
-package ti.oracle.opensync.proxies;
+package ti.oracle.opensync.syncagent;
 
 import java.util.HashMap;
 
@@ -15,6 +15,7 @@ import org.appcelerator.kroll.KrollFunction;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.titanium.TiApplication;
 
+import android.app.Activity;
 import android.util.Log;
 
 import oracle.opensync.syncagent.BGException;
@@ -23,10 +24,9 @@ import oracle.opensync.syncagent.BGSession;
 import oracle.opensync.util.LogMessage;
 import oracle.opensync.util.PlatformFactory;
 import oracle.opensync.util.android.AndroidPlatformFactory;
-import ti.oracle.opensync.OracleOpensyncModule;
-import ti.oracle.opensync.namespaces.BGSessionNamespaceProxy;
+import ti.oracle.opensync.syncagent.BGSessionNamespaceProxy;
 
-@Kroll.proxy(creatableInModule=OracleOpensyncModule.class)
+@Kroll.proxy
 public class BGSessionProxy extends BGSessionNamespaceProxy implements BGMessageHandler
 {
 	// Standard Debugging variables
@@ -179,8 +179,9 @@ public class BGSessionProxy extends BGSessionNamespaceProxy implements BGMessage
 		// activity and this proxy is created during the window construction process, the UI will
 		// not show up. I think this has something to do with the way that heavyweight activities
 		// are initialized. In any case, set the activity here to ensure it is current.
-		if (getActivity() != null) {
-	        ((AndroidPlatformFactory)PlatformFactory.getInstance()).setContext(getActivity());
+		Activity activity = TiApplication.getAppCurrentActivity();
+		if (activity != null) {
+	        ((AndroidPlatformFactory)PlatformFactory.getInstance()).setContext(activity);
 		}
 		_session.showUI();
 	}

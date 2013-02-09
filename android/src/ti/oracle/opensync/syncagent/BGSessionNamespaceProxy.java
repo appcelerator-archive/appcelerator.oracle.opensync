@@ -6,7 +6,7 @@
  *
  */
 
-package ti.oracle.opensync.namespaces;
+package ti.oracle.opensync.syncagent;
 
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
