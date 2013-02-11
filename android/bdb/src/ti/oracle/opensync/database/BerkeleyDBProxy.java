@@ -16,7 +16,7 @@ import android.util.Log;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
-@Kroll.proxy(propertyAccessors = { "enableLQMapping" })
+@Kroll.proxy(propertyAccessors = { "enableQMapping" })
 public class BerkeleyDBProxy extends BerkeleyDBNamespaceProxy
 {
 	// Standard Debugging variables
@@ -108,23 +108,15 @@ public class BerkeleyDBProxy extends BerkeleyDBNamespaceProxy
 
 		BerkeleyDBResultSetProxy rs = null;
 		SQLite.Stmt stmt = null;
-		String newSql = sql;
-		
-		// Handle the difference between SQLite and Berkeley DB parameter substitution characters.
-		// SQLite supports ? while Berkeley uses '%Q'
-		// This can be disabled if needed by setting the enableLQMapping property to false.
-		if (properties.optBoolean("enableLQMapping", true)) {
-			Pattern regex = Pattern.compile("([^'\"])\\?");
-			newSql = regex.matcher(sql).replaceAll("$1%Q");
-		}
 		
 		try {
-			String lcSql = newSql.toLowerCase().trim();
+			String lcSql = sql.toLowerCase().trim();
 			if (lcSql.startsWith("select") || lcSql.startsWith("pragma")) {
-				stmt = _db.prepare(newSql);
+				stmt = _db.prepare(sql);
 				if (newArgs != null) {
 					for(int i = 0; i < newArgs.length; i++) {
-						stmt.bind(i, newArgs[i]);
+						// Bind is 1-based
+						stmt.bind(i+1, newArgs[i]);
 					}
 				}
 				if (stmt.column_count() > 0) {
@@ -133,6 +125,15 @@ public class BerkeleyDBProxy extends BerkeleyDBNamespaceProxy
 					stmt.close();
 				}
 			} else {
+				// Handle the difference between SQLite and Berkeley DB parameter substitution characters for the 'exec' command
+				// SQLite supports ? while Berkeley uses '%Q'
+				// This can be disabled if needed by setting the enableQMapping property to false.
+				// NOTE: This mapping is NOT supported in the prepare/bind/step scenario
+				String newSql = sql;
+				if (properties.optBoolean("enableQMapping", true)) {
+					Pattern regex = Pattern.compile("([^'\"])\\?");
+					newSql = regex.matcher(sql).replaceAll("$1%Q");
+				}
 				_db.exec(newSql, null, newArgs);
 			}
 		} catch (Exception e) {
