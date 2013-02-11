@@ -10,7 +10,13 @@ var db = null;
 
 var win = Ti.UI.createWindow({
 	title: 'Database',
-	backgroundColor: 'white',
+	backgroundColor: 'white'
+});
+
+var scrollView = Ti.UI.createScrollView({
+	top: 0,
+	bottom: 0,
+	contentHeight: Ti.UI.SIZE,
 	layout: 'vertical'
 });
 
@@ -68,16 +74,9 @@ var cityText = Ti.UI.createTextField({
 	hintText: 'City'
 });
 
-var statusScroll = Ti.UI.createScrollView({
-	top: 4+u, left: 4+u, right: 4+u, bottom: 4+u,
-	contentWidth: 'auto',
-	contentHeight: 'auto',
-	showVerticalScrollIndicator: true,
-	borderColor: 'lightgray'
-});
-
 // Create the status text display field
 var statusText = Ti.UI.createTextArea({
+	top: 4+u, left: 4+u, right: 4+u, bottom: 4+u,
 	width: Ti.UI.FILL || 'auto', height: Ti.UI.FILL || 'auto',
 	textAlign: 'left',
 	editable: false,
@@ -85,14 +84,14 @@ var statusText = Ti.UI.createTextArea({
 	color: 'black'
 });
 
-statusScroll.add(statusText);
+win.add(scrollView);
 
-win.add(switchDB);
-win.add(btnView);
-win.add(nameText);
-win.add(phoneText);
-win.add(cityText);
-win.add(statusScroll);
+scrollView.add(switchDB);
+scrollView.add(btnView);
+scrollView.add(nameText);
+scrollView.add(phoneText);
+scrollView.add(cityText);
+scrollView.add(statusText);
 
 btnOpen.addEventListener('click', doOpen);
 btnInsert.addEventListener('click', doInsert);
