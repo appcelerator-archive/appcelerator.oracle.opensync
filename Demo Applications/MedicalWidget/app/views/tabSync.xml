@@ -1,0 +1,25 @@
+<Alloy>
+	<Tab title="Sync" icon="images/ic_sync_unselected.png">
+		<Window class="container" title="Sync">
+			<ScrollView id="scrollView">
+				<TextField id="userText" value="{syncSession.username}"/>
+				<TextField id="pwdText" value="{syncSession.password}" onKeypressed="onKeyPressed" />
+				<Switch id="svPwdChkBx" value="{syncSession.savePassword}"/>
+				<TextField id="urlText" value="{syncSession.url}"/>
+				<View id="buttonsRow">
+					<Button id="applyButton" onClick="doApply"/>
+					<Button id="syncButton" onClick="doSync"/>
+				</View>
+				<TextArea id="statusText" value="{syncSession.statusText}"/>
+			</ScrollView>
+			<Require type="widget" src="progressView" id="syncProgress" onCancel="doCancelSync"/>
+			<Menu platform="android">
+				<MenuItem id="menuSyncAgent" icon="appicon.png" onClick="doSyncAgent"/>
+				<MenuItem id="menuEdit" icon="images/ic_menu_edit.png" onClick="doEditOse"/>
+				<MenuItem id="menuView" icon="images/ic_menu_view.png" onClick="doViewLog"/>
+				<MenuItem id="menuPurge" icon="images/ic_menu_delete.png" onClick="doPurgeLog"/>
+				<MenuItem id="menuExit" icon="images/ic_menu_exit.png" onClick="doExit"/>
+	   		</Menu>
+		</Window>
+	</Tab>
+</Alloy>

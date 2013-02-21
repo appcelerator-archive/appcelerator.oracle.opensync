@@ -1,0 +1,11 @@
+"#index": {
+	backgroundColor: "black",
+	exitOnClose: true
+},
+
+"TabGroup": {
+	backgroundSelectedColor: 'gray',
+	backgroundDisabledColor: 'black'
+},
+
+
