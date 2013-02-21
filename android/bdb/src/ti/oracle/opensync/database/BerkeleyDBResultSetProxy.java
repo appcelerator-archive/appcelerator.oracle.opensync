@@ -206,7 +206,7 @@ public class BerkeleyDBResultSetProxy extends KrollProxy {
 	}
 
 	@Kroll.method
-	public void next() throws Exception
+	public boolean next() throws Exception
 	{
 		if(isValidRow()) {
 			try {
@@ -218,5 +218,7 @@ public class BerkeleyDBResultSetProxy extends KrollProxy {
 		} else {
 			Log.w(LCAT, "Ignoring next, current row is invalid.");
 		}
+
+		return _valid;
 	}
 }
