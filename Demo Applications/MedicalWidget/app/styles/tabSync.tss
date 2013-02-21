@@ -1,0 +1,128 @@
+".container": {
+	backgroundColor: 'lightgray'
+},
+
+"#scrollView": {
+	top: '4dp',
+	bottom: '4dp',
+	left: '4dp',
+	right: '4dp',
+	contentHeight: Ti.UI.SIZE,
+	layout: 'vertical',
+	backgroundColor: 'lightgray'
+},
+
+"TextField": {
+	top: '4dp',
+	width: '100%',
+	height: Ti.UI.SIZE,
+	backgroundColor: 'white',
+	borderColor: 'black',
+	borderWidth: 1,
+	color: 'gray',
+	font: {
+		fontSize: '20dp',
+		fontFamily: 'DroidSans'
+	}
+},
+
+"TextArea": {
+	top: '4dp',
+	bottom: 0,
+	width: '100%',
+	backgroundColor: '#f0f0f0',
+	borderColor: 'gray',
+	borderWidth: 1,
+	color: 'gray',
+	textAlign: 'left',
+	font: {
+		fontSize: '16dp',
+		fontFamily: 'DroidSans'
+	}	
+},
+
+"Switch": {
+	top: '4dp',
+	width: '100%',
+	height: Ti.UI.SIZE,
+	color: 'darkgray',
+	font: {
+		fontSize: '20dp',
+		fontFamily: 'DroidSans'
+	}
+},
+
+"Button": {
+	width: '50%',
+	height: Ti.UI.SIZE,
+	color: 'black',
+	borderColor: 'black',
+	font: {
+		fontSize: '16dp',
+		fontFamily: 'DroidSans'
+	}
+},
+
+"#userText": {
+	top: 0,
+	hintText: L('Username'),
+	autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_ALL
+},
+
+"#pwdText": {
+	hintText: L('Password'),
+	passwordMask: true,
+	focusable: true
+},
+
+"#svPwdChkBx[platform=android]": {
+	value: false,
+	title: L('SavePwdLbl'),
+	style: Ti.UI.Android.SWITCH_STYLE_CHECKBOX
+},
+
+"#urlText": {
+	hintText: L("ServerUrl"),
+	keyboardType: Ti.UI.KEYBOARD_URL
+},
+
+"#buttonsRow": {
+	top: '4dp',
+	left: 0,
+	width: '100%',
+	height: Ti.UI.SIZE,
+	layout: 'horizontal'
+},
+
+"#applyButton": {
+	title: L('ApplyBtnLbl')
+},
+
+"#syncButton": {
+	title: L('SyncBtnLbl')
+},
+
+"#statusText": {
+	hintText: L('SyncStatusLbl'),
+	editable: false
+},
+
+"#menuSyncAgent": {
+	title: L('syncAgent')
+},
+
+"#menuEdit": {
+	title: L('edit_ose')
+},
+
+"#menuView": {
+	title: L('view_log')
+},
+
+"#menuPurge": {
+	title: L('purge_log')
+},
+
+"#menuExit": {
+	title: L('exitApp')
+}

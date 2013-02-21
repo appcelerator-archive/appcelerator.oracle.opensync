@@ -1,0 +1,166 @@
+".container": {
+	backgroundColor: 'lightgray'
+},
+
+"#scrollView": {
+	top: '4dp',
+	bottom: '4dp',
+	left: '4dp',
+	right: '4dp',
+	contentHeight: Ti.UI.SIZE,
+	layout: 'vertical',
+	backgroundColor: 'lightgray'
+},
+
+"TextArea": {
+	top: '4dp',
+	bottom: 0,
+	width: '100%',
+	backgroundColor: '#f0f0f0',
+	borderColor: 'gray',
+	borderWidth: 1,
+	color: 'gray',
+	textAlign: 'left',
+	font: {
+		fontSize: '16dp',
+		fontFamily: 'DroidSans'
+	}	
+},
+
+"Button": {
+	height: Ti.UI.SIZE,
+	color: 'black',
+	borderColor: 'black',
+	font: {
+		fontSize: '16dp',
+		fontFamily: 'DroidSans'
+	}
+},
+
+"Label": {
+	color: 'gray',
+	font: {
+		fontSize: '16dp',
+		fontFamily: 'DroidSans'
+	}
+},
+
+".bumper": {
+	width: '100%',
+	height: '36dp',
+	backgroundColor: 'white',
+	borderColor: 'gray',
+	borderWidth: 1,
+	textAlign: 'center'
+},
+
+".readingColumn": {
+	top: 0,
+	left: 0,
+	height: Ti.UI.SIZE,
+	layout: 'vertical',
+	textAlign: 'center'
+},
+
+".heading": {
+	top: '10dp',
+	color: 'gray',
+	font: {
+		fontSize: '14dp',
+		fontFamily: 'DroidSans'
+	}
+},
+
+".reading": {
+	bottom: '10dp',
+	color: '#87CEFA',
+	font: {
+		fontSize: '72dp',
+		fontFamily: 'DroidSans',
+		fontWeight: 'bold'
+	}
+},
+
+"#patientSpinner": {
+	width: '100%',
+	color: 'black',
+	font: {
+		fontSize: '16dp',
+		fontFamily: 'DroidSans'
+	}
+},
+
+"#readingRow": {
+	top: 0,
+	left: 0,
+	width: '100%',
+	height: Ti.UI.SIZE,
+	layout: 'horizontal',
+	backgroundColor: 'black'
+},
+
+"#buttonsRow": {
+	top: '4dp',
+	left: 0,
+	width: '100%',
+	height: Ti.UI.SIZE,
+	layout: 'horizontal'
+},
+
+"#columnPulse": {
+	width: '40%'
+},
+
+"#columnSlash": {
+	width: '20%'
+},
+
+"#columnO2": {
+	width: '40%'
+},
+
+"#pulseLabel": {
+	text: L('PulseTextLbl')
+},
+
+"#o2Label": {
+	text: L('O2TextLbl')
+},
+
+"#readingPulseTextView": {
+	text: '100 '
+},
+
+"#slashLabel": {
+	text: '/',
+	font: {
+		fontSize: '72dp',
+		fontFamily: 'DroidSans',
+		fontWeight: 'normal'
+	}
+}
+
+"#readingO2TextView": {
+	text: ' 99%'
+},
+
+"#prevButton": {
+	width: '40%',
+	title: L('PreviousBtnLbl')
+},
+
+"#reloadButton": {
+	width: '20%',
+	title: L('ReloadBtnLbl')
+},
+
+"#nextButton": {
+	width: '40%',
+	title: L('NextBtnLbl')
+},
+
+"#dbStatusText": {
+	hintText: L('DBRefreshLbl'),
+	editable: false,
+}
+

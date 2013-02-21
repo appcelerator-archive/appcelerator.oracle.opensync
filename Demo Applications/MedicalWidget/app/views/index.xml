@@ -1,0 +1,7 @@
+<Alloy>
+	<TabGroup>
+		<Require src="tabSync"/>
+		<Require src="tabPulseOx"/>
+		<Require src="tabBP"/>
+	</TabGroup>
+</Alloy>

@@ -1,0 +1,31 @@
+<Alloy>
+	<Tab title="PulseOx" icon="images/ic_redcross_unselected.png">
+		<Window class="container" title="PulseOx">
+			<ScrollView id="scrollView">
+				<Picker id="patientSpinner" onChange='onPatientSelected'/>
+				<Label class="bumper" id="readingDateTimeTextView" text="{pulseOxViewModel.TIME}"/>
+				<View id="readingRow">
+					<View class="readingColumn" id="columnPulse">
+						<Label class="heading" id="pulseLabel"/>						
+						<Label class="reading" id="readingPulseTextView" text="{pulseOxViewModel.PULSE}"/>
+					</View>
+					<View class="readingColumn" id="columnSlash">
+						<Label class="heading"/>
+						<Label class="reading" id="slashLabel"/>					
+					</View>
+					<View class="readingColumn" id="columnO2">
+						<Label class="heading" id="o2Label"/>						
+						<Label class="reading" id="readingO2TextView" text="{pulseOxViewModel.O2}"/>
+					</View>
+				</View>
+				<Label class="bumper" id="recNoTextView" text="{pulseOxViewModel.recordOf}"/>
+				<View id="buttonsRow">
+					<Button id="prevButton" enabled="{pulseOxViewModel.prevEnabled}" onClick="doPreviousRecord"/>
+					<Button id="reloadButton" onClick='doReloadDatabase'/>
+					<Button id="nextButton" enabled="{pulseOxViewModel.nextEnabled}" onClick="doNextRecord"/>
+				</View>
+				<TextArea id="dbStatusText" value="{pulseOxViewModel.statusText}"/>
+			</ScrollView>
+		</Window>
+	</Tab>
+</Alloy>
