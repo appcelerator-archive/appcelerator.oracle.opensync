@@ -1,0 +1,7 @@
+<Alloy>
+	<Tab title="BP" icon="images/ic_stethoscope_unselected.png">
+		<Window class="container" title="BP">
+			<Label>Not Implemented</Label>
+		</Window>
+	</Tab>
+</Alloy>

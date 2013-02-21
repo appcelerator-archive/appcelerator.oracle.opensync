@@ -1,0 +1,50 @@
+".container": {
+	backgroundColor: "white",
+	modal: true
+},
+
+"#editScroll": {
+	top: '4dp',
+	left: '4dp',
+	right: '4dp',
+	bottom: '48dp',
+	contentWidth: 'auto',
+	contentHeight: 'auto',
+	showVerticalScrollIndicator: true,
+	borderColor: 'lightgray'
+},
+
+"#editTextArea": {
+	backgroundColor: 'white',
+	width: Ti.UI.FILL,
+	height: Ti.UI.FILL,
+	textAlign: 'left',
+	editable: true,
+	focusable: true,
+	borderWidth: 0,
+	color: 'black'
+},
+
+"#buttonsRow": {
+	bottom: '4dp',
+	left: '4dp',
+	right: '4dp',
+	height: Ti.UI.SIZE,
+	layout: 'horizontal'
+},
+
+"#cancelButton": {
+	top: 0,
+	left: 0,
+	width: '50%',
+	height: '40dp',
+	title: L('Cancel')
+},
+
+"#saveButton": {
+	top: 0,
+	left: 0,
+	width: '50%',
+	height: '40dp',
+	title: L('Save')
+},

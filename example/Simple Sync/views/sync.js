@@ -413,7 +413,7 @@ function doViewLog() {
 	if (!mStatusIsLog) {
 		mStatusStr = mStatusText.value;
 		// Get the full path to the file
-		var logFile = Ti.Filesystem.getFile(opensync.syncFilesRootDir + "/err.log");
+		var logFile = Ti.Filesystem.getFile("file://" + opensync.syncFilesRootDir + "/err.log");
 		if (logFile.exists()) {
 			mStatusText.value = logFile.read().text;
 		} else {
@@ -428,7 +428,7 @@ function doViewLog() {
 
 function doPurgeLog() {
 	// Get the full path to the file
-	var logFile = Ti.Filesystem.getFile(opensync.syncFilesRootDir + "/err.log");
+	var logFile = Ti.Filesystem.getFile("file://" + opensync.syncFilesRootDir + "/err.log");
 	if (logFile.exists()) {
 		logFile.deleteFile();
 	}
@@ -439,7 +439,7 @@ function doEditOse() {
 	require('utility/navigator').push({
     	viewName: 'textFileEditor',
 		// Get the full path to the file
-        fileName: opensync.syncFilesRootDir + "/ose.ini"
+        fileName: "file://" + opensync.syncFilesRootDir + "/ose.ini"
     });
 }
 

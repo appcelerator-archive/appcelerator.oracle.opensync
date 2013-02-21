@@ -40,7 +40,7 @@ public class OracleOpensyncModule extends KrollModule
 	@Kroll.getProperty @Kroll.method
 	public String getSyncFilesRootDir()
 	{
-		return "file://" + TiApplication.getInstance().getDir("oracle.sync", 0).toString();
+		return TiApplication.getInstance().getDir("oracle.sync", 0).toString();
 	}
 
 	// These methods and proxies are here to make the namespaces match
