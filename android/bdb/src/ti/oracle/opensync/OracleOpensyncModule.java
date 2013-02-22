@@ -6,7 +6,7 @@
  *
  */
 
-package ti.oracle.opensync;
+package appcelerator.oracle.opensync;
 
 import oracle.opensync.util.PlatformFactory;
 import oracle.opensync.util.android.AndroidPlatformFactory;
@@ -15,13 +15,13 @@ import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.titanium.TiApplication;
 
-import ti.oracle.opensync.ose.oseNamespaceProxy;
-import ti.oracle.opensync.syncagent.syncagentNamespaceProxy;
-import ti.oracle.opensync.database.BerkeleyDBNamespaceProxy;
+import appcelerator.oracle.opensync.ose.oseNamespaceProxy;
+import appcelerator.oracle.opensync.syncagent.syncagentNamespaceProxy;
+import appcelerator.oracle.opensync.database.BerkeleyDBNamespaceProxy;
 
 import android.app.Activity;
 
-@Kroll.module(name="OracleOpensync", id="ti.oracle.opensync.bdb")
+@Kroll.module(name="OracleOpensync", id="appcelerator.oracle.opensync.bdb")
 public class OracleOpensyncModule extends KrollModule
 {
 	public OracleOpensyncModule()

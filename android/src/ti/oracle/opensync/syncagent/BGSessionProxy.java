@@ -6,7 +6,7 @@
  *
  */
 
-package ti.oracle.opensync.syncagent;
+package appcelerator.oracle.opensync.syncagent;
 
 import java.util.HashMap;
 
@@ -24,7 +24,7 @@ import oracle.opensync.syncagent.BGSession;
 import oracle.opensync.util.LogMessage;
 import oracle.opensync.util.PlatformFactory;
 import oracle.opensync.util.android.AndroidPlatformFactory;
-import ti.oracle.opensync.syncagent.BGSessionNamespaceProxy;
+import appcelerator.oracle.opensync.syncagent.BGSessionNamespaceProxy;
 
 @Kroll.proxy
 public class BGSessionProxy extends BGSessionNamespaceProxy implements BGMessageHandler

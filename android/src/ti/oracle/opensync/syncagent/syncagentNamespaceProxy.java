@@ -6,7 +6,7 @@
  *
  */
 
-package ti.oracle.opensync.syncagent;
+package appcelerator.oracle.opensync.syncagent;
 
 import java.util.HashMap;
 
@@ -15,9 +15,9 @@ import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.titanium.TiApplication;
 
-import ti.oracle.opensync.syncagent.BGAgentStatusNamespaceProxy;
-import ti.oracle.opensync.syncagent.BGSessionNamespaceProxy;
-import ti.oracle.opensync.syncagent.BGSessionProxy;
+import appcelerator.oracle.opensync.syncagent.BGAgentStatusNamespaceProxy;
+import appcelerator.oracle.opensync.syncagent.BGSessionNamespaceProxy;
+import appcelerator.oracle.opensync.syncagent.BGSessionProxy;
 
 @Kroll.proxy
 public class syncagentNamespaceProxy extends KrollProxy {

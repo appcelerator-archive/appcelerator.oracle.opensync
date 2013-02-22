@@ -1,5 +1,6 @@
 ".container": {
-	backgroundColor: 'lightgray'
+	backgroundColor: 'lightgray',
+	exitOnClose: true
 },
 
 "#scrollView": {

@@ -6,12 +6,12 @@
  *
  */
 
-package ti.oracle.opensync.syncagent;
+package appcelerator.oracle.opensync.syncagent;
 
 import org.appcelerator.kroll.annotations.Kroll;
 
 import oracle.opensync.syncagent.BGAgentStatus;
-import ti.oracle.opensync.syncagent.BGAgentStatusNamespaceProxy;
+import appcelerator.oracle.opensync.syncagent.BGAgentStatusNamespaceProxy;
 
 @Kroll.proxy
 public class BGAgentStatusProxy extends BGAgentStatusNamespaceProxy

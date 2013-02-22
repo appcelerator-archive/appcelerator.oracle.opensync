@@ -1,4 +1,4 @@
-# Ti.Oracle.OpenSync Module
+# Appcelerator.Oracle.OpenSync Module
 
 ## Description
 
@@ -8,10 +8,10 @@ Oracle Database Mobile Server delivers critical bi-directional data synchronizat
 There are two variations of this module. Select the module that matches the type of database
 that you are using for your application:
 
-* `ti.oracle.opensync.sql` - Uses the native SQLite database
-* `ti.oracle.opensync.bdb` - Uses the Berkeley DB database
+* `appcelerator.oracle.opensync.sql` - Uses the native SQLite database
+* `appcelerator.oracle.opensync.bdb` - Uses the Berkeley DB database
 
-Note that the `ti.oracle.opensync.bdb` module provides the same API as the Titanium database API, only under its own namespace.
+Note that the `appcelerator.oracle.opensync.bdb` module provides the same API as the Titanium database API, only under its own namespace.
 
 ## OpenSync Resources
 
@@ -26,11 +26,11 @@ started with using this module in your application.
 
 Use `require` to access this module from JavaScript:
 
-	var opensync = require("ti.oracle.opensync.sql");
+	var opensync = require("appcelerator.oracle.opensync.sql");
 
 or
 
-	var opensync = require("ti.oracle.opensync.bdb");
+	var opensync = require("appcelerator.oracle.opensync.bdb");
 
 The `opensync` variable is a reference to the Module object.
 
@@ -69,7 +69,7 @@ Namespace proxy providing access to the [syncagent](syncagent.html) session, sta
 
 Namespace proxy providing access to the [Berkeley Database](database.html) APIs.
 
-_NOTE: This property is only available in the `ti.oracle.opensync.bdb` version of the module._
+_NOTE: This property is only available in the `appcelerator.oracle.opensync.bdb` version of the module._
 
 ## Usage
 See the example applications in the `example` folder of the module.
@@ -84,7 +84,7 @@ View the [change log](changelog.html) for this module.
 
 ## Feedback and Support
 
-Please direct all questions, feedback, and concerns to [info@appcelerator.com](mailto:info@appcelerator.com?subject=Ti.Oracle.OpenSync%20Module).
+Please direct all questions, feedback, and concerns to [info@appcelerator.com](mailto:info@appcelerator.com?subject=Appcelerator.Oracle.OpenSync%20Module).
 
 ## License
 
