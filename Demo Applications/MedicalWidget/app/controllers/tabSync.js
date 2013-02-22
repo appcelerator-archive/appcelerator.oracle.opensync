@@ -17,6 +17,7 @@ $.tabSync.addEventListener('close', function() {
 // synchronization state and stage
 syncSession.on('change:syncState', onSyncStateChanged);
 syncSession.on('change:syncStage', onSyncStageChanged);
+syncSession.on('exit', doExit);
 
 // Signal change to model so values get bound to the UI
 syncSession.trigger('change');

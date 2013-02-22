@@ -1,0 +1,40 @@
+Oracle Mobile Database Server HealthCare Demo
+
+The HealthCare demo application is a port of the native demo app provided by Oracle.
+The application is a tabbed application with three tabs:
+
+	1. Sync - Synchronization with the Mobile Data Server
+	2. PulseO2 - Patient selection and navigation of Pulse/Oxygen readings
+	3. BP - Blood pressure readings. This tab was not implemented in the demo app provide by Oracle
+
+The Oracle demo was designed to have medical device connected to the server and have it generate new 
+readings (pulse/O2/BP) which were in turn updated in the databse. The new readings are then downloaded
+to the client each time it synchronizes with the server. Currently, our demo does not have a mechanism
+for adding new data to the database.
+
+Sync Tab:
+
+This tab is used to synchronize with the backend Mobile Data Server (MDS). The MDS has been set up
+and is pre-populated with a minimal set of data. To synchronize,
+
+	1. Enter a registered user name ('MWELBY')
+	2. Enter the password for the user ('mwelby')
+	3. Check the box to save the password
+	4. Enter the url for the server (contact IT to get the correct address)
+	5. Click 'Sync'
+
+If successful, the status text field will indicate a successful synchronization. You only need to
+synchronize with the server when there are changes to the database (either on the client or server).
+
+Pulse/O2 Tab:
+
+This tab is used to select a patient and navigate through their Pulse and Oxygen level readings. The 'Load'
+button is used to load the data from the current user's database (each user has a separate database on the client).
+
+	1. Click the 'Load' button to load the database for the current user
+	2. Click the 'Select Patient' picker and select a patient. The first reading for that patient should be displayed.
+	3. Click the 'Next' and 'Previous' buttons to navigate through the readings for the selected patient
+
+BP Tab:
+
+This tab was not implemented in the demo app provided by Oracle
