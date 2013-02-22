@@ -6,7 +6,7 @@
  *
  */
 
-package ti.oracle.opensync.ose;
+package appcelerator.oracle.opensync.ose;
 
 import java.util.HashMap;
 
@@ -15,9 +15,9 @@ import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.titanium.TiApplication;
 
-import ti.oracle.opensync.ose.OSEProgressListenerNamespaceProxy;
-import ti.oracle.opensync.ose.OSESessionNamespaceProxy;
-import ti.oracle.opensync.ose.OSESessionProxy;
+import appcelerator.oracle.opensync.ose.OSEProgressListenerNamespaceProxy;
+import appcelerator.oracle.opensync.ose.OSESessionNamespaceProxy;
+import appcelerator.oracle.opensync.ose.OSESessionProxy;
 
 @Kroll.proxy
 public class oseNamespaceProxy extends KrollProxy {

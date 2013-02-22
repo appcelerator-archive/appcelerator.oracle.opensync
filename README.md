@@ -1,2 +1,2 @@
-ti.oracle.opensync
-==================
+appcelerator.oracle.opensync
+============================

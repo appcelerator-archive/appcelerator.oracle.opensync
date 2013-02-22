@@ -1,4 +1,4 @@
-var _database = require('ti.oracle.opensync.bdb').Database;
+var _database = require('appcelerator.oracle.opensync.bdb').Database;
 
 function SQLiteMigrateDB(config) {
     this.dbname = config.adapter.db_name;

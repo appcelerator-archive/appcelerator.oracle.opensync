@@ -31,7 +31,7 @@
 	<android xmlns:android="http://schemas.android.com/apk/res/android">
 	</android>
     <modules>
-        <module platform="android" version="1.0.0">ti.oracle.opensync.sql</module>
+        <module platform="android" version="1.0.0">appcelerator.oracle.opensync.sql</module>
     </modules>
     <property name="database.type">sql</property>
 </ti:app>

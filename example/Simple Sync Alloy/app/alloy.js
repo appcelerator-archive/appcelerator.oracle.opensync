@@ -11,10 +11,10 @@
 // Alloy.Globals.someGlobalFunction = function(){};
 
 // Require the version of the module that matches the database format that is being used.
-//   ti.oracle.opensync.bdb -> Berkeley Database
-//   ti.oracle.opensync.sql -> Native SQLite Database
+//   appcelerator.oracle.opensync.bdb -> Berkeley Database
+//   appcelerator.oracle.opensync.sql -> Native SQLite Database
 
-Alloy.Globals.opensync = require('ti.oracle.opensync.sql');
+Alloy.Globals.opensync = require('appcelerator.oracle.opensync.sql');
 Alloy.Globals.dbSyncRoot = Alloy.Globals.opensync.syncFilesRootDir + '/sqlite_db';
 
 var syncSession = require('syncSession');

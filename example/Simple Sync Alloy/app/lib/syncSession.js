@@ -44,7 +44,7 @@ function initSess(self, doSave) {
 		// Ensure that the user name input field is not empty
 		var usr = self.get('username');
 		if ((usr == null) || (usr.length == 0)) {
-			alert(L('UsernameNotEmpty'));
+			alert('Username cannot be empty');
 			return false;
 		}
 
@@ -170,7 +170,7 @@ function doSync() {
 			mSess.sync({
 				success: function() {
 					var date = new Date().toLocaleTimeString();
-					setStatus(self, date + '\n' + L('SyncSuccessful'));
+					setStatus(self, date + '\n' + 'Sync finished successfully.');
 					self.set('syncState', 'stopped');
 				},
 				error: function(e) {
@@ -207,7 +207,7 @@ function doSyncAgent() {
 			mBgSess.showUI();
 		} else {
 			mStatusStr = self.get('statusText');
-			setStatus(self, L('StartingSyncAgent'));
+			setStatus(self, 'Starting sync agent');
 			mBgSess.start();
 			// Wait until the sync agent is running, then display the UI
 			mBgSess.waitForStatus({
@@ -238,7 +238,7 @@ function doViewLog() {
 		if (logFile.exists()) {
 			setStatus(this, logFile.read().text);
 		} else {
-			setStatus(this, L('ErrorLogEmpty'));
+			setStatus(this, '<Error log is empty>');
 		}
 		logFile = null;
 		mStatusIsLog = true;
@@ -253,7 +253,7 @@ function doPurgeLog() {
 	if (logFile.exists()) {
 		logFile.deleteFile();
 	}
-	setStatus(this, L('ErrorLogPurged'));
+	setStatus(this, 'Error log purged');
 }
 
 function doCancel() {

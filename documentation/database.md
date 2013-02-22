@@ -33,7 +33,7 @@ In most cases, anywhere that you would use the Titanium.Database namespace you c
 		//   For SQLite, get the Database proxy from Titanium
 		// API calls should be the same regardless of which API namespace is used
 		if (switchDB.value) {
-			database = require('ti.oracle.opensync.bdb').Database;
+			database = require('appcelerator.oracle.opensync.bdb').Database;
 			dbname = 'testbdb';
 		} else {
 			database = Ti.Database;

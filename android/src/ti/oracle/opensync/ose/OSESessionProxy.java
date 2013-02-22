@@ -6,7 +6,7 @@
  *
  */
 
-package ti.oracle.opensync.ose;
+package appcelerator.oracle.opensync.ose;
 
 import java.util.HashMap;
 
@@ -22,7 +22,7 @@ import oracle.opensync.ose.OSEProgressListener;
 import oracle.opensync.ose.OSESession;
 import oracle.opensync.util.PlatformFactory;
 import oracle.opensync.util.android.AndroidPlatformFactory;
-import ti.oracle.opensync.ose.OSESessionNamespaceProxy;
+import appcelerator.oracle.opensync.ose.OSESessionNamespaceProxy;
 
 @Kroll.proxy
 public class OSESessionProxy extends OSESessionNamespaceProxy implements OSEProgressListener
