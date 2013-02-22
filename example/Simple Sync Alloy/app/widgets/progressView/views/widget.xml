@@ -1,0 +1,8 @@
+<Alloy>
+	<View id="cover"/>
+	<View id="dialog">
+		<Label id="message" text=""/>
+		<ProgressBar id="progressBar" min="0" max="100" value="{syncSession.syncValue}" message=""/>
+		<Button id="cancelButton" onClick="doCancel"/>
+	</View>
+</Alloy>

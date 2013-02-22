@@ -1,0 +1,48 @@
+"#cover": {
+	width: Ti.UI.FILL,
+	height: Ti.UI.FILL,
+	backgroundColor: 'black',
+	opacity: 0.90,
+	zIndex: 10000,
+	visible: false,
+	touchEnabled: true
+},
+
+"#dialog": {
+	width: '80%',
+	height: '150dp',
+	backgroundColor: 'white',
+	borderRadius: '8dp',
+	borderColor: 'black',
+	borderWidth: "2dp",
+	layout: 'vertical',
+	zIndex: 10001,
+	touchEnabled: true,
+	visible: false
+},
+
+"#message": {
+	top: '4dp',
+	left: '4dp',
+	right: '4dp',
+	height: Ti.UI.SIZE,
+	color: 'black',
+	text: '',
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+},
+
+"#progressBar": {
+	top: '8dp',
+	left: '4dp',
+	right: '4dp',
+	height: Ti.UI.SIZE,
+	color: 'black'
+},
+
+"#cancelButton": {
+	top: '8dp',
+	width: '50%',
+	height: '40dp',
+	title: 'Cancel',
+	color: 'black'
+}
