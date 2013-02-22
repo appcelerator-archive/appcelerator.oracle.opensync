@@ -107,19 +107,18 @@ function doInitialize(attributes, options) {
 	if (!mSess.isOpen()) {
 		mSess = null;
 	}
-
-	/*
-		if (mSess != null) {
-			try {
-				mBgSess = opensync.syncagent.createBGSession();
-				if (mBgSess) {
-	// BUGBUG:: DO NOT ATTEMPT TO START BG SESSION DURING Window/App STARTUP
-	//				mBgSess.start();
-				}
-			} catch (e) {
-				mBgSess = null;
+	
+	/* MOD-1260
+	if (mSess != null) {
+		try {
+			mBgSess = opensync.syncagent.createBGSession();
+			if (mBgSess) {
+				mBgSess.start();
 			}
+		} catch (e) {
+			mBgSess = null;
 		}
+	}
 	*/
 	
 	// Set the initial control values
@@ -280,10 +279,10 @@ function doClose() {
 			mBgSess = opensync.syncagent.createBGSession();
 		}
 		if (mBgSess.getFatalError() != null) {
-			platform.exit();
+			this.trigger('exit');
 		}
 	} catch (e) {
-		//BUGBUG platform.exit();
+		this.trigger('exit');
 	}
 }
 
