@@ -22,9 +22,19 @@ syncSession.on('exit', doExit);
 // Signal change to model so values get bound to the UI
 syncSession.trigger('change');
 
+var stageMap = {};
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.IDLE] = L('StageIdle');
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.PREPARE] = L('StagePrepare');
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.SEND] = L('StageSend');
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.RECEIVE] = L('StageReceive');
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.PROCESS] = L('StageProcess');
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.COMPOSE] = L('StageCompose');
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.APPLY] = L('StageApply');
+
 // Notification that the stage of the synchronizatin process has changed
 function onSyncStageChanged(model, stage) {
-	$.syncProgress.updateProgressMessage(L('Stage') + stage);
+	var desc = stageMap[stage] || 'Unknown';
+	$.syncProgress.updateProgressMessage(L('Stage') + ' ' + desc);
 }
 
 // Notification that the state of synchronizationhas changed
