@@ -23,13 +23,13 @@ syncSession.on('exit', doExit);
 syncSession.trigger('change');
 
 var stageMap = {};
-stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.IDLE] = "Idle";
-stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.PREPARE] = "Prepare";
-stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.SEND] = "Send";
-stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.RECEIVE] = "Receive";
-stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.PROCESS] = "Process";
-stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.COMPOSE] = "Compose";
-stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.APPLY] = "Apply";
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.IDLE] = L('StageIdle');
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.PREPARE] = L('StagePrepare');
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.SEND] = L('StageSend');
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.RECEIVE] = L('StageReceive');
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.PROCESS] = L('StageProcess');
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.COMPOSE] = L('StageCompose');
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.APPLY] = L('StageApply');
 
 // Notification that the stage of the synchronizatin process has changed
 function onSyncStageChanged(model, stage) {

@@ -46,4 +46,11 @@
     <string name="SuccessfullyLoaded">successfully loaded</string>
     <string name="UsernameNotEmpty">Username cannot be empty</string>
     <string name="SyncSuccessful">Sync finished successfully.</string>
+    <string name="StageIdle">Idle</string>
+    <string name="StagePrepare">Prepare</string>
+    <string name="StageSend">Send</string>
+    <string name="StageReceive">Receive</string>
+    <string name="StageProcess">Process</string>
+    <string name="StageCompose">Compose</string>
+    <string name="StageApply">Apply</string>
 </resources>
