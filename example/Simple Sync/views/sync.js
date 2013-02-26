@@ -35,20 +35,6 @@ exports.initialize = function() {
 	if (!mSess.isOpen()) {
 		mSess = null;
 	}
-	
-/*
-	if (mSess != null) {
-		try {
-			mBgSess = opensync.syncagent.createBGSession();
-			if (mBgSess) {
-// BUGBUG:: DO NOT ATTEMPT TO START BG SESSION DURING Window/App STARTUP
-//				mBgSess.start();
-			}
-		} catch (e) {
-			mBgSess = null;
-		}
-	}
-*/
 };
 
 exports.cleanup = function() {
