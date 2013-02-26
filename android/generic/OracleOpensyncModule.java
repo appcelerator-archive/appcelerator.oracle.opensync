@@ -12,6 +12,7 @@ import oracle.opensync.util.PlatformFactory;
 import oracle.opensync.util.android.AndroidPlatformFactory;
 
 import org.appcelerator.kroll.KrollModule;
+import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.titanium.TiApplication;
 
@@ -20,13 +21,30 @@ import appcelerator.oracle.opensync.syncagent.syncagentNamespaceProxy;
 import appcelerator.oracle.opensync.database.BerkeleyDBNamespaceProxy;
 
 import android.app.Activity;
+import android.util.Log;
 
-@Kroll.module(name="OracleOpensync", id="appcelerator.oracle.opensync.bdb")
+import java.lang.Class;
+
+@Kroll.module(name="OracleOpensync", id="appcelerator.oracle.opensync")
 public class OracleOpensyncModule extends KrollModule
 {
+	// Standard Debugging variables
+	private static final String LCAT = "OracleOpensync";
+
 	public OracleOpensyncModule()
 	{
 		super();
+		
+		try {
+			// Test to see if the Berkeley SQLite Database class is available.
+			// It not, then the Berkeley database jar file was not packaged properly
+			Class.forName("SQLite.Database");
+			Log.d(LCAT, ">>> Berkeley Database support detected <<<");
+			_database = new BerkeleyDBNamespaceProxy();
+		} catch (ClassNotFoundException e) {
+			Log.d(LCAT, ">>> SQL Database support detected <<<");
+			_database = null;
+		}
 	}
 
 	@Override
@@ -62,11 +80,18 @@ public class OracleOpensyncModule extends KrollModule
 	{
 		return _ose;
 	}
-
-	private BerkeleyDBNamespaceProxy _database = new BerkeleyDBNamespaceProxy();
+	
+	private BerkeleyDBNamespaceProxy _database;
 	@Kroll.getProperty(name="Database")
-	public BerkeleyDBNamespaceProxy getDatabase()
+	public KrollProxy getDatabase()
 	{
+		if (_database == null) {
+			Log.e(LCAT, "=====================================================================================");
+			Log.e(LCAT, ">>>>>        Opensync module is not set up to use Berkeley database.            <<<<<");
+			Log.e(LCAT, ">>>>> See module documentation for instructions on using the Berkeley database. <<<<<");
+			Log.e(LCAT, ">>>>>    Otherwise, use 'ti.Database' for native SQLite database access.        <<<<<");
+			Log.e(LCAT, "=====================================================================================");
+		}
 		return _database;
 	}
 }

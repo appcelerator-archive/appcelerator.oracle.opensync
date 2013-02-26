@@ -2,11 +2,9 @@
  * Main synchronization view
  */
 
-// Require the version of the module that matches the database format that is being used.
-//   appcelerator.oracle.opensync.bdb -> Berkeley Database
-//   appcelerator.oracle.opensync.sql -> Native SQLite Database
-//var opensync = require('appcelerator.oracle.opensync.bdb');
-var opensync = require('appcelerator.oracle.opensync.sql');
+// Read the module documentation to ensure that you have set up the module to use
+// the database that matches your application configuration (either SQL or Berkeley)
+var opensync = require('appcelerator.oracle.opensync');
 
 var platform = require('utility/platform');
 var u = platform.u;

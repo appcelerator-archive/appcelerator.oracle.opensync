@@ -1,29 +1,71 @@
-<project name="oracleopensync" default="dist">
+<project name="oracleopensync" default="generic">
 	<description>
 		Ant build script for Titanium Android module oracleopensync
 	</description>
 
-    <target name="dist">
-        <subant target="dist">
-            <property name="build.dir" value="subant1.build"/>
-            <property name="not.overloaded" value="not.overloaded"/>
-            <fileset dir="." includes="*/build.xml"/>
-        </subant>
-    </target>
+	<property name="ti.module.root" location="${basedir}"/>
+	<property file="build.properties" />
 
-    <target name="clean">
-        <subant target="clean">
-            <property name="build.dir" value="subant1.build"/>
-            <property name="not.overloaded" value="not.overloaded"/>
-            <fileset dir="." includes="*/build.xml"/>
-        </subant>
-    </target>
+	<target name="bdb" description="Berkeley Database" depends="clean">
+		<symlink link="${basedir}/lib" resource="${basedir}/bdb/lib" overwrite="true"/>
+		<symlink link="${basedir}/platform" resource="${basedir}/bdb/platform" overwrite="true"/>
+		<symlink link="${basedir}/manifest" resource="${basedir}/bdb/manifest" overwrite="true"/>
+		<symlink link="${basedir}/src/appcelerator/oracle/opensync/OracleOpensyncModule.java" resource="${basedir}/bdb/OracleOpensyncModule.java" overwrite="true"/>
+		<symlink link="${basedir}/src/appcelerator/oracle/opensync/database" resource="${basedir}/bdb/database" overwrite="true"/>
+		<antcall target="dist"/>
+	</target>
 
-    <target name="cleanlinks">
-        <subant target="cleanlinks">
-            <property name="build.dir" value="subant1.build"/>
-            <property name="not.overloaded" value="not.overloaded"/>
-            <fileset dir="." includes="*/build.xml"/>
-        </subant>
-    </target>
+	<target name="generic" description="Generic" depends="clean">
+		<property name="isGeneric" value="true"/>
+		<symlink link="${basedir}/lib" resource="${basedir}/bdb/lib" overwrite="true"/>
+		<symlink action="delete" link="${basedir}/platform"/>
+		<symlink link="${basedir}/manifest" resource="${basedir}/generic/manifest" overwrite="true"/>
+		<symlink link="${basedir}/src/appcelerator/oracle/opensync/OracleOpensyncModule.java" resource="${basedir}/generic/OracleOpensyncModule.java" overwrite="true"/>
+		<symlink link="${basedir}/src/appcelerator/oracle/opensync/database" resource="${basedir}/bdb/database" overwrite="true"/>
+		<antcall target="dist"/>
+	</target>
+
+	<target name="sql" description="SQLite Database" depends="clean">
+		<symlink link="${basedir}/lib" resource="${basedir}/sql/lib" overwrite="true"/>
+		<symlink action="delete" link="${basedir}/platform"/>
+		<symlink link="${basedir}/manifest" resource="${basedir}/sql/manifest" overwrite="true"/>
+		<symlink link="${basedir}/src/appcelerator/oracle/opensync/OracleOpensyncModule.java" resource="${basedir}/sql/OracleOpensyncModule.java" overwrite="true"/>
+		<symlink action="delete" link="${basedir}/src/appcelerator/oracle/opensync/database"/>
+		<antcall target="dist"/>
+	</target>
+
+	<symlink link="${basedir}/assets" resource="${basedir}/../assets" overwrite="true"/>
+	<symlink link="${basedir}/documentation" resource="${basedir}/../documentation" overwrite="true"/>
+	<symlink link="${basedir}/example" resource="${basedir}/../example" overwrite="true"/>
+	<symlink link="${basedir}/LICENSE" resource="${basedir}/../LICENSE" overwrite="true"/>
+
+	<import file="${titanium.platform}/../module/android/build.xml"/>
+
+	<target name="post.clean" depends="cleanlinks"/>
+	<target name="post.dist" depends="post.generic,cleanlinks"/>
+
+	<target name="cleanlinks" description="Delete symlinks">
+		<symlink action="delete" link="${basedir}/lib"/>
+		<symlink action="delete" link="${basedir}/platform"/>
+		<symlink action="delete" link="${basedir}/manifest"/>
+		<symlink action="delete" link="${basedir}/src/appcelerator/oracle/opensync/OracleOpensyncModule.java"/>
+		<symlink action="delete" link="${basedir}/src/appcelerator/oracle/opensync/database"/>
+		<symlink action="delete" link="${basedir}/assets"/>
+		<symlink action="delete" link="${basedir}/documentation"/>
+		<symlink action="delete" link="${basedir}/example"/>
+		<symlink action="delete" link="${basedir}/LICENSE"/>
+	</target>
+
+	<target name="post.generic" if="isGeneric">
+		<echo>Building generic module - removing Oracle MDK files from zip</echo>
+		<zip destfile="dist/temp.zip">
+			<zipfileset src="${dist}/${module.id}-android-${manifest.version}.zip">
+				<exclude name="**/osync_bdb_android.jar"/>
+				<exclude name="**/sqlite.jar"/>
+				<exclude name="**/osync_android.jar"/>
+				<exclude name="**/liboracle-jdbc.so"/>
+			</zipfileset>
+		</zip>
+		<move file="dist/temp.zip" tofile="${dist}/${module.id}-android-${manifest.version}.zip"/>
+	</target>
 </project>

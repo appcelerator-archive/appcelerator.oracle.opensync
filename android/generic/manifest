@@ -12,7 +12,7 @@ copyright: Copyright (c) 2013 by Appcelerator, Inc.
 
 # these should not be edited
 name: oracleopensync
-moduleid: appcelerator.oracle.opensync.bdb
+moduleid: appcelerator.oracle.opensync
 guid: 255044f5-6c86-4af9-9bba-3e7b44e7d552
 platform: android
 minsdk: 2.1.3.GA
