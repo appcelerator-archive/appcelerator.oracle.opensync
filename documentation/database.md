@@ -10,9 +10,9 @@ Berkeley DB is a general-purpose, high-performance, embedded database that is de
 
 Berkeley DB provides the following features that are expected of client/server enterprise-scale SQL databases: high throughput, high availability, high concurrency, replication, low-latency reads, non-blocking writes, failure recovery, data scalability, in-memory caching, ACID transactions, automatic and catastrophic recovery. Berkeley DB offers advanced features in a self-contained, small footprint software library.
 
-The mobile client was built to use the Berkeley DB SQL interface, which adds a SQL API to the Berkeley DB storage engine. The mobile client uses this interface to facilitate synchronization between the client and the back-end database.
+Your interaction with the BDB SQL interface is almost identical to SQLite. You use the same APIs, the same command shell environment, the same SQL statements, and the same PRAGMAs to work with the database created by the BDB SQL interface as you would if you were using SQLite. 
 
-Your interaction with the BDB SQL interface is almost identical to SQLite. You use the same APIs, the same command shell environment, the same SQL statements, and the same PRAGMAs to work with the database created by the BDB SQL interface as you would if you were using SQLite.
+Note that the Berkeley Database API provided in the module is the same API as the Titanium database API, only using the module to access the `Database` namespace.
 
 ### Compatibility with Titanium.Database APIs
 
@@ -33,7 +33,7 @@ In most cases, anywhere that you would use the Titanium.Database namespace you c
 		//   For SQLite, get the Database proxy from Titanium
 		// API calls should be the same regardless of which API namespace is used
 		if (switchDB.value) {
-			database = require('appcelerator.oracle.opensync.bdb').Database;
+			database = require('appcelerator.oracle.opensync').Database;
 			dbname = 'testbdb';
 		} else {
 			database = Ti.Database;

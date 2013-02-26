@@ -72,7 +72,6 @@
 },
 
 ".reading": {
-	bottom: '10dp',
 	color: '#87CEFA',
 	font: {
 		fontSize: '72dp',
