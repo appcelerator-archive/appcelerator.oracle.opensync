@@ -1,0 +1,91 @@
+Example Applications for Appcelerator Oracle Opensync Module
+
+Database
+
+Description:
+
+Demonstrates the ability to interact with a Berekeley Database on device. The APIs used for interacting
+with the Berkeley database are the same as Ti.Database
+
+Prerequisites:
+
+- Requires that the module is setup to use the Berkeley Database library (see index.html in the documentation).
+
+Instructions:
+
+1. Build and run the application
+2. Click 'Open' to open the database (default is to use the native Ti.Database SQL database)
+3. Enter data for the fields (name, phone, city)
+4. Click 'Insert' to insert a new record into the database (repeat)
+5. Click 'Query' to retrieve the list of records from the database
+6. Click 'Close' to close the database
+7. Click 'Berkeley Database' to switch to the Berkeley Database APIs
+8. Click 'Open' to open the database (default is to use the native Ti.Database SQL database)
+9. Enter data for the fields (name, phone, city)
+10. Click 'Insert' to insert a new record into the database (repeat)
+11. Click 'Query' to retrieve the list of records from the database
+12. Click 'Close' to close the database
+
+
+
+Simple Sync
+
+Description:
+
+Demonstrates synchronization with the Oracle Mobile Database Server (written as a traditional Titanium javascript application)
+
+Prerequisites:
+
+- Requires that the Oracle Mobile Database Server is setup and reachable from your device.
+- Requires that the module is setup to use the database (SQLite or Berkeley Database) matching the server configuration.
+
+Instructions:
+
+1. Build and run the application
+2. Enter a username, password, and url
+3. Click 'Sync' to synchronize with the server
+4. If successful, the status text will display a success message
+
+
+Simple Sync Alloy
+
+Description:
+
+Demonstrates synchronization with the Oracle Mobile Database Server (written as a Titanium Alloy application)
+
+Prerequisites:
+
+- Requires that the Oracle Mobile Database Server is setup and reachable from your device.
+- Requires that the module is setup to use the database (SQLite or Berkeley Database) matching the server configuration.
+
+Instructions:
+
+1. Build and run the application
+2. Enter a username, password, and url
+3. Click 'Sync' to synchronize with the server
+4. If successful, the status text will display a success message
+
+
+ToDo Alloy:
+
+Description:
+
+Demonstrates the use of a Berkeley Database adapter with the Titanium Alloy ToDo sample application. The application code
+is identical to the sample application with the exception of using the Berkeley Database adapter if Berkeley Database
+support is available in the module.
+
+Prerequisites:
+
+- Requires that the module is setup to use the Berkeley Database library (see index.html in the documentation).
+- If the module is not setup to use the Berkeley Database library, the application will default to the sql database.
+
+Instructions:
+
+1. Build and run the applicatino
+2. Click the "+" button in the upper-right corner of the application
+3. Enter an item and click "Add Item" (repeat)
+4. Click "Cancel" when done adding items
+5. The items you added should be dislayed in the list
+
+
+
