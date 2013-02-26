@@ -19,11 +19,10 @@ module.exports = new function ()
 		finish = testUtils.finish;
 		valueOf = testUtils.valueOf;
 
+		opensync = require('appcelerator.oracle.opensync');
 		if (_databaseType == 'bdb') {
-			opensync = require('appcelerator.oracle.opensync.bdb');
 			_Database = opensync.Database;
 		} else {
-			opensync = require('appcelerator.oracle.opensync.sql');
 			_Database = Ti.Database;
 		}
 		

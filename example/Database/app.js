@@ -23,7 +23,7 @@ var scrollView = Ti.UI.createScrollView({
 // Switch used to select Berkeley Database or Titanium native SQL database
 var switchDB = Ti.UI.createSwitch({
 		top: 4+u, left: 4+u, right: 4+u, height: Ti.UI.SIZE || 'auto',
-		value: true,
+		value: false,
 		style: Ti.UI.Android.SWITCH_STYLE_CHECKBOX,
 		title: 'Berkeley Database',
 		color: 'black'
@@ -98,6 +98,11 @@ btnInsert.addEventListener('click', doInsert);
 btnQuery.addEventListener('click', doQuery);
 btnClose.addEventListener('click', doClose);
 
+if (require('appcelerator.oracle.opensync').Database == null) {
+	switchDB.enabled = false;
+	alert("Module has not been set up for Berkeley Database! See documentation for details.");
+}
+
 function doOpen()
 {
 	var dbname;
@@ -107,7 +112,10 @@ function doOpen()
 		//   For SQLite, get the Database proxy from Titanium
 		// API calls should be the same regardless of which API namespace is used
 		if (switchDB.value) {
-			database = require('appcelerator.oracle.opensync.bdb').Database;
+			database = require('appcelerator.oracle.opensync').Database;
+			if (database == null) {
+				alert("Module has not been set up for Berkeley Database! See documentation for details.");
+			}
 			dbname = 'testbdb';
 		} else {
 			database = Ti.Database;

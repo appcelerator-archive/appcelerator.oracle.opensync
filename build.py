@@ -73,8 +73,7 @@ def main(args):
         if os.path.exists('android'):
             if not os.path.exists(os.path.join(os.getcwd(), 'android', 'build.properties')):
                 die("*** build.properties file is missing -- copy build.properties.example ***")
-            create_module('android/sql', 'ant')
-            create_module('android/bdb', 'ant')
+            create_module('android', 'ant')
             packages.append('android')
 
         packages_cmd = './package.py --platform=' + string.join(packages, ',')

@@ -1,5 +1,7 @@
 var moment = require('alloy/moment');
 
+var dbType = require('appcelerator.oracle.opensync').Database != null ? "bdb" : "sql_new";
+
 exports.definition = {
 	config: {
 		"columns": {
@@ -8,9 +10,9 @@ exports.definition = {
 			"date_completed":"text"
 		},
 		"adapter": {
-			"type": "bdb",
+			"type": dbType,
 			"collection_name": "todo",
-			"db_name": 'todo.bdb'
+			"db_name": "todo." + dbType
 		}
 	},
 
