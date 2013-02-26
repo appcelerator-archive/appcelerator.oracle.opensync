@@ -21,9 +21,19 @@ syncSession.trigger('change');
 
 $.index.open();
 
+var stageMap = {};
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.IDLE] = "Idle";
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.PREPARE] = "Prepare";
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.SEND] = "Send";
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.RECEIVE] = "Receive";
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.PROCESS] = "Process";
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.COMPOSE] = "Compose";
+stageMap[Alloy.Globals.opensync.ose.OSEProgressListener.APPLY] = "Apply";
+
 // Notification that the stage of the synchronizatin process has changed
 function onSyncStageChanged(model, stage) {
-	$.syncProgress.updateProgressMessage('Stage' + stage);
+	var desc = stageMap[stage] || 'Unknown';
+	$.syncProgress.updateProgressMessage('Sync Stage: ' + desc);
 }
 
 // Notification that the state of synchronizationhas changed

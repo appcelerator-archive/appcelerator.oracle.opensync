@@ -33,7 +33,7 @@
     <string name="DBOpenToggleLbl">DB Opened</string>
     <string name="DBClosedToggleLbl">DB Closed</string>
     <string name="Syncing">Synchronizing</string>
-    <string name="Stage">Stage: </string>
+    <string name="Stage">Sync Stage:</string>
     <string name="Cancelling">Canceling</string>
     <string name="StartingSyncAgent">Starting sync agent</string>
     <string name="ErrorLogEmpty">&lt;Error log is empty&gt;</string>
@@ -41,7 +41,7 @@
     <string name="ReloadBtnLbl">load</string>
     <string name="DBRefreshLbl">Press `load` to retrieve data</string>
     <string name="DBLoaded">Data successfully loaded</string>
-    <string name="DBFor">Database for </string>
+    <string name="DBFor">Database for</string>
     <string name="IsMissing">is missing</string>
     <string name="SuccessfullyLoaded">successfully loaded</string>
     <string name="UsernameNotEmpty">Username cannot be empty</string>
