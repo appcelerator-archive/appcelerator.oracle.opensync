@@ -18,7 +18,6 @@ var mSvPwdChkBx;
 var mUrlText;
 var mStatusText;
 var mStatusStr = "";
-var mPwdChng = false;
 var mStatusIsLog = false;
 
 // --------------------------------------------------------
@@ -27,7 +26,6 @@ var mStatusIsLog = false;
 
 exports.initialize = function() {
 	mStatusStr = "";
-	mPwdChng = false;
 	mStatusIsLog = false;
 
 	// Create the OpenSync session
@@ -158,11 +156,6 @@ exports.create = function(win) {
 	syncButton.addEventListener('click', doSync);
 	applyButton.addEventListener('click', doApply);
 
-	// Monitor updates to the password input field
-	mPwdText.addEventListener('keypressed', function() {
-		mPwdChng = true;
-	});
-
 	// Create the progress view (initially hidden) to be displayed during the synchronization process
 	ProgressView = require('utility/progressView');
 	mSyncProgress = new ProgressView('Syncing...', doCancelSync);
@@ -177,8 +170,8 @@ exports.create = function(win) {
 		if (mSess.getURL() != null) {
 			mUrlText.value = mSess.getURL();
 		}
-		if (mSess.getSavePassword() != null) {
-			mPwdText.value = '*********';
+		if (mSess.getSavePassword() == true) {
+			mPwdText.hintText = '*********';
 			mSvPwdChkBx.value = true;
 		}
 	}
@@ -252,8 +245,9 @@ function initSess(doSave) {
 		// Set the password for the session if the current session does not
 		// have a saved password OR the password was changed.
 		var pwd = mPwdText.value;
-		if (!mSess.getSavePassword() || mPwdChng) {
+		if (!mSess.getSavePassword() || (pwd.length > 0)) {
 			mSess.setPassword(pwd);
+			mPwdText.hintText = "Password";
 		}
 		
 		mSess.setSavePassword(mSvPwdChkBx.value);
