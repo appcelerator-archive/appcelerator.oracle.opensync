@@ -2,7 +2,7 @@
 	<Window class="container" title="Simple Sync Alloy" navBarHidden=true>
 		<ScrollView id="scrollView">
 			<TextField id="userText" value="{syncSession.username}"/>
-			<TextField id="pwdText" value="{syncSession.password}" onKeypressed="onKeyPressed" />
+			<TextField id="pwdText" value="{syncSession.password}"/>
 			<Switch id="svPwdChkBx" value="{syncSession.savePassword}"/>
 			<TextField id="urlText" value="{syncSession.url}"/>
 			<View id="buttonsRow">
