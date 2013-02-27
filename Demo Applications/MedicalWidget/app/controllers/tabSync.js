@@ -6,7 +6,6 @@
 Alloy.Globals.userText = $.userText;
 
 var syncSession = Alloy.Models.syncSession;
-var mPasswordChanged = false;
 
 $.tabSync.addEventListener('close', function() {
 	syncSession.close();
@@ -18,6 +17,10 @@ $.tabSync.addEventListener('close', function() {
 syncSession.on('change:syncState', onSyncStateChanged);
 syncSession.on('change:syncStage', onSyncStageChanged);
 syncSession.on('exit', doExit);
+
+if (syncSession.get('savePassword') == true) {
+	$.pwdText.hintText = "*********";
+}
 
 // Signal change to model so values get bound to the UI
 syncSession.trigger('change');
@@ -50,20 +53,18 @@ function onSyncStateChanged(model, state) {
 	}	
 }
 
-// Notification that a key was pressed in the password edit field
-function onKeyPressed(e) {
-	mPasswordChanged = true;
-}
-
 // Two-way sync is not currently supported, so we do it manually
 function bindToModel() {
 	var binding = {
 		'username': $.userText.value,
 		'savePassword': $.svPwdChkBx.value,
-		'url': $.urlText.value
-	};		
-	if (mPasswordChanged) {
-		binding['password'] = $.pwdText.value;
+		'url': $.urlText.value,
+		'password': $.pwdText.value
+	};
+
+	// Once a value is entered for the password, reset the hint text
+	if ($.pwdText.value.length > 0) {
+		$.pwdText.hintText = "Password";
 	}
 	
 	syncSession.set(binding);

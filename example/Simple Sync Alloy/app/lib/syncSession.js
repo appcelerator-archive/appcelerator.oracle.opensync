@@ -7,7 +7,6 @@ var Alloy = require('alloy');
 var opensync = Alloy.Globals.opensync;
 var mSess = null;
 var mBgSess = null;
-var mPasswordChanged = false;
 var mStatusStr = '';
 var mStatusIsLog = false;
 
@@ -71,7 +70,7 @@ function initSess(self, doSave) {
 		// Set the password for the session if the current session does not
 		// have a saved password OR the password was changed.
 		var pwd = self.get('password');
-		if (!mSess.getSavePassword() || mPasswordChanged) {
+		if (!mSess.getSavePassword() || (pwd.length > 0)) {
 			mSess.setPassword(pwd);
 		}
 		
@@ -129,19 +128,10 @@ function doInitialize(attributes, options) {
 		if (mSess.getURL() != null) {
 			this.set('url', mSess.getURL());
 		}
-		if (mSess.getSavePassword() != null) {
-			this.set('password', '*********');
+		if (mSess.getSavePassword() == true) {
 			this.set('savePassword', true);
 		}
 	}
-	
-	// Watch for a change to the password
-	this.on('change:password', onPasswordChanged, this);
-}
-
-function onPasswordChanged(event) {
-	mPasswordChanged = true;
-	this.off('change:password')
 }
 
 function setError(model, e) {
