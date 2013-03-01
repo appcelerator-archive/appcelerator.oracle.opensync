@@ -33,6 +33,19 @@ exports.initialize = function() {
 	if (!mSess.isOpen()) {
 		mSess = null;
 	}
+
+	// If a previous session was restored, then start the
+	// sync agent if desired.
+	if (mSess != null) {
+		try {
+			mBgSess = opensync.syncagent.createBGSession();
+			if (mBgSess) {
+				mBgSess.start();
+			}
+		} catch (e) {
+			mBgSess = null;
+		}
+	}
 };
 
 exports.cleanup = function() {
@@ -229,7 +242,7 @@ function initSess(doSave) {
 			mSess.close();
 			mSess = null;
 		}
-		
+
 		if (mSess == null) {
 			// Create a new session for the specified user
 			mSess = opensync.ose.createOSESession({
