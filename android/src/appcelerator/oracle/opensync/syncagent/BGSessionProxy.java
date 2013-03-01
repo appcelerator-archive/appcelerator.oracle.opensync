@@ -183,14 +183,43 @@ public class BGSessionProxy extends BGSessionNamespaceProxy implements BGMessage
 		if (activity != null) {
 	        ((AndroidPlatformFactory)PlatformFactory.getInstance()).setContext(activity);
 		}
-		_session.showUI();
+		activity.runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				try {
+					_session.showUI();
+				} catch (BGException e) {
+					handleBGException(e, null);
+				}
+			}
+		});
 	}
 	
 	@Kroll.method
 	public void start() throws BGException
 	{
 		validateSession();
-		_session.start();
+
+		// The initialization of the BGAgent object (inside of BGSession) does some things with
+		// the current activity. If this method is called during application startup then it will
+		// hang the process because it needs to acquire a lock on the current activity and the
+		// calling thread (the javascript runtime thread at startup) is blocked. This isn't a 
+		// problem if this is called as a result of a button click because that call is done on
+		// the UI thread. To work around it we must ensure that 'start' is called on the UI thread.
+		getActivity().runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				try {
+					_session.start();
+				} catch (BGException e) {
+					handleBGException(e, null);
+				}
+			}
+		});
 	}
 	
 	@Kroll.method
