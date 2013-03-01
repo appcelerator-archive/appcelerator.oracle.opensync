@@ -107,7 +107,8 @@ function doInitialize(attributes, options) {
 		mSess = null;
 	}
 	
-	/* MOD-1260
+	// If a previous session was restored, then start the
+	// sync agent if desired.
 	if (mSess != null) {
 		try {
 			mBgSess = opensync.syncagent.createBGSession();
@@ -118,7 +119,6 @@ function doInitialize(attributes, options) {
 			mBgSess = null;
 		}
 	}
-	*/
 	
 	// Set the initial control values
 	if (mSess != null) {
