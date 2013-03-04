@@ -1,6 +1,6 @@
 var moment = require('alloy/moment');
 
-var dbType = require('appcelerator.oracle.opensync').Database != null ? "bdb" : "sql_new";
+var dbType = require('appcelerator.oracle.opensync').Database != null ? "bdb" : "sql";
 
 exports.definition = {
 	config: {
