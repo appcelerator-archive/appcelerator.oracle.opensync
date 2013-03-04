@@ -1,6 +1,7 @@
 var _database = require('appcelerator.oracle.opensync').Database;
 
-function SQLiteMigrateDB(config) {
+function Migrator(config, transactionDb) {
+    this.db = transactionDb;
     this.dbname = config.adapter.db_name;
     this.table = config.adapter.collection_name;
     this.idAttribute = config.adapter.idAttribute;
@@ -51,14 +52,11 @@ function SQLiteMigrateDB(config) {
             columns.push(k + " " + this.column(config.columns[k]));
         }
         !found && this.idAttribute === ALLOY_ID_DEFAULT && columns.push(ALLOY_ID_DEFAULT + " TEXT");
-        var sql = "CREATE TABLE IF NOT EXISTS " + this.table + " ( " + columns.join(",") + ")", db = _database.open(this.dbname);
-        db.execute(sql);
-        db.close();
+        var sql = "CREATE TABLE IF NOT EXISTS " + this.table + " ( " + columns.join(",") + ")";
+        this.db.execute(sql);
     };
     this.dropTable = function(config) {
-        var db = _database.open(this.dbname);
-        db.execute("DROP TABLE IF EXISTS " + this.table);
-        db.close();
+        this.db.execute("DROP TABLE IF EXISTS " + this.table);
     };
     this.insertRow = function(columnValues) {
         var columns = [], values = [], qs = [], found = !1;
@@ -73,9 +71,7 @@ function SQLiteMigrateDB(config) {
             values.push(util.guid());
             qs.push("?");
         }
-        var db = _database.open(this.dbname);
-        db.execute("INSERT INTO " + this.table + " (" + columns.join(",") + ") VALUES (" + qs.join(",") + ");", values);
-        db.close();
+        this.db.execute("INSERT INTO " + this.table + " (" + columns.join(",") + ") VALUES (" + qs.join(",") + ");", values);
     };
     this.deleteRow = function(columns) {
         var sql = "DELETE FROM " + this.table, keys = _.keys(columns), len = keys.length, conditions = [], values = [];
@@ -85,20 +81,25 @@ function SQLiteMigrateDB(config) {
             values.push(columns[keys[i]]);
         }
         sql += conditions.join(" AND ");
-        var db = _database.open(this.dbname);
-        db.execute(sql, values);
-        db.close();
+        this.db.execute(sql, values);
     };
 }
 
-function Sync(model, method, opts) {
+function Sync(method, model, opts) {
     var table = model.config.adapter.collection_name, columns = model.config.columns, dbName = model.config.adapter.db_name || ALLOY_DB_DEFAULT, resp = null, db;
     switch (method) {
       case "create":
         resp = function() {
-            if (!model.id) {
-                model.idAttribute === ALLOY_ID_DEFAULT ? model.id = util.guid() : model.id = null;
-                model.set(model.idAttribute, model.id);
+            var attrObj = {};
+            if (!model.id) if (model.idAttribute === ALLOY_ID_DEFAULT) {
+                model.id = util.guid();
+                attrObj[model.idAttribute] = model.id;
+                model.set(attrObj, {
+                    silent: !0
+                });
+            } else {
+                var tmpM = model.get(model.idAttribute);
+                model.id = tmpM !== null && typeof tmpM != "undefined" ? tmpM : null;
             }
             var names = [], values = [], q = [];
             for (var k in columns) {
@@ -106,9 +107,21 @@ function Sync(model, method, opts) {
                 values.push(model.get(k));
                 q.push("?");
             }
-            var sql = "INSERT INTO " + table + " (" + names.join(",") + ") VALUES (" + q.join(",") + ");";
+            var sqlInsert = "INSERT INTO " + table + " (" + names.join(",") + ") VALUES (" + q.join(",") + ");", sqlId = "SELECT last_insert_rowid();";
             db = _database.open(dbName);
-            db.execute(sql, values);
+            db.execute("BEGIN;");
+            db.execute(sqlInsert, values);
+            if (model.id === null) {
+                var rs = db.execute(sqlId);
+                if (rs.isValidRow()) {
+                    model.id = rs.field(0);
+                    attrObj[model.idAttribute] = model.id;
+                    model.set(attrObj, {
+                        silent: !0
+                    });
+                } else Ti.API.warn("Unable to get ID from database for model: " + model.toJSON());
+            }
+            db.execute("COMMIT;");
             db.close();
             return model.toJSON();
         }();
@@ -158,21 +171,17 @@ function Sync(model, method, opts) {
     if (resp) {
         _.isFunction(opts.success) && opts.success(resp);
         method === "read" && model.trigger("fetch");
-    } else _.isFunction(opts.error) && opts.error("Record not found");
+    } else _.isFunction(opts.error) && opts.error(resp);
 }
 
 function GetMigrationFor(dbname, table) {
-    var db = _database.open(dbname);
-    db.execute("CREATE TABLE IF NOT EXISTS migrations (latest TEXT, model TEXT)");
-    var rs = db.execute("SELECT latest FROM migrations where model = ?", table);
-    if (rs.isValidRow()) {
-        var mid = rs.field(0);
-        rs.close();
-        db.close();
-        return mid + "";
-    }
+    var mid = null, db = _database.open(dbname);
+    db.execute("CREATE TABLE IF NOT EXISTS migrations (latest TEXT, model TEXT);");
+    var rs = db.execute("SELECT latest FROM migrations where model = ?;", table);
+    if (rs.isValidRow()) var mid = rs.field(0) + "";
+    rs.close();
     db.close();
-    return null;
+    return mid;
 }
 
 function Migrate(Model) {
@@ -180,9 +189,12 @@ function Migrate(Model) {
     migrations.length && migrations[migrations.length - 1](lastMigration);
     var config = Model.prototype.config;
     config.adapter.db_name || (config.adapter.db_name = ALLOY_DB_DEFAULT);
-    var sqliteMigrationDb = new SQLiteMigrateDB(config), targetNumber = typeof config.adapter.migration == "undefined" || config.adapter.migration === null ? lastMigration.id : config.adapter.migration;
+    var migrator = new Migrator(config), targetNumber = typeof config.adapter.migration == "undefined" || config.adapter.migration === null ? lastMigration.id : config.adapter.migration;
     if (typeof targetNumber == "undefined" || targetNumber === null) {
-        sqliteMigrationDb.createTable(config);
+        var tmpDb = _database.open(config.adapter.db_name);
+        migrator.db = tmpDb;
+        migrator.createTable(config);
+        tmpDb.close();
         return;
     }
     targetNumber += "";
@@ -193,19 +205,26 @@ function Migrate(Model) {
         migrations.reverse();
     } else direction = 1;
     db = _database.open(config.adapter.db_name);
+    migrator.db = db;
     db.execute("BEGIN;");
     if (migrations.length) for (var i = 0; i < migrations.length; i++) {
         var migration = migrations[i], context = {};
         migration(context);
-        if (direction && context.id > targetNumber) break;
-        if (!direction && context.id <= targetNumber) break;
+        if (direction) {
+            if (context.id > targetNumber) break;
+            if (context.id <= currentNumber) continue;
+        } else {
+            if (context.id <= targetNumber) break;
+            if (context.id > currentNumber) continue;
+        }
         var funcName = direction ? "up" : "down";
-        _.isFunction(context[funcName]) && context[funcName](sqliteMigrationDb, db);
-    } else sqliteMigrationDb.createTable(config);
+        _.isFunction(context[funcName]) && context[funcName](migrator);
+    } else migrator.createTable(config);
     db.execute("DELETE FROM migrations where model = ?", config.adapter.collection_name);
     db.execute("INSERT INTO migrations VALUES (?,?)", targetNumber, config.adapter.collection_name);
     db.execute("COMMIT;");
     db.close();
+    migrator.db = null;
 }
 
 function installDatabase(config) {
