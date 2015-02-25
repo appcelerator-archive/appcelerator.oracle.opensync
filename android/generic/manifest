@@ -4,6 +4,7 @@
 #
 version: 1.0.0
 apiversion: 2
+architectures: armeabi armeabi-v7a x86
 description: Oracle OpenSync for Titanium
 author: Jeff English
 license: Appcelerator Commercial License
