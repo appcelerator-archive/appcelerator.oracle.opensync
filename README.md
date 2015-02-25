@@ -1,4 +1,4 @@
-appcelerator.oracle.opensync
+appcelerator.oracle.opensync [![Build Status](https://magnum.travis-ci.com/appcelerator-modules/appcelerator.oracle.opensync.svg?token=ph6xdReX6PW2XENunBEH&branch=master)](https://magnum.travis-ci.com/appcelerator-modules/appcelerator.oracle.opensync)
 ============================
 
 Steps to build this module:
