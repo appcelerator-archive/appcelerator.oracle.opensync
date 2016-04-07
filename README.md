@@ -23,3 +23,7 @@ __Distribution__
 
 Type './build.py' from the module's root folder. This will build the generic version of the module and package it for distribution.
 
+## Legal
+
+This module is Copyright (c) 2010-2014 by Appcelerator, Inc. All Rights Reserved. Usage of this module is subject to 
+the Terms of Service agreement with Appcelerator, Inc.  
